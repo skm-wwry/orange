@@ -1,0 +1,414 @@
+waypoints:
+  - name: init
+    failure_mode: init_cb
+    type: call
+  - name: home_point
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: 19.5
+        y: 9.7
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: charge_point
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: 19.5
+        y: 9.8
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: HIghly_001
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 14.4355
+        y: 2.11
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: Highly_002
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 12.2509
+        y: 2.11
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: Highly_003
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 10.1491
+        y: 2.11
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: Highly_004
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 7.45276
+        y: 2.11
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: Highly_005
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 5.28936
+        y: 2.11
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: Highly_006
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 2.95983
+        y: 2.11
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: Highly_007
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 14.2193
+        y: 2.9
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: Highly_008
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 12.3099
+        y: 2.9
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: Highly_009
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 10.3492
+        y: 2.9
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: Highly_010
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 7.90637
+        y: 2.9
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: Highly_011
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 5.99906
+        y: 2.9
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: Highly_012
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 4.06577
+        y: 2.9
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: path_site001
+    close_enough: 1.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -0.499051
+        y: 7.53172
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: path_site002
+    close_enough: 1.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 0.984211
+        y: -1.64792
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: path_site003
+    close_enough: 1.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 12.4397
+        y: -5.1042
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: Docking_site
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 16.388
+        y: 7.163
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: do_backward
+    homing_goal: base_link
+    type: homing_control
+    x_goal: -0.5
+    y_goal: 0.0
+    yaw_goal: 0.0
+  - name: pub_lighthouse_navigation_on
+    goal_timeout: 2
+    type: shell
+  - name: lighthouse_navigation_finished
+    close_enough: 0
+    failure_mode: LOOP
+    goal_timeout: 0
+    type: subscriber
+  - name: pub_lighthouse_navigation_off
+    goal_timeout: 2
+    type: shell
+  - name: wait2s
+    goal_timeout: 2
+    type: timer
+  - name: turn_back
+    homing_goal: base_link
+    type: homing_control
+    x_goal: 0.0
+    y_goal: 0.0
+    yaw_goal: -3.15
+  - name: dock_back_fast
+    close_enough: -0.015
+    type: cmd_vel
+  - name: charge_status
+    failure_mode: 1
+    goal_timeout: 10
+    type: pubsuber
+  - name: dock_back_slow
+    close_enough: -0.004
+    type: cmd_vel
+  - name: stop_agv
+    close_enough: 0.0
+    type: cmd_vel
+  - name: dynparam_lighthouse_tri
+    node: /lighthouse_recognize
+    op: dynparam
+    param: type_and_one_side_length
+    type: string
+    value: triangle:0.2
+  - name: up_part
+    type: publisher
+  - name: down_part
+    type: publisher
+  - name: up_part_status
+    type: publisher
+  - name: up_part_status_1
+    failure_mode: 3
+    type: pubsuber
+  - name: down_part_status_1
+    failure_mode: 13
+    type: pubsuber
+  - name: led_red
+    type: publisher
+  - name: led_green
+    type: publisher
+  - name: led_yellow
+    type: publisher
+  - name: led_yellow_blink
+    type: publisher
+  - name: beeper_on
+    type: publisher
+  - name: beeper_off
+    type: publisher
+  - name: go_leaving_dock
+    close_enough: 1.0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 15.667
+        y: 4.21
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: back_entering_dock
+    close_enough: 1.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 15.998
+        y: 0.784
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+trajectories:
+  - name: auto_charge
+    waypoints:
+    - pub_lighthouse_navigation_on
+    - lighthouse_navigation_finished
+    - pub_lighthouse_navigation_off
+    - turn_back
+    - dock_back_fast
+    - charge_status
+    - dock_back_slow
+    - wait2s
+    - stop_agv
+  - name: second_location
+    waypoints:
+    - dynparam_lighthouse_tri
+    - pub_lighthouse_navigation_on
+    - lighthouse_navigation_finished
+    - pub_lighthouse_navigation_off
+  - name: back_through_dock
+    waypoints:
+    - path_site002
+    - path_site003
+    - back_entering_dock

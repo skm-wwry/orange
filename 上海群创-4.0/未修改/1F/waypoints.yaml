@@ -1,0 +1,782 @@
+waypoints:
+  - name: init_once
+    failure_mode: init_layers
+    type: call
+  - name: init
+    frame_id: map
+    home: station_1W01
+    type: initial_pose
+  - name: init_pose_1F_left
+    frame_id: map
+    home: station_1910
+    type: initial_pose
+  - name: init_pose_1F_right
+    frame_id: map
+    home: station_1911
+    type: initial_pose
+  - name: init_pose_2F_left
+    frame_id: map
+    home: station_2910
+    type: initial_pose
+  - name: init_pose_2F_right
+    frame_id: map
+    home: station_2911
+    type: initial_pose
+  - name: init_pose_3F_left
+    frame_id: map
+    home: station_3910
+    type: initial_pose
+  - name: init_pose_3F_right
+    frame_id: map
+    home: station_3911
+    type: initial_pose
+  - name: init_pose_4F_left
+    frame_id: map
+    home: station_4910
+    type: initial_pose
+  - name: init_pose_4F_right
+    frame_id: map
+    home: station_4911
+    type: initial_pose
+  - name: set_navfn
+    node: /move_base/MixedPlanner/navfn_planner
+    param: planner_is_navfn
+    type: dynparam
+    value: true
+  - name: set_fixed
+    node: /move_base/MixedPlanner/navfn_planner
+    param: planner_is_navfn
+    type: dynparam
+    value: false
+  - name: loop
+    close_enough: 0
+    failure_mode: LOOP
+    goal_timeout: 0
+    type: looper
+  - name: sleep2s
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 2
+    type: timer
+  - name: sleep3s
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 3
+    type: timer
+  - name: sleep5s
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 5
+    type: timer
+  - name: sleep10s
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 10
+    type: timer
+  - name: dock_back_1800
+    close_enough: -0.2
+    failure_mode: LOOP
+    goal_timeout: 11
+    type: cmd_vel
+  - name: dock_back
+    close_enough: -0.05
+    failure_mode: LOOP
+    goal_timeout: 10
+    type: cmd_vel
+  - name: dock_forword
+    close_enough: 0.25
+    failure_mode: LOOP
+    goal_timeout: 8
+    type: cmd_vel
+  - name: go_ahead
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: base_link
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.3
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: init_layer_1
+    type: publisher
+  - name: init_layer_2
+    type: publisher
+  - name: init_layer_3
+    type: publisher
+  - name: elevate_layer_3
+    data: elevate:14,40000
+    type: publisher
+  - name: elevate_layer_2
+    data: elevate:12,20000
+    type: publisher
+  - name: elevate_layer_1
+    data: elevate:10,0
+    type: publisher
+  - name: stop_part
+    type: publisher
+  - name: up_part
+    type: publisher
+  - name: up_part_1
+    type: publisher
+  - name: up_part_2
+    type: publisher
+  - name: up_part_3
+    type: publisher
+  - name: down_part
+    type: publisher
+  - name: down_part_1
+    type: publisher
+  - name: down_part_2
+    type: publisher
+  - name: down_part_3
+    type: publisher
+  - name: up_part_status
+    except: 0,0,0
+    failure_mode: 3,3,3
+    type: pubsuber
+  - name: up_part_status_1
+    except: 0
+    type: pubsuber
+  - name: up_part_status_2
+    except: 0
+    type: pubsuber
+  - name: up_part_status_3
+    except: 0
+    type: pubsuber
+  - name: down_part_status
+    except: 0,0,0
+    failure_mode: 13,13,13
+    type: pubsuber
+  - name: down_part_status_1
+    except: 0
+    type: pubsuber
+  - name: down_part_status_2
+    except: 0
+    type: pubsuber
+  - name: down_part_status_3
+    except: 0
+    type: pubsuber
+  - name: change_bz
+    node: /move_base
+    param: base_local_planner
+    type: dynparam
+    value: bz_local_planner/BZPlannerROS
+  - name: change_dwa
+    node: /move_base
+    param: base_local_planner
+    type: dynparam
+    value: dwa_local_planner/DWAPlannerROS
+  - name: bz_angular_ratio
+    node: /move_base/BZPlannerROS
+    param: angular_ratio
+    type: dynparam
+    value: 5.0
+  - name: bz_sim_time
+    node: /move_base/BZPlannerROS
+    param: sim_time
+    type: dynparam
+    value: 0.5
+  - name: bz_motion_nav
+    node: /move_base/BZPlannerROS
+    param: motion_status
+    type: dynparam
+    value: 1
+  - name: bz_motion_rel
+    node: /move_base/BZPlannerROS
+    param: motion_status
+    type: dynparam
+    value: 0
+  - name: object_type
+    dynparam_type: str
+    node: /recognize_triangle
+    param: object_type
+    type: dynparam
+    value: 'triangle'
+  - name: dynparam_lighthouse_tri
+    dynparam_type: str
+    node: /lighthouse_recognize
+    param: type_and_one_side_length
+    type: dynparam
+    value: 'triangle:0.21'
+  - name: shell_stop_tri_pose_in_map
+    goal_timeout: 3
+    type: shell
+  - name: shell_target_offset
+    goal_timeout: 3
+    type: shell
+  - name: shell_target_offset_11
+    goal_timeout: 3
+    type: shell
+  - name: shell_target_offset_13
+    goal_timeout: 3
+    type: shell
+  - name: shell_target_offset_15
+    goal_timeout: 3
+    type: shell
+  - name: shell_target_offset_17
+    goal_timeout: 3
+    type: shell
+  - name: shell_target_offset_20
+    goal_timeout: 3
+    type: shell
+  - name: shell_target_offset_25
+    goal_timeout: 3
+    type: shell
+  - name: shell_target_offset_28
+    goal_timeout: 3
+    type: shell
+  - name: shell_target_offset_30
+    goal_timeout: 3
+    type: shell
+  - name: shell_target_offset_32
+    goal_timeout: 3
+    type: shell
+  - name: shell_target_offset_35
+    goal_timeout: 3
+    type: shell
+  - name: lighthouse_planner_finish
+    close_enough: 0
+    failure_mode: LOOP
+    goal_timeout: 0
+    type: subscriber
+  - name: init_layer_1
+    type: publisher
+  - name: init_layer_2
+    type: publisher
+  - name: init_layer_3
+    type: publisher
+  - name: elevate_layer_3
+    data: elevate:14,40000
+    type: publisher
+  - name: elevate_layer_2
+    data: elevate:12,20000
+    type: publisher
+  - name: elevate_layer_1
+    data: elevate:10,0
+    type: publisher
+  - name: get_layer_height
+    data: layer_height:10,12,14
+    type: publisher
+  - name: turn_right
+    frame_id: base_link
+    type: goal
+    pose:
+      position:
+        x: 0
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: station_1401
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 13.835
+        y: -0.411
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: station_1402
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 13.835
+        y: -1.276
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: station_1403
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 14.629
+        y: -2.5
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.71
+        w: 0.71
+  - name: station_1W01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 13.835
+        y: 0.228
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: station_1P01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 14.85
+        y: -0.142
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: station_1P02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 14.89
+        y: -0.87
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: station_1P03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 14.71
+        y: -1.736
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: station_1P04
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 15.332
+        y: -2.493
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.68
+        w: 0.73
+  - name: station_1910
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 16.7
+        y: -0.242
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.0203986
+        w: 0.999785
+  - name: station_1911
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 16.7
+        y: -0.87
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.029797
+        w: 0.999551
+  - name: station_1900
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 14.8
+        y: 0.8
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.682912
+        w: 0.730431
+  - name: station_1301
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 15.441
+        y: -3.605
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.68
+        w: 0.73
+  - name: station_1302
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 15.583
+        y: -5.474
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: station_1303
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 17.768
+        y: -5.704
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.68
+        w: 0.72
+  - name: station_1304
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 17.924
+        y: -8.822
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.68
+        w: 0.72
+  - name: station_1305
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 12.746
+        y: -9.158
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: station_1306
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 7.256
+        y: -8.94
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: station_1307
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 6.658
+        y: -6.954
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.73
+        w: 0.68
+  - name: station_1308
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 3.303
+        y: -8.985
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: station_1309
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -0.929
+        y: -9.194
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: station_1510
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -1.17
+        y: -8.37
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.72
+        w: 0.69
+  - name: station_1310
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 19.502
+        y: -8.974
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: station_1311
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 22.01
+        y: -8.785
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: station_1312
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 26.119
+        y: -8.571
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: station_1313
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 26.319
+        y: -10.652
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.69
+        w: 0.72
+  - name: station_1314
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 26.3606
+        y: -12.336
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.69
+        w: 0.72
+  - name: station_1315
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 26.699
+        y: -13.848
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: station_1316
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 16.398
+        y: -9.33256
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+trajectories:
+  - name: init_layers
+    waypoints:
+    - init
+    - init_layer_1
+    - sleep2s
+    - init_layer_2
+    - sleep2s
+    - init_layer_3
+    - sleep10s
+    - elevate_layer_3
+    - sleep2s
+    - elevate_layer_2
+    - sleep2s
+    - elevate_layer_1
+  - name: up_layers
+    waypoints:
+    - elevate_layer_3
+    - elevate_layer_2
+    - elevate_layer_1
+  - name: roll_forword
+    waypoints:
+    - up_part
+  - name: get_up_part_status
+    waypoints:
+    - up_part_status_1
+    - up_part_status_2
+    - up_part_status_3
+  - name: roll_backword
+    waypoints:
+    - down_part
+  - name: get_down_part_status
+    waypoints:
+    - down_part_status_1
+    - down_part_status_2
+    - down_part_status_3
+  - name: out_elevator
+    waypoints:
+    - dock_back_1800
+    - turn_right
+  - name: prepair_enter_elevator
+    waypoints:
+    - change_bz
+    - bz_angular_ratio
+  - name: 1910_test
+    waypoints:
+    - change_bz
+    - station_1910
+    - change_dwa
+  - name: 1911_test
+    waypoints:
+    - change_bz
+    - station_1911
+    - change_dwa

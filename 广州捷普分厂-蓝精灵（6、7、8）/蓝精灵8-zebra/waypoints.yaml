@@ -1,0 +1,254 @@
+waypoints:
+  - name: charge_point
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -27
+        y: 106.53
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: home_point
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -26.9
+        y: 106.53
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: BB_site_001
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 0.8
+        y: 9.18
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: BB_back
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -0.585
+        y: 10.446
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: BBdown
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -25.26
+        y: 106.59
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: BBup001
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -5.3
+        y: 110.75
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: BBup002
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 0.033
+        y: 110.75
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: BBup003
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 1.22
+        y: 110.75
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: BB_pathsite
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 28.43
+        y: 110.81
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: BB_back_init_pose
+    frame_id: map
+    home: BB_back
+    type: initial_pose
+  - name: wait2s
+    goal_timeout: 2
+    type: timer
+trajectories:
+  - name: BB_path_001
+    waypoints:
+    - BBup001
+    - open_shelf_wp
+    - lift_up_wp
+    - wait2s
+    - wheel_rotate_right_wp
+    - wheel_rotate_right_wp
+    - BB_pathsite
+    - BB_site_001
+    - wait2s
+    - lift_down_wp
+    - do_back
+    - do_forward_wp
+    - BB_back
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_left_wp
+    - wheel_rotate_left_wp
+    - BBdown
+    - wait2s
+    - lift_down_wp
+    - do_forward_wp
+    - home_point
+  - name: BB_path_002
+    waypoints:
+    - BBup002
+    - open_shelf_wp
+    - lift_up_wp
+    - wait2s
+    - wheel_rotate_right_wp
+    - wheel_rotate_right_wp
+    - BB_pathsite
+    - BB_site_001
+    - wait2s
+    - lift_down_wp
+    - do_back
+    - do_forward_wp
+    - BB_back
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_left_wp
+    - wheel_rotate_left_wp
+    - BBdown
+    - wait2s
+    - lift_down_wp
+    - do_forward_wp
+    - home_point
+  - name: BB_path_003
+    waypoints:
+    - BBup003
+    - open_shelf_wp
+    - lift_up_wp
+    - wait2s
+    - wheel_rotate_right_wp
+    - wheel_rotate_right_wp
+    - BB_pathsite
+    - BB_site_001
+    - wait2s
+    - lift_down_wp
+    - do_back
+    - do_forward_wp
+    - BB_back
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_left_wp
+    - wheel_rotate_left_wp
+    - BBdown
+    - wait2s
+    - lift_down_wp
+    - do_forward_wp
+    - home_point
+  - name: Return_empty_back
+    waypoints:
+    - BB_back
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_left_wp
+    - wheel_rotate_left_wp
+    - BBdown
+    - wait2s
+    - lift_down_wp
+    - do_forward_wp
+    - home_point
+  - name: BB_restart_back
+    waypoints:
+    - lift_down_wp
+    - BB_back_init_pose
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_left_wp
+    - wheel_rotate_left_wp
+    - BBdown
+    - wait2s
+    - lift_down_wp
+    - do_forward_wp
+    - home_point

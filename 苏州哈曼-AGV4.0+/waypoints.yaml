@@ -1,0 +1,1251 @@
+waypoints:
+  - name: init
+    failure_mode: init_cb
+    type: call
+  - name: home_point
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: 37.65
+        y: -4.61
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.705499
+        w: 0.708561
+  - name: shelf_approach
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: true
+    type: goal
+    pose:
+      position:
+        x: 1.4
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: shelf_goal
+    failure_mode: LOOP
+    frame_id: map
+    mark: true
+    type: goal
+    pose:
+      position:
+        x: 0
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: shelf_reverse
+    failure_mode: LOOP
+    frame_id: map
+    mark: true
+    type: goal
+    pose:
+      position:
+        x: 0
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: shelf_rotate
+    failure_mode: NONE
+    goal_timeout: 5
+    type: cmd_vel
+    pose:
+      position:
+        x: 0
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.6283
+        w: 0
+  - name: cmd_zero
+    failure_mode: 0
+    goal_timeout: 5
+    type: cmd_vel
+  - name: vel_out
+    failure_mode: 0.3
+    goal_timeout: 5
+    type: cmd_vel
+  - name: pub_shelf_pose
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 3
+    type: shell
+  - name: pub_lift_up
+    type: publisher
+  - name: pub_lift_down
+    type: publisher
+  - name: pub_lift_stop
+    type: publisher
+  - name: light_green
+    type: publisher
+  - name: light_yellow
+    type: publisher
+  - name: light_red
+    type: publisher
+  - name: buzzer_on
+    type: publisher
+  - name: buzzer_off
+    type: publisher
+  - name: buzzer_beep
+    type: publisher
+  - name: shell_lift_up
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 3
+    type: shell
+  - name: shell_lift_down
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 3
+    type: shell
+  - name: shell_agv_footprint
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 3
+    type: shell
+  - name: shell_shelf_footprint
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 3
+    type: shell
+  - name: shell_box_filter_bz
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 3
+    type: shell
+  - name: shell_box_filter_shelf
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 3
+    type: shell
+  - name: shell_punctual_command
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 3
+    type: shell
+  - name: shell_manual_set
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 3
+    type: shell
+  - name: read_lift_up
+    failure_mode: 1
+    type: pubsuber
+  - name: read_lift_down
+    failure_mode: 2
+    type: pubsuber
+  - name: charge_status
+    failure_mode: 1
+    goal_timeout: 10
+    type: pubsuber
+  - name: power_yihe
+    failure_mode: 1
+    type: pubsuber
+  - name: read_button
+    failure_mode: 0
+    goal_timeout: 30
+    type: pubsuber
+  - name: shelf_true
+    type: subscriber
+  - name: goal_reached
+    type: subscriber
+  - name: change_bz
+    node: /move_base
+    param: base_local_planner
+    type: dynparam
+    value: bz_local_planner/BZPlannerROS
+  - name: change_dwa
+    node: /move_base
+    param: base_local_planner
+    type: dynparam
+    value: dwa_local_planner/DWAPlannerROS
+  - name: shelf_up_wp
+    failure_mode: shelf_up
+    type: call
+  - name: shelf_down_wp
+    failure_mode: shelf_down_cb
+    type: call
+  - name: lift_down_wp
+    failure_mode: lift_down_cb
+    type: call
+  - name: lift_up_wp
+    failure_mode: lift_up_cb
+    type: call
+  - name: box_filter_shelf
+    failure_mode: box_filter_shelf_cb
+    type: call
+  - name: unloading_wp
+    failure_mode: unloading_cb
+    type: call
+  - name: time20
+    close_enough: 0
+    failure_mode: LOOP
+    goal_timeout: 20
+    type: timer
+  - name: shelf_global_footprint
+    dynparam_type: str
+    node: /move_base/global_costmap
+    param: footprint
+    type: dynparam
+    value: [[0.60, -0.35], [0.60, 0.35], [-0.45, 0.35], [-0.45, -0.35]]
+  - name: shelf_local_footprint
+    dynparam_type: str
+    node: /move_base/local_costmap
+    param: footprint
+    type: dynparam
+    value: [[0.55, -0.35], [0.55, 0.35], [-0.55, 0.35], [-0.55, -0.35]]
+  - name: agv_global_footprint
+    dynparam_type: str
+    node: /move_base/global_costmap
+    param: footprint
+    type: dynparam
+    value: [[0.342, -0.25], [0.342, 0.25], [-0.342, 0.25], [-0.342, -0.25]]
+  - name: agv_local_footprint
+    dynparam_type: str
+    node: /move_base/local_costmap
+    param: footprint
+    type: dynparam
+    value: [[0.342, -0.25], [0.342, 0.25], [-0.342, 0.25], [-0.342, -0.25]]
+  - name: local_resolu_001
+    node: /move_base/local_costmap
+    param: resolution
+    type: dynparam
+    value: 0.005
+  - name: local_resolu_005
+    node: /move_base/local_costmap
+    param: resolution
+    type: dynparam
+    value: 0.05
+  - name: box_filter_left_box_frame
+    node: /scan_filter/box_left
+    param: box_frame
+    type: dynparam
+    value: base_link
+  - name: box_filter_left_min_x
+    node: /scan_filter/box_left
+    param: min_x
+    type: dynparam
+    value: 0.32
+  - name: box_filter_left_max_x
+    node: /scan_filter/box_left
+    param: max_x
+    type: dynparam
+    value: 0.52
+  - name: box_filter_left_min_y
+    node: /scan_filter/box_left
+    param: min_y
+    type: dynparam
+    value: 0.23
+  - name: box_filter_left_max_y
+    node: /scan_filter/box_left
+    param: max_y
+    type: dynparam
+    value: 0.45
+  - name: box_filter_right_box_frame
+    node: /scan_filter/box_right
+    param: box_frame
+    type: dynparam
+    value: base_link
+  - name: box_filter_right_min_x
+    node: /scan_filter/box_right
+    param: min_x
+    type: dynparam
+    value: 0.32
+  - name: box_filter_right_max_x
+    node: /scan_filter/box_right
+    param: max_x
+    type: dynparam
+    value: 0.52
+  - name: box_filter_right_min_y
+    node: /scan_filter/box_right
+    param: min_y
+    type: dynparam
+    value: -0.45
+  - name: box_filter_right_max_y
+    node: /scan_filter/box_right
+    param: max_y
+    type: dynparam
+    value: -0.23
+  - name: bz_sim_time
+    node: /move_base/BZPlannerROS
+    param: sim_time
+    type: dynparam
+    value: 0.5
+  - name: shelf_out
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: true
+    type: goal
+    pose:
+      position:
+        x: 1
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: test_shelf_mark
+    frame_id: map
+    type: mark
+    pose:
+      position:
+        x: -19.5328
+        y: 4.43748
+        z: -0.00073488
+      orientation:
+        x: 0.0021717
+        y: 0.00158771
+        z: -0.703403
+        w: 0.710786
+  - name: test_shelf_pose
+    frame_id: map
+    mark: pallet
+    type: mark
+    pose:
+      position:
+        x: -19.5328
+        y: 4.43748
+        z: -0.00073488
+      orientation:
+        x: 0.0021717
+        y: 0.00158771
+        z: -0.703403
+        w: 0.710786
+  - name: test_shelf_mark1
+    frame_id: map
+    type: mark
+    pose:
+      position:
+        x: -19.7063
+        y: 2.68603
+        z: 0.00123634
+      orientation:
+        x: 0.000431914
+        y: 0.00022199
+        z: 0.70667
+        w: 0.707543
+  - name: test_shelf_pose3
+    frame_id: map
+    mark: pallet
+    type: mark
+    pose:
+      position:
+        x: -19.7063
+        y: 2.68603
+        z: 0.00123634
+      orientation:
+        x: 0.000431914
+        y: 0.00022199
+        z: 0.70667
+        w: 0.707543
+  - name: test_shelf_stop
+    frame_id: stop
+    mark: pallet
+    type: mark
+    pose:
+      position:
+        x: -19.7063
+        y: 2.68603
+        z: 0.00123634
+      orientation:
+        x: 0.000431914
+        y: 0.00022199
+        z: 0.70667
+        w: 0.707543
+  - name: test_shelf_mark2
+    frame_id: map
+    type: mark
+    pose:
+      position:
+        x: -15.4245
+        y: 4.27519
+        z: 0.00676203
+      orientation:
+        x: -0.00636031
+        y: 0.000268883
+        z: 0.99969
+        w: -0.0240628
+  - name: shelf_out_bz
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: base_link
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 1
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: test_shelf_pose4
+    frame_id: map
+    mark: pallet
+    type: mark
+    pose:
+      position:
+        x: -15.4245
+        y: 4.27519
+        z: 0.00676203
+      orientation:
+        x: -0.00636031
+        y: 0.000268883
+        z: 0.99969
+        w: -0.0240628
+  - name: navi_befor_charge
+    close_enough: 0.0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 37.67
+        y: -4
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.709988
+        w: 0.70421
+  - name: SMT_8_start
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 4.23
+        y: 87.3006
+        z: 6.60585e-06
+      orientation:
+        x: 0.000695635
+        y: -0.000758876
+        z: 0.999806
+        w: 0.016612
+  - name: SMT_8_forward
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 4.3
+        y: 80.5586
+        z: -4.86187e-07
+      orientation:
+        x: 0.00119978
+        y: -0.00172133
+        z: 0.713136
+        w: 0.701023
+  - name: SMT_7_start
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 9
+        y: 87.12
+        z: -6.15115e-05
+      orientation:
+        x: 0.000234619
+        y: -0.00127841
+        z: 0.999806
+        w: 0.016612
+  - name: SMT_7_forward
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 8.92566
+        y: 80.0686
+        z: -0.00150946
+      orientation:
+        x: 0.00318939
+        y: -0.00384976
+        z: 0.704795
+        w: 0.709393
+  - name: SMT_6_start
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 15.66
+        y: 88.031
+        z: -0.000142988
+      orientation:
+        x: 0.000435702
+        y: 0.00581174
+        z: 0.999806
+        w: 0.016612
+  - name: SMT_6_back
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 15.363
+        y: 86.921
+        z: -0.000142988
+      orientation:
+        x: 0.000435702
+        y: 0.00581174
+        z: 0.999806
+        w: 0.016612
+  - name: SMT_6_forward
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 15.7852
+        y: 81.3626
+        z: -4.15591e-05
+      orientation:
+        x: 0.000447333
+        y: 0.0137084
+        z: 0.691452
+        w: 0.722292
+  - name: SMT_5_start
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 20.1
+        y: 88.5002
+        z: 0.00080053
+      orientation:
+        x: 0.00245335
+        y: -0.00261421
+        z: 0.999806
+        w: 0.016612
+  - name: SMT_5_forward
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 19.95
+        y: 81.1833
+        z: 0.00309284
+      orientation:
+        x: -0.00296677
+        y: 0.00448692
+        z: 0.721128
+        w: 0.692781
+  - name: SMT_4_start
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 24.55
+        y: 88.4366
+        z: 7.61907e-06
+      orientation:
+        x: 0.00241308
+        y: -0.00307617
+        z: 0.999806
+        w: 0.016612
+  - name: SMT_4_forward
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 24.5
+        y: 81.6666
+        z: 0.00346376
+      orientation:
+        x: -0.000251446
+        y: 9.69522e-05
+        z: 0.706734
+        w: 0.707479
+  - name: SMT_3_start
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 29.68
+        y: 88.6046
+        z: -0.00439093
+      orientation:
+        x: -0.00384909
+        y: 0.000679859
+        z: 0.999806
+        w: 0.016612
+  - name: SMT_3_forward
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 29.63
+        y: 80.9
+        z: -0.000466805
+      orientation:
+        x: 0.00422587
+        y: -0.00405439
+        z: 0.712941
+        w: 0.7012
+  - name: SMT_2_start
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 34.9
+        y: 88.4709
+        z: -0.000576395
+      orientation:
+        x: -0.00389739
+        y: 0.00285897
+        z: 0.999806
+        w: 0.016612
+  - name: SMT_2_forward
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 34.8587
+        y: 82.0013
+        z: -2.77992e-05
+  - name: SMT_1_start
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 39.3054
+        y: 88.52
+        z: -0.000955742
+      orientation:
+        x: 0.000273
+        y: 0.001135
+        z: 0.999806
+        w: 0.016612
+  - name: SMT_1_forward
+    close_enough: 0.1
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 39.6778
+        y: 80.9202
+        z: -0.000329683
+      orientation:
+        x: 0.0012505
+        y: 0.00321027
+        z: 0.70956
+        w: 0.704617
+  - name: SMT5toStorageCrossroads1
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 20.0899
+        y: 55.9406
+        z: 0.00362727
+      orientation:
+        x: -0.00474997
+        y: -0.00624214
+        z: -0.700037
+        w: 0.714064
+  - name: SMT5toStorageCrossroads2
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 20.1604
+        y: 25.221
+        z: 0.000115993
+      orientation:
+        x: -0.000463885
+        y: -0.000377335
+        z: -0.703615
+        w: 0.710582
+  - name: wcj_add1
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 35.73
+        y: -0.456
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999713
+        w: -0.0234595
+  - name: pt_add1
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 5.43
+        y: -0.456
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.0323412
+        w: 0.999456
+  - name: pt_add2
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 15.73
+        y: -0.456
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.0323412
+        w: 0.999456
+  - name: wcj_add2
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 35.73
+        y: -0.456
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.0323412
+        w: 0.999456
+  - name: corner_home_1
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 37.65
+        y: -4.61
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.705499
+        w: 0.708561
+  - name: storage_shelf_mark
+    frame_id: map
+    type: mark
+    pose:
+      position:
+        x: 38.21
+        y: -1.81
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.693441
+        w: 0.720507
+  - name: storage_out_mark
+    frame_id: map
+    type: mark
+    pose:
+      position:
+        x: 38.21
+        y: -1.81
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.720507
+        w: 0.693441
+  - name: storage_shelf_pose
+    frame_id: map
+    mark: pallet
+    type: mark
+    pose:
+      position:
+        x: 38.21
+        y: -1.81
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.693441
+        w: 0.720507
+  - name: storage_shelf_stop
+    frame_id: stop
+    mark: pallet
+    type: mark
+    pose:
+      position:
+        x: 38.21
+        y: -1.81
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.693441
+        w: 0.720507
+  - name: storage_shelf_out
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: true
+    type: goal
+    pose:
+      position:
+        x: 1
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.720507
+        w: 0.693441
+  - name: SMT1Cross1
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 40.2
+        y: -0.38
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.693187
+        w: 0.720753
+  - name: SMT1Cross2
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 39.83
+        y: 29.1164
+        z: -0.00341086
+      orientation:
+        x: -0.00149762
+        y: -0.00649224
+        z: 0.700824
+        w: 0.713297
+  - name: SMT1Cross3
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 39.7656
+        y: 55.899
+        z: 0.00250353
+      orientation:
+        x: -0.00036661
+        y: 0.00552072
+        z: 0.703683
+        w: 0.710471
+  - name: HomeCross1
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -0.537376
+        y: 55.7691
+        z: -0.00147329
+      orientation:
+        x: -0.00421029
+        y: -0.00174553
+        z: -0.70384
+        w: 0.710344
+  - name: HomeCross2
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -0.48
+        y: 20.2619
+        z: -0.000965601
+      orientation:
+        x: 0.00178942
+        y: 0.000945513
+        z: -0.701852
+        w: 0.71232
+  - name: HomeCross4
+    close_enough: 0.4
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -0.48
+        y: -0.456
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.0323412
+        w: 0.999456
+  - name: SMT9Cross1
+    close_enough: 0.3
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 29.8617
+        y: -0.495897
+        z: -0.00041268
+      orientation:
+        x: 0.00183559
+        y: 0.00349697
+        z: 0.0158188
+        w: 0.999865
+  - name: SMT_9_start
+    close_enough: 0.5
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -0.85
+        y: 87.3054
+        z: -0.000629649
+      orientation:
+        x: 0.00232714
+        y: 0.00142682
+        z: 0.999806
+        w: 0.016612
+  - name: SMT_9_forward
+    close_enough: 0.1
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -0.85
+        y: 79.5586
+        z: -4.86187e-07
+      orientation:
+        x: 0.00119978
+        y: -0.00172133
+        z: -0.713136
+        w: 0.701023
+  - name: lp1
+    close_enough: 0
+    failure_mode: LOOP
+    goal_timeout: 0
+    type: looper
+  - name: lighthouse_navigation_finished
+    close_enough: 0
+    failure_mode: LOOP
+    goal_timeout: 0
+    type: subscriber
+  - name: sleep2s
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 2
+    type: timer
+  - name: sleep10s
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 10
+    type: timer
+  - name: turn_back
+    close_enough: 0.0
+    failure_mode: LOOP
+    frame_id: base_link
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 0
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: dock_back
+    close_enough: -0.015
+    type: cmd_vel
+  - name: dock_back_1
+    close_enough: -0.006
+    type: cmd_vel
+  - name: stop_agv
+    close_enough: 0.0
+    type: cmd_vel
+  - name: SMT9Cross1_temp_test
+    close_enough: 0.3
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 30
+        y: -2
+        z: 0
+      orientation:
+        x: 0.00183559
+        y: 0.00349697
+        z: 0.0158188
+        w: 0.999865
+  - name: sleep10min
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 600
+    type: timer
+  - name: go_forward
+    close_enough: 0.01
+    type: cmd_vel
+  - name: pub_lighthouse_navigation_on
+    goal_timeout: 2
+    type: shell
+  - name: pub_lighthouse_navigation_off
+    goal_timeout: 2
+    type: shell
+trajectories:
+  - name: shelf_up
+    waypoints:
+    - storage_shelf_mark
+    - shelf_approach
+    - change_bz
+    - bz_sim_time
+    - local_resolu_001
+    - lift_down_wp
+    - light_yellow
+    - buzzer_on
+    - storage_shelf_pose
+    - shelf_goal
+    - change_dwa
+    - storage_shelf_stop
+    - lift_up_wp
+    - shelf_global_footprint
+    - shelf_local_footprint
+    - box_filter_shelf
+    - local_resolu_005
+    - light_green
+    - buzzer_off
+  - name: lift_down_cb
+    waypoints:
+    - pub_lift_up
+    - read_lift_up
+    - pub_lift_stop
+  - name: lift_up_cb
+    waypoints:
+    - pub_lift_down
+    - read_lift_down
+    - pub_lift_stop
+  - name: shelf_down_cb
+    waypoints:
+    - storage_shelf_mark
+    - shelf_reverse
+    - light_yellow
+    - buzzer_on
+    - lift_down_wp
+    - agv_local_footprint
+    - agv_global_footprint
+    - change_bz
+    - local_resolu_001
+    - shelf_out_bz
+    - change_dwa
+    - local_resolu_005
+    - buzzer_off
+    - light_green
+  - name: box_filter_shelf_cb
+    waypoints:
+    - box_filter_left_box_frame
+    - box_filter_left_min_x
+    - box_filter_left_max_x
+    - box_filter_left_min_y
+    - box_filter_left_max_y
+    - box_filter_right_box_frame
+    - box_filter_right_min_x
+    - box_filter_right_max_x
+    - box_filter_right_min_y
+    - box_filter_right_max_y
+  - name: unloading_cb
+    waypoints:
+    - light_yellow
+    - buzzer_on
+    - read_button
+    - light_green
+    - buzzer_off
+  - name: SMT_sum
+    waypoints:
+    - shelf_up_wp
+    - SMT1Cross1
+    - SMT1Cross2
+    - SMT1Cross3
+    - SMT_1_forward
+    - unloading_wp
+    - SMT_1_start
+    - SMT_2_start
+    - SMT_2_forward
+    - unloading_wp
+    - SMT_2_start
+    - SMT_3_start
+    - SMT_3_forward
+    - unloading_wp
+    - SMT_3_start
+    - SMT_4_start
+    - SMT_4_forward
+    - unloading_wp
+    - SMT_4_start
+    - SMT_5_start
+    - SMT_5_forward
+    - unloading_wp
+    - SMT_5_start
+    - SMT_6_back
+    - SMT_6_forward
+    - unloading_wp
+    - SMT_6_back
+    - SMT_7_start
+    - SMT_7_forward
+    - unloading_wp
+    - SMT_7_start
+    - SMT_8_start
+    - SMT_8_forward
+    - unloading_wp
+    - SMT_8_start
+    - SMT_9_start
+    - SMT_9_forward
+    - unloading_wp
+    - HomeCross1
+    - HomeCross2
+    - HomeCross4
+    - pt_add1
+    - pt_add2
+    - wcj_add2
+    - shelf_down_wp
+    - wcj_add1
+    - corner_home_1
+  - name: auto_charge
+    waypoints:
+    - navi_befor_charge
+    - pub_lighthouse_navigation_on
+    - lighthouse_navigation_finished
+    - pub_lighthouse_navigation_off
+    - turn_back
+    - dock_back
+    - charge_status
+    - dock_back_1
+    - sleep2s
+    - stop_agv
+  - name: auto_charge_test
+    waypoints:
+    - SMT9Cross1_temp_test
+    - navi_befor_charge
+    - pub_lighthouse_navigation_on
+    - lighthouse_navigation_finished
+    - pub_lighthouse_navigation_off
+    - turn_back
+    - dock_back
+    - charge_status
+    - dock_back_1
+    - sleep2s
+    - stop_agv
+    - sleep10min
+    - go_forward
+    - sleep10s
+    - lp1

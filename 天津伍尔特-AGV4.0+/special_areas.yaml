@@ -1,0 +1,6 @@
+area1:
+ xmin: -0.5
+ xmax: 13
+ ymin: 35.9
+ ymax: 37.96
+ /move_base/TebLocalPlannerROS/max_vel_x: 0.3

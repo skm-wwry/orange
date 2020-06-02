@@ -1,0 +1,11 @@
+官网: http://philserver.bplaced.net/fbe/
+
+具体安装步骤: http://philserver.bplaced.net/fbe/download.php
+
+Ros 案例教程: http://wiki.ros.org/flexbe/Tutorials
+
+作者论文: https://www.sim.informatik.tu-darmstadt.de/publ/da/2015_Schillinger_MA.pdf
+
+Github源码：
+https://github.com/FlexBE
+app(JavaScript): https://github.com/FlexBE/flexbe_app

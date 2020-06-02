@@ -1,0 +1,8 @@
+area1:
+ xmin: 19.22
+ xmax: 21.93
+ ymin: 3.55
+ ymax: 5.39
+ obstacle_avoidance/decelerate_distance: 0.3
+ obstacle_avoidance/stop_distance: 0.15
+ move_base/TebLocalPlannerROS/max_vel_x: 0.3

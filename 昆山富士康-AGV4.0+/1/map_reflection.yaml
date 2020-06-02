@@ -1,0 +1,6 @@
+image: map_reflection.png
+resolution: 0.05
+origin: [-30.82, -16.90, 0]
+occupied_thresh: 0.51
+free_thresh: 0.49
+negate: 0

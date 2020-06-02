@@ -1,0 +1,92 @@
+client
+//利用rosbridge_system启动建图。 尽多使用tab键的补全，防止拼写、格式疏漏。
+
+1：rostopic pub /task_switch std_msgs/Header "seq 1 
+stamp:
+  secs: 0
+  nsecs: 0
+frame_id: 'slam'" 
+
+(seq 0 关闭建图、seq 1 新建地图、 seq 2 重建地图)
+
+//保存地图
+rostopic pub /task_switch std_msgs/Header "seq 1 
+stamp:
+  secs: 0
+  nsecs: 0
+frame_id: 'save_map'" 
+(frame_id: save_map，默认保存为map，可随意更改名字秩序save_map_map1、2、3)
+
+
+//如何判断是否是新系统：
+
+（1）终端执行：  rosnode list | grep rosbridge_system 应可查询到。
+
+（2）打开rviz，配色很好看。
+	
+
+1. 从无到有，新建地图：
+		
+rostopic pub /task_switch std_msgs/Header "seq: 1 
+stamp:
+  secs: 0
+  nsecs: 0
+frame_id: 'slam'" 
+
+
+	2. 关闭建图，关闭后不可保存：
+		
+rostopic pub /task_switch std_msgs/Header "seq: 0 
+stamp:
+  secs: 0
+  nsecs: 0
+frame_id: 'slam'
+
+
+	3. 与定位结合建图，首先agv到达目的地，定位需要准确收敛。
+		
+rostopic pub /task_switch std_msgs/Header "seq: 2 
+stamp:
+  secs: 0
+  nsecs: 0
+frame_id: 'slam'" 
+
+
+	4. 局部建好了，想去第二个局部：
+		
+步骤一： 先暂停建图模式，不是关闭
+			
+rostopic pub /task_switch std_msgs/Header "seq: 2 
+stamp:
+  secs: 0
+  nsecs: 0
+frame_id: 'slam_pause'" 
+
+
+		步骤二： 到达第二个局部点：
+
+			rostopic pub /task_switch std_msgs/Header "seq: 2 
+stamp:
+  secs: 0
+  nsecs: 0
+frame_id: 'slam_go_on'"
+	
+
+第三局部点、第四局部点、第n个局部点以此类推。
+	5. 保存地图，默认名map， 注意覆盖原图。
+		
+rostopic pub /task_switch std_msgs/Header "seq: 1 
+stamp:
+  secs: 0
+  nsecs: 0
+frame_id: 'save_map'
+
+
+	另命名name(name随心所欲换)保存地图，只需要替代：
+frame_id: 'save_map_name'
+
+
+	地图保存路径/catkin_ws/dbparam/
+	保存关闭无异。
+
+

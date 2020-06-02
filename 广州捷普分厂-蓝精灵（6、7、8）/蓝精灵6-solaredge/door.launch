@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="name" default="" />
+    <arg name="port" default="/dev/ttyUSB0" />
+    <arg name="rate" default="50.0" />
+    <arg name="debug" default="false" />
+
+    <node name="rosbridge_door$(arg name)" pkg="rosbridge_driver" type="rosbridge_driver" output="screen">
+        <param name="debug_io" value="$(arg debug)" />
+        <param name="plc_port" value="$(arg port)" />
+        <rosparam subst_value="true">
+            port_chain:
+              - name: plc_port
+                type: serial
+                timeout: 2.0
+            topic_chain:
+              - name: waypoint_user_pub
+                type: subscribe
+                rate: 50.0
+              - name: door_open
+                type: event
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0x00, 0x00, 0x00, 0x00, 0x00, 0x11, 0x00, 0x10, 0x00, 0x64, 0x00, 0x05, 0x0a, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+                  - name: plc_port
+                    type: read
+                    byte: [0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x10, 0x00, 0x64, 0x00, dat_len]
+                echo: [dat_len]
+              - name: door_close
+                type: event
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0x00, 0x00, 0x00, 0x00, 0x00, 0x11, 0x00, 0x10, 0x00, 0x64, 0x00, 0x05, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+                  - name: plc_port
+                    type: read
+                    byte: [0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x10, 0x00, 0x64, 0x00, dat_len]
+                echo: [dat_len]
+        </rosparam>
+    </node>
+</launch>

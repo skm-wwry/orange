@@ -1,0 +1,123 @@
+
+KSFSK-RGV          password: hitrobot         gateway: 192.168.59.254
+KSFSK-AGV          no pass                    gateway: 192.168.59.254
+
+服务器和三个小车的地址和密码
+dispatch server 192.168.59.131    username: hrg  password: hitrobot
+AGV1:       192.168.59.111        username: hitrobot  password: 343
+AGV2:       192.168.59.112
+AGV2:       192.168.59.113                 
+
+WMS server:  192.168.59.121
+
+ele:  192.168.59.105 port: 8080
+
+
+scp -r /tmp/agv_dispatch.log jin@192.168.59.181:/tmp
+
+scp -r /tmp/agv_dispatch.log jin@10.42.0.69:/tmp
+
+scp -r /tmp/server_0830.zip  hitrobot@192.168.59.113:/tmp
+
+scp -r /tmp/server_0830.zip  jin@10.42.0.69:/tmp
+
+scp -r /tmp/fsk_agv3_dbparam_0830.zip  jin@10.42.0.69:/tmp
+
+scp -r hitrobot@191.168.59.113:/tmp/agvdispatch_0830_final.zip  /tmp
+
+
+
+The Boost C++ Libraries were successfully built!
+
+The following directory should be added to compiler include paths:
+
+    /home/jin/Documents/boost_1_67_0
+
+The following directory should be added to linker library paths:
+
+    /home/jin/Documents/boost_1_67_0/stage/lib
+
+指令执行、指令执行情况、xy坐标反馈
+rostopic echo /nav_ctrl
+rostopic echo /nav_ctrl_status
+rostopic echo /robot_pose
+
+这几个文件和目录存放的是地图和点位相关
+map.png  waypoints.yaml  /workspace/hitrobot/dbparam
+
+
+切换一楼地图（此时输入localhost则会查看到更新后的地图）
+rostopic pub -1 /cmd_string std_msgs/String "dbparam-update:FSK_Floor1"
+rostopic pub -1 /cmd_string std_msgs/String "dbparam-update:FSK_Floor2"
+
+升降机起降的对应指令
+rostopic pub -1 /nav_ctrl  yocs_msgs/NavigationControl '{control: 1, goal_name: lift_down_wp}'
+rostopic pub -1 /nav_ctrl  yocs_msgs/NavigationControl '{control: 1, goal_name: lift_up_wp}'
+rostopic pub -1 /nav_ctrl  yocs_msgs/NavigationControl '{control: 1, goal_name: do_backward}'
+rostopic pub -1 /nav_ctrl  yocs_msgs/NavigationControl '{control: 1, goal_name: F1_auto_charge}'
+rostopic pub -1 /nav_ctrl  yocs_msgs/NavigationControl '{control: 1, goal_name: auto_charge}'
+
+rostopic pub -1 /nav_ctrl  yocs_msgs/NavigationControl '{control: 1, goal_name: F1_auto_charge_2}'
+rostopic pub -1 /nav_ctrl  yocs_msgs/NavigationControl '{control: 1, goal_name: fsk_charge_test}'
+
+电梯相关操作
+ele:  192.168.59.105 port: 8080
+
+call ele to floor 1:
+AA 55 00 1A 01 0D 01 29
+
+call ele to floor 2:
+AA 55 00 02 01 0D 01 11
+
+
+rostopic echo /waypoints | grep -C 10 "do_backward"
+
+  - name: charge_forward
+
+查看事实地图和定位的软件为
+rviz
+
+
+
+  - name: lift_dump
+    echo: state_lift
+    key: state_lift
+    op: subscribe
+    poll: lift_dump_pos
+    topic: state_lift
+    type: diagnostic_msgs/DiagnosticArray
+    value: 1
+  - name: lift_load
+    echo: state_lift
+    key: state_lift
+    op: subscribe
+    poll: lift_load_pos
+    topic: state_lift
+    type: diagnostic_msgs/DiagnosticArray
+    value: 2
+
+
+  - name: init
+    failure_mode: init_cb
+    type: call
+
+
+  - name: do_backward
+    failure_mode: NONE
+    goal_timeout: 13
+    type: cmd_vel
+    pose:
+      position:
+        x: -0.1
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+
+rostopic echo /waypoints | grep -C 10 do_backward
+
+
+

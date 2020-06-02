@@ -1,0 +1,285 @@
+waypoints:
+  - name: caseInitSite
+    frame_id: map
+    home: casing8_back_001
+    type: initial_pose
+  - name: home_point
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: -5.05
+        y: 2.28
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: charge_point
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: -5.3
+        y: 2.25
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: casing8_001
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 24.39
+        y: -65.48
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: material_go
+    close_enough: 0.025
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -2.8
+        y: 2.2
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: material_back
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -3.974
+        y: 2.2
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: casing8_back_001
+    close_enough: 0.05
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 25.63
+        y: -67.89
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: open_door_go
+    close_enough: 0.2
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -1.05
+        y: 1.8
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: open_door_back
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -1.05
+        y: 4.75
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: wait1s
+    goal_timeout: 3
+    type: timer
+  - name: door_open
+    failure_mode: 5
+    type: pubsuber
+  - name: door_close
+    failure_mode: 5
+    type: pubsuber
+  - name: do_forward_charge
+    homing_goal: base_link
+    type: homing_control
+    x_goal: 0.4
+    y_goal: 0.0
+    yaw_goal: 0.0
+  - name: do_forward_charge_go
+    homing_goal: base_link
+    type: homing_control
+    x_goal: 0.33
+    y_goal: 0.0
+    yaw_goal: 0.0
+  - name: pathsite_001
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: -1.99
+        y: 2.28
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: down_maitral
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: -4.167
+        y: 1.268
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+trajectories:
+  - name: Casing7/8
+    waypoints:
+    - material_go
+    - wait1s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_left_wp
+    - open_door_go
+    - casing8_001
+    - lift_down_wp
+    - wheel_rotate_right_wp
+    - do_forward
+    - casing8_back_001
+    - wait1s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_left_wp
+    - open_door_back
+    - door_open
+    - wait1s
+    - material_back
+    - door_close
+    - wheel_rotate_left_wp
+    - wait1s
+    - down_maitral
+    - lift_down_wp
+    - do_backward
+    - home_point
+  - name: Casing_go
+    waypoints:
+    - material_go
+    - wait1s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_left_wp
+    - open_door_go
+    - casing8_001
+    - lift_down_wp
+    - wheel_rotate_right_wp
+    - do_forward
+    - open_door_back
+    - door_open
+    - wait1s
+    - home_point
+    - door_close
+  - name: Casing_back
+    waypoints:
+    - pathsite_001
+    - door_open
+    - wait1s
+    - door_close
+    - casing8_back_001
+    - wait1s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_left_wp
+    - open_door_back
+    - door_open
+    - wait1s
+    - material_back
+    - door_close
+    - wait1s
+    - wheel_rotate_left_wp
+    - wait1s
+    - down_maitral
+    - lift_down_wp
+    - do_backward
+    - home_point
+  - name: Casing7/8_back
+    waypoints:
+    - caseInitSite
+    - wait1s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_left_wp
+    - open_door_back
+    - door_open
+    - wait1s
+    - material_back
+    - door_close
+    - wheel_rotate_left_wp
+    - wait1s
+    - down_maitral
+    - lift_down_wp
+    - do_backward
+    - home_point
+  - name: autocharge_on
+    waypoints:
+    - teb_agv_params_wp
+    - charge_point
+    - do_forward_charge
+    - pile_on
+    - bz_docking_params_wp
+    - relocate_charge
+    - pile_off
+    - turn_back
+    - wheel_back_pos
+    - wait5s
+    - joy_start_1
+    - teb_agv_params_wp
+  - name: autocharge_off
+    waypoints:
+    - joy_start_0
+    - teb_agv_params_wp
+    - goal_forward
+    - home_point

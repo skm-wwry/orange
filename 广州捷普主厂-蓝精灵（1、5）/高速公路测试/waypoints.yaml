@@ -1,0 +1,104 @@
+waypoints:
+  - name: test001
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 0.619
+        y: 0.974
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: test002
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 8.29
+        y: 0.974
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: test003
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: 0.913
+        y: -0.465
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: do_forward
+    homing_goal: base_link
+    type: homing_control
+    x_goal: 0.7
+    y_goal: 0.0
+    yaw_goal: 0.0
+  - name: wait2s
+    goal_timeout: 5
+    type: timer
+  - name: obstacle_start_0
+    node: obstacle_avoidance
+    op: dynparam
+    param: start_rad
+    type: double
+    value: 0.01
+  - name: obstacle_start_70
+    node: obstacle_avoidance
+    op: dynparam
+    param: start_rad
+    type: double
+    value: 1.22
+  - name: obstacle_end_0
+    node: obstacle_avoidance
+    op: dynparam
+    param: end_rad
+    type: double
+    value: 0.011
+  - name: obstacle_end_180
+    node: obstacle_avoidance
+    op: dynparam
+    param: end_rad
+    type: double
+    value: 3.14
+  - name: obstacle_end_110
+    node: obstacle_avoidance
+    op: dynparam
+    param: end_rad
+    type: double
+    value: 1.92
+  - name: do_forward_wp
+    failure_mode: do_forward_cp
+    type: call
+  - name: looper
+    failure_mode: LOOP
+    type: looper
+  - name: init
+    frame_id: map
+    home: test001
+    type: initial_pose
+trajectories:
+  - name: test_path
+    waypoints:
+    - teb_agv_params_wp
+    - test002
+    - test003
+    - test001
+    - looper

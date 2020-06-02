@@ -1,0 +1,774 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="modbus_tcp" default="false" />
+    <arg name="modbus_rtu" default="false" />
+    <arg name="hrg_drive" default="false" />
+    <arg name="hrg_drive_imu" default="false" />
+    <arg name="siemens_tcp_server_hrg" default="false" />
+    <arg name="siemens_tcp_client_hrg" default="false" />
+    <arg name="bjsmi" default="false" />
+
+    <arg name="name" default="" />
+    <arg name="port" default="/dev/ttyUSB0" />
+    <arg name="rate" default="50.0" />
+    <arg name="debug" default="false" />
+
+    <arg name="use_joy" default="false" />
+    <arg name="use_odom" default="false" />
+    <arg name="wheel_base" default="0.23333" />
+    <arg name="wheel_ratio" default="23333.3" />
+    <arg name="wheel_encoder" default="1.0" />
+
+    <arg name="linear_mid" default="4.1" />
+    <arg name="angular_mid" default="0.5" />
+    <arg name="speed_limit" default="0.8" />
+
+    <arg name="use_lift" default="true" />
+    <arg name="lift_ratio" default="288000.0" />
+    <arg name="lift_vel" default="0.0041666" />
+    <arg name="lift_dump_vel" default="$(arg lift_vel)" />
+    <arg name="lift_load_vel" default="$(arg lift_vel)" />
+    <arg name="lift_bias_vel" default="$(arg lift_vel)" />
+    <arg name="lift_dump_pos" default="0.0" />
+    <arg name="lift_load_pos" default="0.035" />
+    <arg name="lift_bias_pos" default="0.002" />
+
+    <node if="$(arg modbus_tcp)" name="rosbridge_plc$(arg name)" pkg="rosbridge_driver" type="rosbridge_driver" output="screen">
+        <remap from="cmd_vel" to="cmd_vel_rectified" />
+        <param name="plc_port" value="$(arg port)" />
+        <param name="debug_io" value="$(arg debug)" />
+        <rosparam subst_value="true">
+            port_chain:
+              - name: plc_port
+                type: socket
+                ip_address: 192.168.0.14
+                ip_port: 502
+            topic_chain:
+              - name: waypoint_user_pub
+                type: subscribe
+                rate: $(arg rate)
+              - name: joy
+                type: sensor_msgs/Joy
+                rate: 10.0
+                enabled: $(arg use_joy)
+                axes: [linear_y, linear_x, joy_lt, angular_z, linear_z, joy_rt, angular_y, angular_x]
+                buttons: [enable, buzzer, dump, load, joy_lb, joy_rb, estop, start, modex, pedal, stick]
+                linear_x: [speed, '*', [cos, steering_angle]]
+                angular_z: [speed, '*', [sin, steering_angle], '/', cmd_vel/wheel_base]
+                speed: [[speed_bias, -, cmd_vel/linear_min], '*', speed_sign, '*', [sign, speed_origin], '*', 0.1556]
+                speed_origin: [cmd_vel/linear_mid, -, [linear, '/', cmd_vel/plc_ratio]]
+                speed_bias: [[abs, speed_origin], -, cmd_vel/linear_min]
+                speed_sign: [sign, [[sign, speed_bias], +, 1]]
+                steering_angle: [[angular_mid, -, angular_pos], '/', cmd_vel/plc_ratio, '/', 2.5]
+                enable: [i_h.2]
+                joy_lt: [1, -, i_h.2]
+                joy_rt: [1, -, i_h.2]
+                buzzer: [i_h.3]
+                dump: [i_h.4]
+                load: [i_h.5]
+                byte_estop: [i_l.2]
+                byte_start: [i_l.3]
+                byte_modex: [i_l.4, +, i_l.5]
+                byte_pedal: [i_l.4]
+                byte_stick: [i_l.5]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x03, 0x00, 0x60, 0x00, 0x09]
+                  - name: plc_port
+                    type: read
+                    byte: [0x00, 0x00, 0x00, 0x00, 0x00, 0x15, 0x00, 0x03, 0x12, angular_neg, big, angular_pos, big, linear, big, i_h, i_l, v100, big, q_h, q_l, v102, big, v103, big, v104, big]
+                angular_max: [angular_pos, +, angular_neg]
+                angular_mid: [angular_max, '*', $(arg angular_mid)]
+                angular_mid_neg: [angular_max, -, angular_mid]
+              - name: cmd_vel
+                type: geometry_msgs/Twist
+                rate: $(arg rate)
+                wheel_base: $(arg wheel_base)
+                linear_min: 0.574 # 8.2*7%
+                linear_max: 2.87 # 8.2*35%
+                linear_mid: $(arg linear_mid) # 8.2*50%
+                plc_ratio: 100.0 # 0~1000/0-10(v)
+                speed_limit: $(arg speed_limit)
+                speed_goal: [sqrt, [[linear_x, '*', linear_x], +, [angular_z, '*', angular_z, '*', wheel_base, '*', wheel_base]], '*', [sign, [[sign, linear_x], +, 0.5]]]
+                speed_goal_limit: [min, speed_goal, [speed_limit, '*', [1, -, [steering_angle_goal, '/', 3.14159, '*', 1.33333]]]]
+                steering_angle_goal: [atan, [angular_z, '*', wheel_base, '/', linear_x]]
+                linear: [[linear_mid, -, [[[sqrt, [abs, speed]], '*', linear_max, +, 1], '*', linear_min, '*', [sign, speed]]], '*', plc_ratio]
+                angular_pos: [joy/angular_mid, -, [steering_angle, '/', 3.14159, '*', 0.8, '*', joy/angular_max]]
+                angular_neg: [joy/angular_mid_neg, +, [steering_angle, '/', 3.14159, '*', 0.8, '*', joy/angular_max]]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0x00, 0x00, 0x00, 0x00, 0x00, 0x11, 0x00, 0x10, 0x00, 0x64, 0x00, 0x05, 0x0a, 0x00, 0x00, joy_feedback_array/q_h, joy_feedback_array/q_l, linear, big, angular_pos, big, angular_neg, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x10, 0x00, 0x64, len, big]
+                speed: 0.0
+                steering_angle: 0.0
+                speed_step: 1.5
+                steering_angle_step: 0.15
+                poll: [[speed, speed_step, speed_goal_limit], [steering_angle, steering_angle_step, steering_angle_goal]]
+              - name: joy_feedback_array
+                type: sensor_msgs/JoyFeedbackArray
+                itype: 0
+                id: 0
+                enum_intensity: [itype, axes, buttons]
+                enum_axes: [id, linear_y, linear_x, joy_lt, angular_z, linear_z, joy_rt, angular_y, angular_x]
+                enum_buttons: [id, enable, buzzer, dump, load, joy_lb, joy_rb, estop, start, modex, pedal, stick]
+                q_h: [[[sign, [abs, cmd_vel/speed]], '*', 4], +, [buzzer.0, '*', 8], +, [dump.0, '*', 16], +, [load.0, '*', 32]]
+                q_l: [joy_lb.0, +, [joy_rb.0, '*', 2], +, [estop.0, '*', 4], +, [start.0, '*', 8]]
+        </rosparam>
+    </node>
+
+    <node if="$(arg modbus_rtu)" name="rosbridge_plc$(arg name)" pkg="rosbridge_driver" type="rosbridge_driver" output="screen">
+        <remap from="cmd_vel" to="cmd_vel_rectified" />
+        <param name="plc_port" value="$(arg port)" />
+        <param name="debug_io" value="$(arg debug)" />
+        <rosparam subst_value="true">
+            port_chain:
+              - name: plc_port
+                type: serial
+            topic_chain:
+              - name: waypoint_user_pub
+                type: subscribe
+                rate: $(arg rate)
+              - name: joy
+                type: sensor_msgs/Joy
+                rate: 10.0
+                enabled: $(arg use_joy)
+                axes: [linear_y, linear_x, joy_lt, angular_z, linear_z, joy_rt, angular_y, angular_x]
+                buttons: [enable, buzzer, dump, load, joy_lb, joy_rb, estop, start, modex, pedal, stick]
+                linear_x: [speed, '*', [cos, steering_angle]]
+                angular_z: [speed, '*', [sin, steering_angle], '/', cmd_vel/wheel_base]
+                speed: [[speed_bias, -, cmd_vel/linear_min], '*', speed_sign, '*', [sign, speed_origin], '*', 0.1556]
+                speed_origin: [cmd_vel/linear_mid, -, [linear, '/', cmd_vel/plc_ratio]]
+                speed_bias: [[abs, speed_origin], -, cmd_vel/linear_min]
+                speed_sign: [sign, [[sign, speed_bias], +, 1]]
+                steering_angle: [[angular_mid, -, angular_pos], '/', cmd_vel/plc_ratio, '/', 2.5]
+                enable: [i_h.2]
+                joy_lt: [1, -, i_h.2]
+                joy_rt: [1, -, i_h.2]
+                buzzer: [i_h.3]
+                dump: [i_h.4]
+                load: [i_h.5]
+                estop: [[i_l.2, '*', 1], +, [[1, -, i_l.1], '*', 2], +, [i_h.0, '*', 16], +, [i_h.1, '*', 32]]
+                start: [[[1, -, i_l.3], '*', 1], +, [i_l.0, '*', 2], +, [[1, -, i_l.0], '*', i_l.1, '*', 4]]
+                <!-- modex: [i_l.4, +, i_l.5] -->
+                pedal: [i_l.4]
+                stick: [i_l.5]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0x06, 0x03, 0x00, 0x60, 0x00, 0x05, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0x06, 0x03, 0x0a, angular_neg, big, angular_pos, big, linear, big, i_h, i_l, modex, big, crc16, big]
+                angular_max: [angular_pos, +, angular_neg] #32640.0
+                angular_mid: [angular_max, '*', $(arg angular_mid)]
+                angular_mid_neg: [angular_max, -, angular_mid]
+              - name: odom
+                type: nav_msgs/Odometry
+                rate: $(arg rate)
+                enabled: $(arg use_odom)
+                mode: integral
+                wheel_base: $(arg wheel_base)
+                linear_x: [speed, '*', [cos, steering_angle]]
+                angular_z: [speed, '*', [sin, steering_angle], '/', wheel_base]
+                speed: [linear, '/', 3600]
+                steering_angle: [angular, '*', 3.14159, '/', 180, '*', 0.1]
+                frame_id: odom
+                child_frame_id: base_footprint
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0x06, 0x03, 0x00, 0x5d, 0x00, 0x02, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0x06, 0x03, 0x04, angular, big, linear, big, crc16, big]
+              - name: ackermann
+                type: ackermann_msgs/AckermannDrive
+                wheel_base: $(arg wheel_base)
+                linear: [speed, '*', 100]
+                angular: [steering_angle, '/', 3.14159, '*', 180, '*', 100]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0x06, 0x10, 0x0b, 0xb8, 0x00, 0x02, 0x04, linear, big, angular, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0x06, 0x10, 0x0b, 0xb8, len, big, crc16, big]
+              - name: cmd_vel
+                type: geometry_msgs/Twist
+                rate: $(arg rate)
+                wheel_base: $(arg wheel_base)
+                linear_min: 0.574 # 8.2*7%
+                linear_max: 2.87 # 8.2*35%
+                linear_mid: $(arg linear_mid) # 8.2*50%
+                plc_ratio: 100.0 # 0~1000/0-10(v) # 3200.0 # 0~32000/0-10(v)
+                speed_limit: $(arg speed_limit)
+                speed_goal: [sqrt, [[linear_x, '*', linear_x], +, [angular_z, '*', angular_z, '*', wheel_base, '*', wheel_base]], '*', [sign, [[sign, linear_x], +, 0.5]]]
+                speed_goal_limit: [min, [abs, speed_goal], [speed_limit, '*', [1, -, [[abs, steering_angle_goal], '/', 3.14159, '*', 1.33333]]], '*', [sign, speed_goal]]
+                steering_angle_goal: [atan, [angular_z, '*', wheel_base, '/', linear_x]] # steering_angle_goal: [atan, [angular_z, '*', wheel_base, '*', 0.9833, '/', linear_x]]
+                linear: [[linear_mid, -, [[[sqrt, [abs, speed, '*', 0.6]], '*', linear_max, +, 1], '*', linear_min, '*', [sign, speed]]], '*', plc_ratio] #1.2
+                angular_pos: [joy/angular_mid, -, [steering_angle, '/', 3.14159, '*', 0.7, '*', joy/angular_max]] #0.83
+                angular_neg: [joy/angular_mid_neg, +, [steering_angle, '/', 3.14159, '*', 0.7, '*', joy/angular_max]] #0.83
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0x06, 0x10, 0x00, 0x65, 0x00, 0x04, 0x08, joy_feedback_array/q_h, joy_feedback_array/q_l, linear, big, angular_pos, big, angular_neg, big, crc16, big]
+                    <!-- byte: [0x06, 0x10, 0x00, 0x65, 0x00, 0x06, 0x0c, joy_feedback_array/q_h, joy_feedback_array/q_l, linear, big, angular_pos, big, angular_neg, big, 0x00, 0x00, joy_feedback_array/lift_height, big, crc16, big] -->
+                  - name: plc_port
+                    type: read
+                    byte: [0x06, 0x10, 0x00, 0x65, len, big, crc16, big]
+                speed: 0.0
+                steering_angle: 0.0
+                speed_step: 1.5
+                steering_angle_step: 0.15
+                poll: [[speed, speed_step, speed_goal_limit], [steering_angle, steering_angle_step, steering_angle_goal]]
+              - name: joy_feedback_array
+                type: sensor_msgs/JoyFeedbackArray
+                itype: 0
+                id: 0
+                enum_intensity: [itype, axes, buttons]
+                enum_axes: [id, linear_y, linear_x, joy_lt, angular_z, linear_z, joy_rt, angular_y, angular_x]
+                enum_buttons: [id, enable, buzzer, dump, load, joy_lb, joy_rb, estop, start, modex, pedal, stick]
+                <!-- q_h: [[[sign, [abs, cmd_vel/speed]], '*', 4], +, [buzzer.0, '*', 8], +, [dump.0, '*', 16], +, [load.0, '*', 32], +, [estop.0, '*', 64], +, [start.0, '*', 128]] -->
+                <!-- q_l: [[start.2, '*', 1], +, [start.2, '*', 2], +, [start.2, '*', 4]] -->
+                q_h: [[[sign, [abs, cmd_vel/speed]], '*', 4], +, [buzzer.0, '*', 8], +, [dump.0, '*', 16], +, [load.0, '*', 32]]
+                q_l: [[joy_lb.0, '*', 1], +, [joy_rb.0, '*', 2], +, [estop.0, '*', 4], +, [start.0, '*', 8]]
+                <!-- lift_height: [700, +, [500, '*', [load, -, dump]]] -->
+              - name: diagnostics
+                type: publish
+        </rosparam>
+    </node>
+
+    <node if="$(arg hrg_drive)" name="rosbridge_plc$(arg name)" pkg="rosbridge_driver" type="rosbridge_driver" output="screen">
+        <param name="plc_port" value="$(arg port)" />
+        <param name="debug_io" value="$(arg debug)" />
+        <rosparam subst_value="true">
+            port_chain:
+              - name: plc_port
+                type: serial
+                timeout: 0.5
+                respawn: false
+            topic_chain:
+              - name: odom
+                type: nav_msgs/Odometry
+                rate: $(arg rate)
+                child_frame_id: base_footprint
+                yaw_covariance: 5.0
+                mode: integral
+                wheel_encoder: $(arg wheel_encoder)
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x03, 0x01, 0x7c, 0x00, 0x04, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x03, 0x08, vel_left, big, little, big, vel_right, big, little, big, crc16, big]
+                    except: [0xf1, 0x83, errno, crc16, big]
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x03, 0x01, 0x9a, 0x00, 0x04, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x03, 0x08, pos_left, big, little, big, pos_right, big, little, big, crc16, big]
+                    except: [0xf1, 0x83, errno, crc16, big]
+                calc: [diff_left, diff_right, diff_x, diff_yaw, linear_x, angular_z]
+                calc_diff_left: [[diff, pos_left], '*', 10.0]
+                calc_diff_right: [[diff, pos_right], '*', 10.0]
+                calc_diff_x: [diff_left, -, diff_right, '*', 0.5, '/', $(arg wheel_ratio)]
+                calc_diff_yaw: [-, diff_left, -, diff_right, '/', $(arg wheel_base), '*', 0.5, '/', $(arg wheel_ratio)]
+                calc_linear_x: [vel_left, -, vel_right, '*', 0.5, '/', $(arg wheel_ratio)]
+                calc_angular_z: [-, vel_left, -, vel_right, '/', $(arg wheel_base), '*', 0.5, '/', $(arg wheel_ratio)]
+              - name: cmd_vel
+                type: geometry_msgs/Twist
+                vel_left: [linear_x, -, [angular_z, '*', $(arg wheel_base)], '*', $(arg wheel_ratio)]
+                vel_right: [-, linear_x, -, [angular_z, '*', $(arg wheel_base)], '*', $(arg wheel_ratio)]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x10, 0x01, 0x5e, 0x00, 0x04, 0x08, vel_left, big, little, big, vel_right, big, little, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x10, 0x01, 0x5e, len, big, crc16, big]
+              - name: waypoint_user_pub
+                type: subscribe
+                rate: $(arg rate)
+              - name: state_lift_legacy
+                type: diagnostic_msgs/DiagnosticArray
+                <!-- rate: 1.0 -->
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x03, 0x01, 0xcc, 0x00, 0x01, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x03, 0x02, state_lift, big, crc16, big]
+                values: [state_lift]
+
+              - name: lift_stop_vel
+                vel: 0.0
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x10, 0x01, 0x62, 0x00, 0x02, 0x04, vel, big, little, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x10, 0x01, 0x62, len, big, crc16, big]
+              - name: lift_dump_vel
+                vel: [$(arg lift_dump_vel), '*', $(arg lift_ratio), '*', 1000.0]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x10, 0x01, 0x62, 0x00, 0x02, 0x04, vel, big, little, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x10, 0x01, 0x62, len, big, crc16, big]
+              - name: lift_load_vel
+                vel: [$(arg lift_load_vel), '*', $(arg lift_ratio), '*', -1000.0]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x10, 0x01, 0x62, 0x00, 0x02, 0x04, vel, big, little, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x10, 0x01, 0x62, len, big, crc16, big]
+              - name: lift_home_pos
+                pos: 0
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x03, 0x01, 0x9e, 0x00, 0x02, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x03, 0x04, pos, big, little, big, crc16, big]
+                    except: [0xf1, 0x83, errno, crc16, big]
+              - name: lift_bias_pos
+                vel: [$(arg lift_load_vel), '*', $(arg lift_ratio), '*', -1000.0]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x10, 0x01, 0x62, 0x00, 0x02, 0x04, vel, big, little, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x10, 0x01, 0x62, len, big, crc16, big]
+              - name: lift_dump_pos
+                vel: [$(arg lift_dump_vel), '*', $(arg lift_ratio), '*', 1000.0]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x10, 0x01, 0x62, 0x00, 0x02, 0x04, vel, big, little, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x10, 0x01, 0x62, len, big, crc16, big]
+              - name: lift_load_pos
+                vel: [$(arg lift_load_vel), '*', $(arg lift_ratio), '*', -1000.0]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x10, 0x01, 0x62, 0x00, 0x02, 0x04, vel, big, little, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x10, 0x01, 0x62, len, big, crc16, big]
+
+              - name: charge_status
+                type: event
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x03, 0x00, 0xeb, 0x00, 0x01, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x03, 0x02, charge_status, big, crc16, big]
+                echo: [charge_status]
+              - name: read_status
+                type: event
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x03, 0x01, 0xcc, 0x00, 0x02, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x03, 0x04, lift_status, big, estop_status, big, crc16, big]
+                echo: [lift_status, estop_status]
+              - name: pub_lift_rotate
+                type: event
+                rot_vel: 0
+                roar: [rot_vel]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x10, 0x01, 0x64, 0x00, 0x02, 0x04, rot_vel, big, big, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x10, 0x01, 0x64, len, big, crc16, big]
+              - name: pub_auto_charge
+                type: event
+                enable: 0
+                roar: [enable]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x10, 0x01, 0x68, 0x00, 0x01, 0x02, enable, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x10, 0x01, 0x68, len, big, crc16, big]
+              - name: diagnostics
+                type: diagnostic_msgs/DiagnosticArray
+                rate: 1.0
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x03, 0x00, 0xe8, 0x00, 0x03, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x03, 0x06, estop_5, big, start_0, big, estop_0, big, crc16, big]
+                estop: [[[1, -, estop_0], '*', 1], +, [[1, -, estop_5], '*', 32]]
+                iname: estop/base
+                level: [sign, [estop.0, +, estop.5]]
+                values: [estop]
+              - name: state_lift
+                type: diagnostic_msgs/DiagnosticArray
+                <!-- rate: 1.0 -->
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x03, 0x01, 0x9e, 0x00, 0x02, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x03, 0x04, pos, big, little, big, crc16, big]
+                pos_real: [[pos, -, lift_home_pos/pos], '/', $(arg lift_ratio), '/', -100.0]
+                values: [pos_real]
+        </rosparam>
+    </node>
+
+    <node if="$(arg hrg_drive_imu)" name="rosbridge_drive$(arg name)" pkg="rosbridge_driver" type="rosbridge_driver" output="screen">
+        <param name="plc_port" value="$(arg port)" />
+        <param name="debug_io" value="$(arg debug)" />
+        <rosparam subst_value="true">
+            port_chain:
+              - name: plc_port
+                type: serial
+                serial_baud: 115200
+                serial_stop: 1
+                timeout: 0.5
+                respawn: false
+            topic_chain:
+              - name: odom
+                type: nav_msgs/Odometry
+                rate: $(arg rate)
+                child_frame_id: base_footprint
+                yaw_covariance: 5.0
+                mode: integral
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x03, 0x01, 0x9a, 0x00, 0x10, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x03, 0x20, vel_left, big, big, big, vel_right, big, big, big, imu/gyr_z, big, big, big, mag_left, big, big, big, mag_center, big, big, big, mag_right, big, big, big, pos_left, big, big, big, pos_right, big, big, big, crc16, big]
+                calc: [diff_left, diff_right, diff_x, diff_yaw, linear_x, angular_z]
+                calc_diff_left: [[diff, pos_left], '*', 10.0]
+                calc_diff_right: [[diff, pos_right], '*', 10.0]
+                calc_diff_x: [diff_left, -, diff_right, '*', 0.5, '/', $(arg wheel_ratio)]
+                calc_diff_yaw: [-, diff_left, -, diff_right, '/', $(arg wheel_base), '*', 0.5, '/', $(arg wheel_ratio)]
+                calc_linear_x: [vel_left, -, vel_right, '*', 0.5, '/', $(arg wheel_ratio)]
+                calc_angular_z: [-, vel_left, -, vel_right, '/', $(arg wheel_base), '*', 0.5, '/', $(arg wheel_ratio)]
+              - name: imu
+                type: sensor_msgs/Imu
+                rate: $(arg rate)
+                frame_id: base_imu
+                gyr_ratio: 0.00001
+                angular_velocity_z: [gyr_z, '*', gyr_ratio]
+              - name: cmd_vel
+                type: geometry_msgs/Twist
+                vel_left: [linear_x, -, [angular_z, '*', $(arg wheel_base)], '*', $(arg wheel_ratio)]
+                vel_right: [-, linear_x, -, [angular_z, '*', $(arg wheel_base)], '*', $(arg wheel_ratio)]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x10, 0x01, 0x5e, 0x00, 0x04, 0x08, vel_left, big, big, big, vel_right, big, big, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x10, 0x01, 0x5e, len, big, crc16, big]
+              - name: waypoint_user_pub
+                type: subscribe
+                rate: $(arg rate)
+              - name: state_lift
+                type: diagnostic_msgs/DiagnosticArray
+                <!-- rate: 1.0 -->
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x03, 0x01, 0xcc, 0x00, 0x01, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x03, 0x02, state_lift, big, crc16, big]
+                values: [state_lift]
+
+              - name: lift_dump_pos
+                down_vel: 100
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x10, 0x01, 0x62, 0x00, 0x02, 0x04, down_vel, big, big, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x10, 0x01, 0x62, len, big, crc16, big]
+              - name: lift_load_pos
+                up_vel: -100
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x10, 0x01, 0x62, 0x00, 0x02, 0x04, up_vel, big, big, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x10, 0x01, 0x62, len, big, crc16, big]
+
+              - name: charge_status
+                type: event
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x03, 0x00, 0xeb, 0x00, 0x01, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x03, 0x02, charge_status, big, crc16, big]
+                echo: [charge_status]
+
+              - name: read_status
+                type: event
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x03, 0x01, 0xcc, 0x00, 0x02, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x03, 0x04, lift_status, big, estop_status, big, crc16, big]
+                echo: [lift_status, estop_status]
+
+              - name: pub_lift_down
+                type: event
+                down_vel: -100
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x10, 0x01, 0x62, 0x00, 0x02, 0x04, down_vel, big, big, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x10, 0x01, 0x62, 0x00, 0x04, crc16, big]
+
+              - name: pub_lift_rotate
+                type: event
+                rot_vel: 0
+                roar: [rot_vel]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x10, 0x01, 0x64, 0x00, 0x02, 0x04, rot_vel, big, big, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x10, 0x01, 0x64, 0x00, 0x04, crc16, big]
+
+              - name: pub_auto_charge
+                type: event
+                enable: 0
+                roar: [enable]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xf1, 0x10, 0x01, 0x68, 0x00, 0x01, 0x02, enable, big, crc16, big]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf1, 0x10, 0x01, 0x68, 0x00, 0x02, crc16, big]
+        </rosparam>
+    </node>
+
+    <node name="rosbridge_plc$(arg name)" pkg="rosbridge_driver" type="rosbridge_driver" output="screen" if="$(arg siemens_tcp_server_hrg)">
+        <param name="plc_port" value="$(arg port)" />
+        <param name="plc_server_port" value="$(arg port)" />
+        <param name="debug_io" value="$(arg debug)" />
+        <rosparam subst_value="true">
+            port_chain:
+              - name: plc_server_port
+                type: socket
+                ip_port: 3000
+              - name: plc_port
+                type: socket
+                ip_bind: plc_server_port
+            topic_chain:
+              - name: waypoint_user_pub
+                type: subscribe
+                rate: 20.0
+              - name: joy
+                type: sensor_msgs/Joy
+                rate: 20.0
+                int_enable: -1
+                int_m12.1_k: -1.0
+                int_m12.3_k: -1.0
+                linear_x_sum: [m12.0, m12.1]
+                angular_z_sum: [m12.2, m12.3]
+                byte_dump: [int_m12.5, int_m12.7]
+                byte_load: [int_m12.4, int_m12.6]
+                byte_joy_lb: [int_m11.2, int_m11.4]
+                byte_joy_rb: [int_m11.1, int_m11.3]
+                byte_estop: [int_m10.4, int_m10.3, int_m10.0]
+                byte_modex: [int_m11.5, int_m11.6]
+                axes: [linear_y, linear_x, enable, angular_z, linear_z, enable, angular_y, angular_x]
+                buttons: [enable, buzzer, dump, load, joy_lb, joy_rb, estop, start, modex, pedal, stick]
+                action_chain:
+                  - name: plc_port
+                    type: read
+                    byte: [0xff, 0x10, int_m10, int_m11, int_m12, int_m13, battery1, battery2, battery3, battery4]
+                    lock: true
+              - name: joy_feedback_array
+                type: sensor_msgs/JoyFeedbackArray
+                rate: 10.0
+                int_m14: 0x00
+                int_m15: 0x00
+                itype: 0
+                id: 0
+                enum_intensity: [itype, axes, buttons]
+                enum_axes: [id, linear_y, linear_x, enable, angular_z, linear_z, enable, angular_y, angular_x]
+                enum_int_buttons: [id, enable, buzzer, dump, load, joy_lb, joy_rb, estop, start, modex, pedal, stick]
+                byte_dump: [int_m14.3, int_m14.5]
+                byte_load: [int_m14.2, int_m14.4]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0xff, 0x03, int_m14, int_m15]
+                    lock: false
+              - name: diagnostics
+                type: publish
+        </rosparam>
+    </node>
+
+    <node name="rosbridge_plc$(arg name)" pkg="rosbridge_driver" type="rosbridge_driver" output="screen" if="$(arg siemens_tcp_client_hrg)">
+        <param name="plc_port" value="$(arg port)" />
+        <param name="debug_io" value="$(arg debug)" />
+        <rosparam subst_value="true">
+            port_chain:
+              - name: plc_port
+                type: socket
+                ip_address: 192.168.250.1
+                ip_port: 9527
+            topic_chain:
+              - name: waypoint_user_pub
+                type: subscribe
+                rate: 20.0
+              - name: joy
+                type: sensor_msgs/Joy
+                rate: 20.0
+                int_enable: -1
+                int_m12.1_k: -1.0
+                int_m12.3_k: -1.0
+                linear_x_sum: [m12.0, m12.1]
+                angular_z_sum: [m12.2, m12.3]
+                byte_dump: [int_m12.5, int_m12.7]
+                byte_load: [int_m12.4, int_m12.6]
+                byte_joy_lb: [int_m11.2, int_m11.4]
+                byte_joy_rb: [int_m11.1, int_m11.3]
+                byte_estop: [int_m10.4, int_m10.3, int_m10.0]
+                byte_modex: [int_m11.5, int_m11.6]
+                axes: [linear_y, linear_x, enable, angular_z, linear_z, enable, angular_y, angular_x]
+                buttons: [enable, buzzer, dump, load, joy_lb, joy_rb, estop, start, modex, pedal, stick]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x03, 0x00, 0x00, 0x00, 0x03]
+                  - name: plc_port
+                    type: read
+                    byte: [0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0x00, 0x03, 0x06, int_m10, int_m11, int_m12, int_m13, int_m14, int_m15]
+              - name: joy_feedback_array
+                type: sensor_msgs/JoyFeedbackArray
+                int_m14: 0x00
+                int_m15: 0x00
+                itype: 0
+                id: 0
+                enum_intensity: [itype, axes, buttons]
+                enum_axes: [id, linear_y, linear_x, enable, angular_z, linear_z, enable, angular_y, angular_x]
+                enum_int_buttons: [id, enable, buzzer, dump, load, joy_lb, joy_rb, estop, start, modex, pedal, stick]
+                byte_dump: [int_m14.3, int_m14.5]
+                byte_load: [int_m14.2, int_m14.4]
+                byte_start: [int_m14.7]
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0x00, 0x10, 0x00, 0x02, 0x00, 0x01, 0x02, int_m14, int_m15]
+                  - name: plc_port
+                    type: read
+                    byte: [0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x10, 0x00, 0x02, 0x00, 0x01]
+        </rosparam>
+    </node>
+
+    <node name="rosbridge_plc$(arg name)" pkg="rosbridge_driver" type="rosbridge_driver" output="screen" if="$(arg bjsmi)">
+        <remap from="odometry" to="odom" />
+        <param name="plc_port" value="$(arg port)" />
+        <param name="debug_io" value="$(arg debug)" />
+        <rosparam subst_value="true">
+            port_chain:
+              - name: plc_port
+                type: serial
+                serial_baud: 38400
+                serial_stop: 1
+                int_linear_x2: 0
+                int_linear_y: 0
+                int_angular_z: 0
+                chasis_state2: 1
+                control_mode2: 0
+                roll_flag: 0
+                motion_bias: 0
+                lidar_flag: 0
+                lift_mode: 0
+                lift_height: 0
+                reversed: 0
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0x02, int_linear_y, little, int_linear_x2, little, int_angular_z, little, chasis_state2, control_mode2, roll_flag, motion_bias, lidar_flag, 0x01, 0x00, lift_mode, lift_height, little, reversed, xor8, 0x03]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf0, int_linear_y, little, int_linear_x, little, int_angular_z, little, chasis_state, control_mode, lift_sensor, function_state, battery_ratio, error_drive, error_lift, bumper_state, mag_state, lidar_left, little, lidar_right, little, lift_left, little, lift_right, little, sum_test, 0xe1]
+            topic_chain:
+              - name: waypoint_user_pub
+                type: subscribe
+                rate: 20.0
+              - name: cmd_vel
+                type: geometry_msgs/Twist
+                linear_x_k: 1000.0
+                linear_y_k: -1000.0
+                angular_z_k: 1000.0
+                int_linear_x: 0
+                int_linear_y: 0
+                int_angular_z: 0
+                chasis_statex: 2
+                control_modex: 0
+                roll_flag: 0
+                motion_bias: 0
+                lidar_flag: 0
+                lift_mode: 0
+                lift_height: 0
+                reversed: 0
+              - name: odometry
+                type: nav_msgs/Odometry
+                rate: 10.0
+                mode: integral
+                linear_x_k: 0.001
+                linear_y_k: -0.001
+                angular_z_k: 0.001
+                friend: cmd_vel
+                frame_id: odom
+                child_frame_id: base_footprint
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0x02, cmd_vel/int_linear_y, little, cmd_vel/int_linear_x, little, cmd_vel/int_angular_z, little, chasis_statex, control_modex, roll_flag, motion_bias, lidar_flag, 0x01, 0x00, lift_mode, lift_height, little, reversed, xor8, 0x03]
+                  - name: plc_port
+                    type: read
+                    byte: [0xf0, int_linear_y, little, int_linear_x, little, int_angular_z, little, chasis_state, control_mode, lift_sensor, function_state, battery_ratio, error_drive, error_lift, bumper_state, mag_state, lidar_left, little, lidar_right, little, lift_left, little, lift_right, little, sum_test, 0xe1]
+              - name: diagnostics
+                type: publish
+        </rosparam>
+    </node>
+</launch>

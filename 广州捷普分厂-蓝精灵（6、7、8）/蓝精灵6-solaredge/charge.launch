@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="charging_pile_detector" pkg="shelf_detector" type="charging_pile_detector.py" output="screen" >
+   <param name="consider_front_range" value="1.3" />
+   <param name="view_start" value="1.22" />
+   <param name="view_end" value="1.91" />
+   <param name="consider_side_range" value="0.5" />
+
+   <param name="raius_error" value="0.01" />
+   <param name="charging_pile_radius" value="0.063" />
+  </node>
+</launch>

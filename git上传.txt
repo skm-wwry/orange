@@ -1,0 +1,26 @@
+git上传
+1. npm run build  打包
+2. git add --all      监听文件
+3. git commit -m "" 添加描述
+4. git push origin master 提交
+
+
+获取最新文件
+git add --all      监听文件
+git commit -m "" 添加描述
+git pull origin master 获取
+
+
+代码回滚
+git reflog  查看版本号
+git reset --hard f3696ee 回滚版本号
+
+
+强制提交
+git push -u origin master -f 可有可无-f
+
+查看分支
+git branch -v
+
+切换分支
+git checkout 分支名

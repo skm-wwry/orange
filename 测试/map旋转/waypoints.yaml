@@ -1,0 +1,5 @@
+waypoints:
+  - name: init
+    failure_mode: init_cb
+    type: call
+trajectories:

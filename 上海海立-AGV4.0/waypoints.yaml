@@ -1,0 +1,199 @@
+waypoints:
+  - name: init
+    failure_mode: init_cb
+    type: call
+  - name: home_point
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: -0.35
+        y: 27.43
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: charge_point
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: -0.08
+        y: 27.43
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: test_1
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: 0
+        y: 30.15
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: test_2
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: -0.332
+        y: 9.14
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: test_2_c
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: -0.925
+        y: 8.54
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: do_forward
+    homing_goal: base_link
+    type: homing_control
+    x_goal: 0.55
+    y_goal: 0.0
+    yaw_goal: 0.0
+  - name: do_backward
+    homing_goal: base_link
+    type: homing_control
+    x_goal: -0.5
+    y_goal: 0.0
+    yaw_goal: 0.0
+  - name: do_backward_85
+    homing_goal: base_link
+    type: homing_control
+    x_goal: -0.85
+    y_goal: 0.0
+    yaw_goal: 0.0
+  - name: wait2s
+    goal_timeout: 2
+    type: timer
+  - name: pub_lighthouse_navigation_on
+    goal_timeout: 2
+    type: shell
+  - name: lighthouse_navigation_finished
+    close_enough: 0
+    failure_mode: LOOP
+    goal_timeout: 0
+    type: subscriber
+  - name: pub_lighthouse_navigation_off
+    goal_timeout: 2
+    type: shell
+  - name: turn_back
+    homing_goal: base_link
+    type: homing_control
+    x_goal: 0.0
+    y_goal: 0.0
+    yaw_goal: -3.15
+  - name: dock_back_fast
+    close_enough: -0.015
+    type: cmd_vel
+  - name: charge_status
+    failure_mode: 1
+    goal_timeout: 13
+    type: pubsuber
+  - name: dock_back_slow
+    close_enough: -0.004
+    type: cmd_vel
+  - name: stop_agv
+    close_enough: 0.0
+    type: cmd_vel
+  - name: waitBB2
+    failure_mode: 2
+    type: pubsuber
+  - name: waitBB4
+    failure_mode: 4
+    type: pubsuber
+trajectories:
+  - name: AA1
+    waypoints:
+    - do_backward
+    - test_2
+  - name: AA2
+    waypoints:
+    - test_1
+    - wait2s
+    - do_forward
+  - name: AA3
+    waypoints:
+    - charge_point
+    - pub_lighthouse_navigation_on
+    - lighthouse_navigation_finished
+    - pub_lighthouse_navigation_off
+    - wait2s
+    - turn_back
+    - dock_back_fast
+    - charge_status
+    - dock_back_slow
+    - wait2s
+    - stop_agv
+  - name: AA4
+    waypoints:
+    - test_1
+    - wait2s
+    - do_forward
+  - name: BB1
+    waypoints:
+    - test_1
+    - wait2s
+    - do_backward
+    - waitBB2
+    - test_2
+    - do_backward_85
+    - waitBB4
+    - charge_point
+    - pub_lighthouse_navigation_on
+    - lighthouse_navigation_finished
+    - pub_lighthouse_navigation_off
+    - wait2s
+    - turn_back
+    - dock_back_fast
+    - charge_status
+    - dock_back_slow
+    - wait2s
+    - stop_agv
+  - name: BB3
+    waypoints:
+    - test_1
+    - wait2s
+    - do_backward
+    - waitBB2
+    - test_2
+    - do_backward_85
+    - waitBB4
+    - charge_point
+    - pub_lighthouse_navigation_on
+    - lighthouse_navigation_finished
+    - pub_lighthouse_navigation_off
+    - wait2s
+    - turn_back
+    - dock_back_fast
+    - charge_status
+    - dock_back_slow
+    - wait2s
+    - stop_agv

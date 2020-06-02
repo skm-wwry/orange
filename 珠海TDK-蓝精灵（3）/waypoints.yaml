@@ -1,0 +1,555 @@
+waypoints:
+  - name: door_open
+    type: publisher
+  - name: door_close
+    type: publisher
+  - name: do_forward
+    homing_goal: base_link
+    type: homing_control
+    x_goal: 0.8
+    y_goal: 0.0
+    yaw_goal: 0.0
+  - name: do_forward_left
+    homing_goal: base_link
+    type: homing_control
+    x_goal: 0.3
+    y_goal: 0.0
+    yaw_goal: 0.0
+  - name: wait3s
+    goal_timeout: 1
+    type: timer
+  - name: corridor_max_x
+    node: /move_base/TebLocalPlannerROS
+    op: dynparam
+    param: max_vel_x
+    type: double
+    value: 0.3
+  - name: space_max_x
+    node: /move_base/TebLocalPlannerROS
+    op: dynparam
+    param: max_vel_x
+    type: double
+    value: 0.55
+  - name: agv_max_x
+    node: /move_base/TebLocalPlannerROS
+    op: dynparam
+    param: max_vel_x
+    type: double
+    value: 0.6
+  - name: corridor_max_theta
+    node: /move_base/TebLocalPlannerROS
+    op: dynparam
+    param: max_vel_theta
+    type: double
+    value: 0.06
+  - name: space_max_theta
+    node: /move_base/TebLocalPlannerROS
+    op: dynparam
+    param: max_vel_theta
+    type: double
+    value: 0.4
+  - name: corridor_acc_x
+    node: /move_base/TebLocalPlannerROS
+    op: dynparam
+    param: acc_lim_x
+    type: double
+    value: 0.1
+  - name: space_acc_x
+    node: /move_base/TebLocalPlannerROS
+    op: dynparam
+    param: acc_lim_x
+    type: double
+    value: 0.2
+  - name: corridor_acc_theta
+    node: /move_base/TebLocalPlannerROS
+    op: dynparam
+    param: acc_lim_theta
+    type: double
+    value: 0.06
+  - name: space_acc_theta
+    node: /move_base/TebLocalPlannerROS
+    op: dynparam
+    param: acc_lim_theta
+    type: double
+    value: 0.12
+  - name: corridor_epsilon
+    node: /move_base/TebLocalPlannerROS
+    op: dynparam
+    param: penalty_epsilon
+    type: double
+    value: 0.05
+  - name: space_epsilon
+    node: /move_base/TebLocalPlannerROS
+    op: dynparam
+    param: penalty_epsilon
+    type: double
+    value: 0.1
+  - name: corridor_weight_viapoint
+    node: /move_base/TebLocalPlannerROS
+    op: dynparam
+    param: weight_viapoint
+    type: double
+    value: 1000
+  - name: space_weight_viapoint
+    node: /move_base/TebLocalPlannerROS
+    op: dynparam
+    param: weight_viapoint
+    type: double
+    value: 2
+  - name: corridor_global_sep
+    node: /move_base/TebLocalPlannerROS
+    op: dynparam
+    param: global_plan_viapoint_sep
+    type: double
+    value: 0.25
+  - name: space_global_sep
+    node: /move_base/TebLocalPlannerROS
+    op: dynparam
+    param: global_plan_viapoint_sep
+    type: double
+    value: 0.45
+  - name: corridor_wp
+    failure_mode: corridor_cb
+    type: call
+  - name: space_wp
+    failure_mode: space_cb
+    type: call
+  - name: open_door_wp
+    failure_mode: open_door_cp
+    type: call
+  - name: corridor_dec_distance
+    node: obstacle_avoidance
+    op: dynparam
+    param: decelerate_distance
+    type: double
+    value: 0.08
+  - name: space_dec_distance
+    node: obstacle_avoidance
+    op: dynparam
+    param: decelerate_distance
+    type: double
+    value: 0.8
+  - name: corridor_stop_distance
+    node: obstacle_avoidance
+    op: dynparam
+    param: stop_distance
+    type: double
+    value: 0.04
+  - name: space_stop_distance
+    node: obstacle_avoidance
+    op: dynparam
+    param: stop_distance
+    type: double
+    value: 0.6
+  - name: corridor_start_rad
+    node: obstacle_avoidance
+    op: dynparam
+    param: start_rad
+    type: double
+    value: 1.22
+  - name: space_start_rad
+    node: obstacle_avoidance
+    op: dynparam
+    param: start_rad
+    type: double
+    value: 0.01
+  - name: corridor_end_rad
+    node: obstacle_avoidance
+    op: dynparam
+    param: end_rad
+    type: double
+    value: 1.92
+  - name: space_end_rad
+    node: obstacle_avoidance
+    op: dynparam
+    param: end_rad
+    type: double
+    value: 3.14
+  - name: home_point
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 5.6
+        y: 7.909
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: charge_point
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 5.67
+        y: 7.909
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: TDK_Full_Docking
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 0.86
+        y: -0.076
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: TDK_Empty_back
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -21.15
+        y: 16.8
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: TDK_Empty_left
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -21.15
+        y: 16.8
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: path_site001
+    close_enough: 0.1
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 0.878
+        y: -1.21
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: Slow_down_go
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -14.7
+        y: -1.14
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: Slow_down_back
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -14.7
+        y: -1.14
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: Slow_go
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 1.047
+        y: -1.21
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: Slow_down_rl
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 1.047
+        y: -1.21
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: Slow_down_left
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -0.343
+        y: -2.469
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: enter_open_door
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -14.7
+        y: 14.305
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: out_open_door
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -19.1
+        y: 14.305
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: lift_load
+    echo: state_lift
+    key: pos_real
+    op: subscribe
+    poll: lift_load_pos
+    topic: state_lift
+    type: diagnostic_msgs/DiagnosticArray
+    value: =>0.028
+trajectories:
+  - name: TDK_Full_Feeding
+    waypoints:
+    - set_position_mode
+    - teb_agv_params_wp
+    - TDK_Full_Docking
+    - wait3s
+    - shelf_on
+    - wait5s
+    - homing_control
+    - shelf_off
+    - lift_up_wp
+    - wheel_rotate_left
+    - wait10s
+    - teb_shelf_params_wp
+    - Slow_go
+    - corridor_wp
+    - Slow_down_go
+    - wheel_dump_pos
+    - wait10s
+    - space_wp
+    - enter_open_door
+    - open_door_wp
+    - TDK_Empty_left
+    - lift_down_wp
+    - wheel_load_pos
+    - wait10s
+    - teb_agv_params_wp
+    - do_forward
+    - wait3s
+    - out_open_door
+    - open_door_wp
+    - Slow_down_back
+    - corridor_wp
+    - path_site001
+    - space_wp
+    - charge_point
+    - rotate_home_pos
+    - wait5s
+    - wait5s
+    - rotate_home_pos
+    - set_velocity_mode
+  - name: TDK_Empty_take
+    waypoints:
+    - set_position_mode
+    - teb_agv_params_wp
+    - Slow_go
+    - corridor_wp
+    - Slow_down_go
+    - space_wp
+    - enter_open_door
+    - open_door_wp
+    - TDK_Empty_back
+    - shelf_on
+    - wait5s
+    - homing_control
+    - shelf_off
+    - lift_up_wp
+    - wheel_rotate_left
+    - wait10s
+    - teb_shelf_params_wp
+    - out_open_door
+    - open_door_wp
+    - Slow_down_back
+    - corridor_wp
+    - Slow_down_rl
+    - space_wp
+    - wheel_dump_pos
+    - wait10s
+    - Slow_down_left
+    - lift_down_wp
+    - teb_agv_params_wp
+    - wheel_load_pos
+    - wait10s
+    - do_forward
+    - wait3s
+    - charge_point
+    - rotate_home_pos
+    - wait5s
+    - wait5s
+    - rotate_home_pos
+    - set_velocity_mode
+  - name: TDK_Full_Empty_back
+    waypoints:
+    - set_position_mode
+    - teb_agv_params_wp
+    - TDK_Full_Docking
+    - wait3s
+    - shelf_on
+    - wait5s
+    - homing_control
+    - shelf_off
+    - lift_up_wp
+    - wheel_rotate_left
+    - wait10s
+    - teb_shelf_params_wp
+    - Slow_go
+    - corridor_wp
+    - Slow_down_go
+    - wheel_dump_pos
+    - wait10s
+    - space_wp
+    - enter_open_door
+    - open_door_wp
+    - TDK_Empty_left
+    - lift_down_wp
+    - wheel_load_pos
+    - wait10s
+    - teb_agv_params_wp
+    - do_forward_left
+    - shelf_on
+    - wait5s
+    - homing_control
+    - shelf_off
+    - lift_up_wp
+    - wheel_rotate_left
+    - wait10s
+    - teb_shelf_params_wp
+    - out_open_door
+    - open_door_wp
+    - Slow_down_back
+    - corridor_wp
+    - Slow_down_rl
+    - space_wp
+    - wheel_dump_pos
+    - wait10s
+    - Slow_down_left
+    - lift_down_wp
+    - teb_agv_params_wp
+    - wheel_load_pos
+    - wait10s
+    - do_forward
+    - wait3s
+    - charge_point
+    - rotate_home_pos
+    - wait5s
+    - wait5s
+    - rotate_home_pos
+    - set_velocity_mode
+  - name: Back_Charge
+    waypoints:
+    - teb_agv_params_wp
+    - charge_point
+  - name: corridor_cb
+    waypoints:
+    - corridor_epsilon
+    - corridor_acc_theta
+    - corridor_acc_x
+    - corridor_max_x
+    - corridor_max_theta
+    - corridor_weight_viapoint
+    - corridor_global_sep
+    - corridor_start_rad
+    - corridor_end_rad
+  - name: space_cb
+    waypoints:
+    - space_epsilon
+    - space_acc_theta
+    - space_acc_x
+    - space_max_x
+    - space_max_theta
+    - space_weight_viapoint
+    - space_global_sep
+    - space_start_rad
+    - space_end_rad
+  - name: open_door_cp
+    waypoints:
+    - door_open
+    - wait3s
+    - door_open
+    - wait3s
+    - door_open

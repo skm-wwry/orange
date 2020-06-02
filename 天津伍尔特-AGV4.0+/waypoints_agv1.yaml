@@ -1,0 +1,2073 @@
+waypoints:
+  - name: lift_dump_limit
+    echo: state_lift_legacy
+    key: state_lift
+    op: subscribe
+    poll: lift_dump_vel
+    topic: state_lift_legacy
+    type: diagnostic_msgs/DiagnosticArray
+    value: 1
+  - name: init_pose
+    frame_id: map
+    home: init01
+    type: initial_pose
+  - name: relocate_shelf
+    type: local_marker
+    pose:
+      position:
+        x: 0
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: relocate_shelf2
+    type: local_marker
+    pose:
+      position:
+        x: 0
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: start
+    type: publisher
+  - name: stop
+    type: publisher
+  - name: lift_down_wp
+    failure_mode: lift_down_cb
+    type: call
+  - name: lift_up_wp
+    failure_mode: lift_up_cb
+    type: call
+  - name: box_filter_shelf_wp
+    failure_mode: box_filter_shelf_cb
+    type: call
+  - name: dwa_agv_params_wp
+    failure_mode: dwa_agv_params_cb
+    type: call
+  - name: dwa_shelf_params_wp
+    failure_mode: dwa_shelf_params_cb
+    type: call
+  - name: bz_docking_params_wp
+    failure_mode: bz_docking_params_cb
+    type: call
+  - name: bz_nav_params_wp
+    failure_mode: bz_nav_params_cb
+    type: call
+  - name: sm_docking_wp
+    failure_mode: sm_docking_cb
+    type: call
+  - name: shelf_pickup_wp
+    failure_mode: inno_shelf_pickup
+    type: call
+  - name: shelf_putdown_wp
+    failure_mode: inno_shelf_putdown
+    type: call
+  - name: wait2s
+    goal_timeout: 5
+    type: timer
+  - name: wait30s
+    goal_timeout: 40
+    type: timer
+  - name: turn_go
+    close_enough: 0.2
+    failure_mode: LOOP
+    goal_timeout: 6
+    type: cmd_vel
+  - name: shelf_rotate
+    failure_mode: NONE
+    goal_timeout: 5
+    type: cmd_vel
+    pose:
+      position:
+        x: 0
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.6283
+        w: 0
+  - name: cmd_vel_back
+    failure_mode: NONE
+    goal_timeout: 7
+    type: cmd_vel
+    pose:
+      position:
+        x: -0.2
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: pub_lighthouse_navigation_on
+    goal_timeout: 2
+    type: shell
+  - name: pub_lighthouse_navigation_off
+    goal_timeout: 2
+    type: shell
+  - name: pub_lighthouse_in_map
+    goal_timeout: 2
+    type: shell
+  - name: shelf_global_footprint
+    node: move_base/global_costmap
+    op: dynparam
+    param: footprint
+    type: array
+    value: '[[0.45, -0.36], [0.45, 0.36], [-0.45, 0.36], [-0.45, -0.36]]'
+  - name: shelf_local_footprint
+    node: move_base/local_costmap
+    op: dynparam
+    param: footprint
+    type: array
+    value: '[[0.45, -0.36], [0.45, 0.36], [-0.45, 0.36], [-0.45, -0.36]]'
+  - name: agv_global_footprint
+    node: move_base/global_costmap
+    op: dynparam
+    param: footprint
+    type: array
+    value: '[[0.347, -0.26], [0.347, 0.26], [-0.342, 0.26], [-0.342, -0.26]]'
+  - name: agv_local_footprint
+    node: move_base/local_costmap
+    op: dynparam
+    param: footprint
+    type: array
+    value: '[[0.347, -0.26], [0.347, 0.26], [-0.342, 0.26], [-0.342, -0.26]]'
+  - name: dynparam_lighthouse_triangle
+    node: lighthouse_recognize
+    op: dynparam
+    param: type_and_one_side_length
+    type: str
+    value: triangle:0.19
+  - name: dynparam_lighthouse_reflector
+    node: lighthouse_recognize
+    op: dynparam
+    param: type_and_one_side_length
+    type: str
+    value: reflector:0.15
+  - name: pub_lighthouse_shelf_offset
+    goal_timeout: 2
+    type: shell
+  - name: pub_lighthouse_charge_offset
+    goal_timeout: 2
+    type: shell
+  - name: lighthouse_navigation_finished
+    close_enough: 0
+    failure_mode: LOOP
+    goal_timeout: 0
+    type: subscriber
+  - name: turn_back
+    close_enough: 0.0
+    failure_mode: LOOP
+    frame_id: base_link
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 0
+        y: 0
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: dock_back_fast
+    close_enough: -0.015
+    type: cmd_vel
+  - name: dock_back_slow
+    close_enough: -0.008
+    type: cmd_vel
+  - name: stop_agv
+    close_enough: 0.0
+    type: cmd_vel
+  - name: charge_status
+    failure_mode: 1
+    goal_timeout: 9
+    type: pubsuber
+  - name: sleep2s
+    close_enough: 0
+    failure_mode: NONE
+    goal_timeout: 2
+    type: timer
+  - name: fetch_01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.502631
+        y: -29.2354
+        z: -0.000361879
+      orientation:
+        x: 9.0199e-06
+        y: -0.000516501
+        z: 0.99989
+        w: -0.0147942
+  - name: L1
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 47.8642
+        y: 36.5237
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: -0.701108
+        w: 0.713055
+  - name: fetch_02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.360597
+        y: -21.6766
+        z: -0.00163309
+      orientation:
+        x: 0.00132829
+        y: -0.00106049
+        z: 0.999537
+        w: -0.0303873
+  - name: fetch_03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.150481
+        y: -14.1386
+        z: -0.000975867
+      orientation:
+        x: -0.00024444
+        y: -0.00112379
+        z: 0.999795
+        w: -0.0202195
+  - name: fetch_04
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -0.0150721
+        y: -6.55746
+        z: -0.00216769
+      orientation:
+        x: 0.00149475
+        y: -0.000518239
+        z: 0.999915
+        w: -0.0129253
+  - name: fetch_05
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -0.373732
+        y: 0.878174
+        z: -0.00137419
+      orientation:
+        x: 0.0013581
+        y: -0.00188717
+        z: 0.999541
+        w: -0.0302063
+  - name: fetch_06
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -0.38775
+        y: 8.53403
+        z: -5.00425e-05
+      orientation:
+        x: 0.000420038
+        y: 0.000119027
+        z: 0.999318
+        w: -0.0369265
+  - name: fetch_07
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -0.519888
+        y: 16.0126
+        z: -0.00124859
+      orientation:
+        x: 0.000294565
+        y: -0.000781683
+        z: 0.999936
+        w: -0.0113263
+  - name: fetch_08
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -0.569383
+        y: 23.5143
+        z: -0.000579535
+      orientation:
+        x: -7.43497e-05
+        y: -0.000347667
+        z: 0.999955
+        w: 0.00947314
+  - name: fetch_09
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -0.655036
+        y: 31.0436
+        z: -0.000689197
+      orientation:
+        x: 0.00264649
+        y: -0.00118075
+        z: 0.999915
+        w: -0.0127429
+  - name: turning_point_02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.60783
+        y: 37.122
+        z: -0.000838595
+      orientation:
+        x: 0.0021198
+        y: -0.000929594
+        z: 0.0210333
+        w: 0.999776
+  - name: turning_point_03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 3.96375
+        y: 37.3084
+        z: -0.000760545
+      orientation:
+        x: -0.000877552
+        y: -0.00524592
+        z: 0.00792576
+        w: 0.999954
+  - name: turning_point_04
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 9.89309
+        y: 37.3421
+        z: 0.00125023
+      orientation:
+        x: 0.00115787
+        y: 0.000568647
+        z: -0.00495623
+        w: 0.999987
+  - name: turning_point_05
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 12.8172
+        y: 37.3326
+        z: -0.00032162
+      orientation:
+        x: 0.0138395
+        y: 0.000486602
+        z: 0.00935947
+        w: 0.99986
+  - name: turning_point_06
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 33.4164
+        y: 27.1272
+        z: -0.00032162
+      orientation:
+        x: -0.00473729
+        y: -0.00475619
+        z: -0.693107
+        w: 0.720803
+  - name: turning_point_07
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 15.9146
+        y: 36.9115
+        z: 0.00111244
+      orientation:
+        x: -0.00191205
+        y: -0.00369661
+        z: 0.0112031
+        w: 0.999929
+  - name: turning_point_08
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 32.8599
+        y: 37.0643
+        z: 0.00066445
+      orientation:
+        x: 0.000170563
+        y: -0.00863861
+        z: 0.0135864
+        w: 0.99987
+  - name: turning_point_14
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 23.1272
+        y: 19.6774
+        z: -0.00398426
+      orientation:
+        x: -0.00625591
+        y: 0.00131253
+        z: 0.999749
+        w: -0.0214684
+  - name: turning_point_15
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 15.5957
+        y: 19.8813
+        z: 0.000650071
+      orientation:
+        x: -0.00114913
+        y: 0.00377847
+        z: 0.999946
+        w: -0.00961101
+  - name: turning_point_16
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 10.5776
+        y: 20.2434
+        z: 0.00144784
+      orientation:
+        x: 0.0080135
+        y: 0.000953462
+        z: 0.999768
+        w: -0.0199632
+  - name: put_shelf_01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 36.3908
+        y: 36.5731
+        z: -3.34234e-06
+      orientation:
+        x: -0.000326611
+        y: 0.000204159
+        z: -0.682276
+        w: 0.731095
+  - name: put_shelf_02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 37.6624
+        y: 36.5861
+        z: -0.000752645
+      orientation:
+        x: 0.0040961
+        y: -0.0012816
+        z: -0.679894
+        w: 0.733298
+  - name: put_shelf_03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 41.6251
+        y: 36.5731
+        z: -3.34234e-06
+      orientation:
+        x: -0.000326611
+        y: 0.000204159
+        z: -0.682276
+        w: 0.731095
+  - name: put_shelf_04
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 42.9475
+        y: 36.5861
+        z: -0.000752645
+      orientation:
+        x: 0.0040961
+        y: -0.0012816
+        z: -0.679894
+        w: 0.733298
+  - name: put_before_01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 36.3834
+        y: 35.7986
+        z: 0.00197001
+      orientation:
+        x: 0.00086463
+        y: 5.96035e-06
+        z: -0.694148
+        w: 0.719832
+  - name: put_before_02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 37.6566
+        y: 35.6971
+        z: 0.000378594
+      orientation:
+        x: -0.00795921
+        y: -0.00484732
+        z: -0.695474
+        w: 0.71849
+  - name: put_before_03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 41.64
+        y: 35.578
+        z: 0.000838343
+      orientation:
+        x: -0.000911432
+        y: 0.00123414
+        z: -0.71364
+        w: 0.700511
+  - name: put_before_04
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 42.9421
+        y: 35.6707
+        z: 0.000952583
+      orientation:
+        x: 0.00131683
+        y: 0.000107472
+        z: -0.70418
+        w: 0.71002
+  - name: put_01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 36.4151
+        y: 34.6352
+        z: 0.000445962
+      orientation:
+        x: 0.000951648
+        y: 0.00135164
+        z: -0.696753
+        w: 0.717309
+  - name: put_02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 37.7268
+        y: 34.5646
+        z: 2.41294e-05
+      orientation:
+        x: -0.00165267
+        y: -0.00302575
+        z: -0.683842
+        w: 0.729622
+  - name: put_03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 41.6251
+        y: 34.4075
+        z: 0.000388081
+      orientation:
+        x: -0.00170424
+        y: 0.00283443
+        z: -0.708398
+        w: 0.705805
+  - name: put_04
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 42.9475
+        y: 34.5404
+        z: -0.00109621
+      orientation:
+        x: -0.00349415
+        y: -0.0032996
+        z: -0.709582
+        w: 0.704607
+  - name: xh_point_01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 36.8213
+        y: 27.0131
+        z: 0.000874167
+      orientation:
+        x: 0.000148714
+        y: -0.0013829
+        z: 0.0107677
+        w: 0.999941
+  - name: xh_point_02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 42.5062
+        y: 27.144
+        z: 2.27942e-05
+      orientation:
+        x: -0.000112756
+        y: -0.0105756
+        z: -0.0139473
+        w: 0.999847
+  - name: xh_point_03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 47.8592
+        y: 26.6176
+        z: -0.00116429
+      orientation:
+        x: 0.00205394
+        y: -0.00736759
+        z: 0.00616664
+        w: 0.999952
+  - name: xh_01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 36.4059
+        y: 30.2869
+        z: 0
+      orientation:
+        x: -0.00447857
+        y: -0.00290039
+        z: 0.706037
+        w: 0.708155
+  - name: xh_02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 37.6624
+        y: 30.3143
+        z: 0
+      orientation:
+        x: -0.000743761
+        y: 0.00427737
+        z: 0.726156
+        w: 0.687517
+  - name: xh_03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 41.5104
+        y: 30.218
+        z: 0.000556131
+      orientation:
+        x: 0.00559331
+        y: 0.000825933
+        z: 0.7359
+        w: 0.677067
+  - name: xh_04
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 42.7608
+        y: 30.2906
+        z: -0.000145372
+      orientation:
+        x: -0.000992948
+        y: 0.000255337
+        z: 0.731397
+        w: 0.681951
+  - name: xh_05
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 49.1885
+        y: 22.5161
+        z: 0.000329904
+      orientation:
+        x: 0.0039474
+        y: 0.000284481
+        z: 0.0384853
+        w: 0.999251
+  - name: xh_06
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 49.1901
+        y: 20.9531
+        z: -0.00047053
+      orientation:
+        x: -0.000271875
+        y: 0.000984656
+        z: 0.0398686
+        w: 0.999204
+  - name: xh_07
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 49.2527
+        y: 19.421
+        z: -0.00208973
+      orientation:
+        x: 0.000831406
+        y: -0.00209308
+        z: 0.0244626
+        w: 0.999698
+  - name: xh_08
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 49.2437
+        y: 17.8617
+        z: -4.79326e-07
+      orientation:
+        x: 1.23859e-05
+        y: -0.000615583
+        z: 0.0206421
+        w: 0.999787
+  - name: xh_before_01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 36.5559
+        y: 29.2109
+        z: 0
+      orientation:
+        x: -0.00447857
+        y: -0.00290039
+        z: 0.706037
+        w: 0.708155
+  - name: xh_before_02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 37.8024
+        y: 29.2383
+        z: 0
+      orientation:
+        x: -0.000743761
+        y: 0.00427737
+        z: 0.726156
+        w: 0.687517
+  - name: xh_before_05
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 48.0123
+        y: 22.4702
+        z: 0.00542319
+      orientation:
+        x: -0.00292498
+        y: -0.00141888
+        z: 0.01224
+        w: 0.99992
+  - name: xh_before_06
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 48.1155
+        y: 20.9049
+        z: 0.000664263
+      orientation:
+        x: -0.00763056
+        y: -0.00609016
+        z: 0.0259473
+        w: 0.999616
+  - name: xh_before_07
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 48.0652
+        y: 19.3755
+        z: 0.000675044
+      orientation:
+        x: 9.55734e-05
+        y: -5.04469e-05
+        z: 0.0250415
+        w: 0.999686
+  - name: xh_before_08
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 48.0703
+        y: 17.8017
+        z: 0.00283161
+      orientation:
+        x: 0.000840435
+        y: -0.00209108
+        z: 0.0330903
+        w: 0.99945
+  - name: null_01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 32.2996
+        y: 30.4053
+        z: 0.000146781
+      orientation:
+        x: 0.000283716
+        y: -0.000774953
+        z: 0.700949
+        w: 0.713211
+  - name: null_03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 32.4753
+        y: 25.1275
+        z: 2.78235e-05
+      orientation:
+        x: 0.000527775
+        y: -0.000667836
+        z: -0.678848
+        w: 0.734279
+  - name: charge01_before
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.68841
+        y: -17.6246
+        z: 0.000163433
+      orientation:
+        x: 0.00713172
+        y: 0.00266549
+        z: 0.998906
+        w: -0.0461346
+  - name: charge02_before
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.70602
+        y: -16.4918
+        z: -0.00141046
+      orientation:
+        x: -0.00276674
+        y: 0.000283077
+        z: 0.999009
+        w: -0.0444321
+  - name: charge03_before
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.68902
+        y: -15.1506
+        z: -2.90639e-05
+      orientation:
+        x: -0.00239977
+        y: 0.0119279
+        z: 0.999586
+        w: -0.026055
+  - name: charge01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.0975362
+        y: -17.6246
+        z: -0.00193529
+      orientation:
+        x: -0.002805
+        y: 0.00280926
+        z: 0.999901
+        w: -0.0135211
+  - name: charge02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.0975362
+        y: -16.4918
+        z: -0.000312192
+      orientation:
+        x: 3.17473e-05
+        y: -0.000327608
+        z: 0.999629
+        w: -0.0272447
+  - name: charge03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.0975362
+        y: -15.4416
+        z: -1.74492e-05
+      orientation:
+        x: 0.00928163
+        y: -0.000218967
+        z: 0.999954
+        w: -0.00230735
+  - name: init01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -0.644817
+        y: -17.6246
+        z: -9.09752e-09
+      orientation:
+        x: 0.000144484
+        y: -0.000143097
+        z: 0.00473422
+        w: 0.999989
+  - name: init02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -0.661208
+        y: -16.4918
+        z: 0.000410818
+      orientation:
+        x: -9.35264e-05
+        y: 0.000146151
+        z: -0.0123242
+        w: 0.999924
+  - name: init03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -0.690613
+        y: -15.4416
+        z: 6.70512e-08
+      orientation:
+        x: -9.5074e-05
+        y: 0.000173175
+        z: -0.00461927
+        w: 0.999989
+  - name: dodge01_before
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.88489
+        y: -25.2194
+        z: 0.000167854
+      orientation:
+        x: 0.0099175
+        y: 0.000392217
+        z: 0.999784
+        w: -0.018253
+  - name: dodge01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.384329
+        y: -25.2017
+        z: -0.000115991
+      orientation:
+        x: -0.000877552
+        y: -0.00524592
+        z: 0.00792576
+        w: 0.999954
+  - name: dodge02_before
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.11869
+        y: 5.55
+        z: -2.95754e-05
+      orientation:
+        x: 0.0112039
+        y: 0.00334561
+        z: 0.999352
+        w: -0.034044
+  - name: dodge02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -0.171176
+        y: 5.50427
+        z: -0.000971361
+      orientation:
+        x: -0.000877552
+        y: -0.00524592
+        z: 0.00792576
+        w: 0.999954
+  - name: dodge03_before
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.90624
+        y: 12.496
+        z: -4.84016e-05
+      orientation:
+        x: -0.00308497
+        y: 0.0144346
+        z: 0.999804
+        w: 0.0131923
+  - name: dodge03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -0.34032
+        y: 12.5597
+        z: -5.72711e-05
+      orientation:
+        x: -0.000877552
+        y: -0.00524592
+        z: 0.00792576
+        w: 0.999954
+  - name: dodge04_before
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.874955
+        y: 27.3381
+        z: -2.20795e-05
+      orientation:
+        x: -0.00548017
+        y: 0.00927477
+        z: 0.999753
+        w: 0.0194633
+  - name: dodge04
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -0.658059
+        y: 27.2859
+        z: 0.000250661
+      orientation:
+        x: -0.000877552
+        y: -0.00524592
+        z: 0.00792576
+        w: 0.999954
+  - name: dodge06
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 44.6404
+        y: 36.5879
+        z: 0.00066445
+      orientation:
+        x: 0.0080135
+        y: 0.000953462
+        z: 0.999768
+        w: -0.0199632
+  - name: dodge07
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 48.0703
+        y: 16.1017
+        z: 0.00283161
+      orientation:
+        x: -0.000743761
+        y: 0.00427737
+        z: 0.726156
+        w: 0.687517
+  - name: dodge08_before
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.4959
+        y: -10.3486
+        z: -2.95754e-05
+      orientation:
+        x: 0.0112039
+        y: 0.00334561
+        z: 0.999352
+        w: -0.034044
+  - name: dodge08
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.150481
+        y: -10.3486
+        z: -0.00147587
+      orientation:
+        x: -0.000877552
+        y: -0.00524592
+        z: 0.00792576
+        w: 0.999954
+  - name: dodge09_before
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.30742
+        y: -2.8396
+        z: -2.95754e-05
+      orientation:
+        x: 0.0112039
+        y: 0.00334561
+        z: 0.999352
+        w: -0.034044
+  - name: dodge09
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.150481
+        y: -2.8396
+        z: -0.00147587
+      orientation:
+        x: -0.000877552
+        y: -0.00524592
+        z: 0.00792576
+        w: 0.999954
+  - name: fetch_shelf_outter01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 3.0766
+        y: -29.1403
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0.000761098
+  - name: fetch_shelf_outter02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 2.91173
+        y: -21.6686
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999772
+        w: 0.0213399
+  - name: charge01_before_outter
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 2.81926
+        y: -17.6045
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999937
+        w: 0.0112258
+  - name: charge02_before_outter
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 2.73755
+        y: -16.4837
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.99986
+        w: 0.016762
+  - name: charge03_before_outter
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 2.73938
+        y: -15.4215
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: -0.000147201
+  - name: fetch_shelf_outter03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 2.6895
+        y: -14.0287
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999539
+        w: 0.0303679
+  - name: fetch_shelf_outter04
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 2.59482
+        y: -6.53255
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999894
+        w: 0.0145404
+  - name: fetch_shelf_outter05
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 2.35838
+        y: 0.96753
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999994
+        w: -0.00335422
+  - name: fetch_shelf_outter06
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 2.17135
+        y: 8.71025
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999957
+        w: 0.00929523
+  - name: fetch_shelf_outter07
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 2.05076
+        y: 15.8975
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999747
+        w: -0.0224753
+  - name: fetch_shelf_outter08
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.98017
+        y: 23.5796
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999966
+        w: 0.00821315
+  - name: fetch_shelf_outter09
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.92936
+        y: 31.0697
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999397
+        w: 0.0347302
+  - name: turning_point_17
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 2.09179
+        y: 20.3313
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999499
+        w: 0.0316566
+  - name: fetch_shelf_04
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.37568
+        y: -6.60552
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999652
+        w: 0.0263697
+  - name: fetch_shelf_05
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.2466
+        y: 0.930191
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999975
+        w: -0.00706972
+  - name: fetch_shelf_06
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.03897
+        y: 8.49814
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999993
+        w: -0.00363418
+  - name: fetch_shelf_07
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.787167
+        y: 15.9766
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999975
+        w: 0.00709158
+  - name: fetch_shelf_08
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.86702
+        y: 23.5336
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999873
+        w: 0.0159143
+  - name: fetch_shelf_09
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.831762
+        y: 31.079
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999691
+        w: 0.0248664
+  - name: fetch_shelf_02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.80108
+        y: -21.6352
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999966
+        w: -0.00819479
+  - name: fetch_shelf_01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 2.05516
+        y: -29.1879
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999999
+        w: 0.00130089
+  - name: fetch_shelf_03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.66307
+        y: -14.0611
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.999913
+        w: 0.0131861
+  - name: null_shelf_02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 32.4883
+        y: 34.023
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: -0.714001
+        w: 0.700144
+  - name: turning_point_lfy_1
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 33.3016
+        y: 34.102
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: -0.706338
+        w: 0.707875
+  - name: null_shelf_03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 32.5235
+        y: 26.5475
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: -0.704801
+        w: 0.709405
+  - name: turning_point_10
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 33.4505
+        y: 26.5502
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: -0.704022
+        w: 0.710178
+  - name: dodge05
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 33.2555
+        y: 18.2715
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.716227
+        w: 0.697867
+  - name: turning_point_11
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 33.5722
+        y: 19.73
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: -0.697297
+        w: 0.716782
+  - name: null_shelf_01
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 32.4457
+        y: 28.9488
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.725791
+        w: 0.687915
+  - name: turning_point_09
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 33.3602
+        y: 29.1267
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: -0.702611
+        w: 0.711574
+  - name: null_02
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 32.4282
+        y: 32.4175
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: -0.719095
+        w: 0.694912
+  - name: xh_before_03
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 41.7671
+        y: 29.3331
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.711198
+        w: 0.702992
+  - name: xh_before_04
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 42.996
+        y: 29.2067
+        z: 0.05
+      orientation:
+        x: 0
+        y: 0
+        z: 0.691404
+        w: 0.722468
+  - name: one_homing
+    homing_goal: base_object
+    type: homing_control
+    x_goal: -0.7
+    y_goal: 0.0
+    yaw_goal: 0.0
+  - name: triangle_homing_charge
+    homing_goal: base_object
+    type: homing_control
+    x_goal: -0.55
+    y_goal: 0.0
+    yaw_goal: 0.0
+trajectories:
+  - name: reflector_shelf_up
+    waypoints:
+    - lift_down_wp
+    - one_on
+    - wait10s
+    - wait5s
+    - one_homing
+    - one_off
+    - lift_up_wp
+    - dwa_shelf_params_wp
+  - name: reflector_shelf_down
+    waypoints:
+    - one_on
+    - wait10s
+    - wait5s
+    - one_homing
+    - one_off
+    - lift_down_wp
+    - dwa_agv_params_wp
+  - name: dwa_agv_params_cb
+    waypoints:
+    - agv_local_footprint
+    - agv_global_footprint
+  - name: dwa_shelf_params_cb
+    waypoints:
+    - shelf_global_footprint
+    - shelf_local_footprint
+  - name: auto_charge
+    waypoints:
+    - triangle_on
+    - wait10s
+    - wait5s
+    - triangle_homing_charge
+    - triangle_off
+    - turn_back
+    - sleep2s
+    - dock_back_fast
+    - charge_status
+    - dock_back_slow
+    - sleep2s
+    - stop_agv

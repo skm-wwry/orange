@@ -1,0 +1,405 @@
+waypoints:
+  - name: home_point
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: 10.13
+        y: 19.9
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: charge_point
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: 9.58
+        y: 21.013
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: bay114_12U
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -3.59689
+        y: -0.466846
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: bay114_12U_ready
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -2.57668
+        y: -0.469825
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: bay113_109
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -4.00904
+        y: 8.61
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: bay113_109_ready
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -3.16424
+        y: 8.61
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: bayZB08
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -3.08
+        y: 17.82
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: bayZB08_ready
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -2.23
+        y: 17.82
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: wait2s
+    goal_timeout: 2
+    type: timer
+  - name: feeder_feeding_001
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 4.695
+        y: 20.87
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: feeder_feeding_002
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 6.07
+        y: 20.87
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: feeder_empty_001
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 7.31
+        y: 19.9
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: feeder_empty_002
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 8.66
+        y: 19.9
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: feeder_empty_003
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 10.13
+        y: 19.9
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: goal_forward
+    homing_goal: base_link
+    type: homing_control
+    x_goal: 0.5
+    y_goal: 0.0
+    yaw_goal: 0.0
+trajectories:
+  - name: Feeder-material_114_1
+    waypoints:
+    - feeder_feeding_001
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - bay114_12U
+    - lift_down_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: Feeder-material_114_2
+    waypoints:
+    - feeder_feeding_002
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - bay114_12U
+    - lift_down_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: return-material_114_1
+    waypoints:
+    - bay114_12U_ready
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - feeder_empty_001
+    - lift_down_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: return-material_114_2
+    waypoints:
+    - bay114_12U_ready
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - feeder_empty_002
+    - lift_down_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: Feeder-material_113_1
+    waypoints:
+    - feeder_feeding_001
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - bay113_109
+    - lift_down_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: Feeder-material_113_2
+    waypoints:
+    - feeder_feeding_002
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - bay113_109
+    - lift_down_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: return-material_113_1
+    waypoints:
+    - bay113_109_ready
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - feeder_empty_001
+    - lift_down_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: return-material_113_2
+    waypoints:
+    - bay113_109_ready
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - feeder_empty_002
+    - lift_down_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: Feeder-material_08_1
+    waypoints:
+    - feeder_feeding_001
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - bayZB08
+    - lift_down_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: Feeder-material_08_2
+    waypoints:
+    - feeder_feeding_002
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - bayZB08
+    - lift_down_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: return-material_08_1
+    waypoints:
+    - bayZB08_ready
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - feeder_empty_001
+    - lift_down_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: return-material_08_2
+    waypoints:
+    - bayZB08_ready
+    - wait2s
+    - open_shelf_wp
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - feeder_empty_002
+    - lift_down_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: autocharge_on
+    waypoints:
+    - charge_point
+    - goal_forward
+    - pile_on
+    - bz_docking_params_wp
+    - relocate_charge
+    - pile_off
+    - wheel_dump_pos
+    - wait10s
+    - wheel_dump_pos
+    - wait10s
+    - wheel_back_pos
+    - wait5s
+    - joy_start_1
+    - teb_agv_params_wp
+  - name: autocharge_off
+    waypoints:
+    - joy_start_0
+    - teb_agv_params_wp
+    - goal_forward
+    - feeder_empty_003

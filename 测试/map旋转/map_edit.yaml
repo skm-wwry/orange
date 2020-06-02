@@ -1,0 +1,7 @@
+image: map_edit.png
+resolution: 0.01
+origin: [-29.5358, -21.5705, 0.0]
+negate: 0
+occupied_thresh: 0.8
+free_thresh: 0.4117
+mode: scale
