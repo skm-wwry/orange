@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="autocharge_on">
+
+	<executable package_path="agv_flexbe_behaviors.autocharge_on_sm" class="autocharge_onSM" />
+	<tagstring>base</tagstring>
+	<author>Lei Zeng</author>
+	<date>Fri Dec 13 2019</date>
+	<description>
+		autocharge
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

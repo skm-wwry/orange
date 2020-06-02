@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="shelf_detector" pkg="shelf_detector" type="shelf_detector.py" output="screen">
+		<param name="shelf_at_least_four" value="True" />
+		<param name="shelf_at_least_three" value="False" />
+		<param name="consider_range_front" value="3.0" />
+		<param name="consider_range_back" value="0.0" />
+		<param name="consider_range_side" value="1.0" />
+
+		<param name="shelf_size_informed" value="False" />
+		<param name="shelf_front_rear" value="2.0" />
+		<param name="shelf_left_right" value="1.3" />
+		<param name="edge_tolerance" value="0.05" />
+
+		<param name="right_angle_tolerance" value="0.15" />
+		<param name="horizontal_criterion" value="0.38" />
+		<param name="vertical_criterion" value="1.19" />
+		<param name="radius_ratio_tolerance" value="0.0" />
+		<param name="radius_diff_tolerance" value="0.1" />
+
+		<param name="object_timeout" value="30" />
+
+		<param name="set_shelf_footprint" value="True" />
+
+		<param name="median_filter_group" value="50" />
+		<param name="shelf_visualization" value="True" />
+		<param name="footprint_rotation" value="False" />
+    </node>
+</launch>

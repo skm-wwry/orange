@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="one_docking">
+
+	<executable package_path="agv_flexbe_behaviors.one_docking_sm" class="one_dockingSM" />
+	<tagstring>base</tagstring>
+	<author>Lei Zeng</author>
+	<date>Tue Mar 03 2020</date>
+	<description>
+		one docking
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

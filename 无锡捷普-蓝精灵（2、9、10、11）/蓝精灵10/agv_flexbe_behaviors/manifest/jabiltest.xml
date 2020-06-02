@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="jabilTest">
+
+	<executable package_path="agv_flexbe_behaviors.jabiltest_sm" class="jabilTestSM" />
+	<tagstring>task:001</tagstring>
+	<author>skm</author>
+	<date>Thu May 07 2020</date>
+	<description>
+		20200507
+	</description>
+
+
+	<!-- Contained Behaviors -->
+	<contains name="lift_dump" />
+	<contains name="lift_load" />
+	<contains name="shelf_docking" />
+
+	<!-- Available Parameters -->
+
+</behavior>
