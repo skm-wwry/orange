@@ -11,11 +11,13 @@ from flexbe_core import Behavior, Autonomy, OperatableStateMachine, ConcurrencyC
 from agv_flexbe_behaviors.lift_dump_sm import lift_dumpSM
 from agv_flexbe_behaviors.lift_load_sm import lift_loadSM
 from agv_flexbe_behaviors.shelf_docking_sm import shelf_dockingSM
-from agv_flexbe_states.do_forward import DoForward
+from agv_flexbe_states.alert_loop_stop import AlertLoopStop
+from agv_flexbe_states.alert_play import AlertPlay
+from agv_flexbe_states.do_backward import DoBackward
 from agv_flexbe_states.homing_control import HomingControl
 from agv_flexbe_states.navigation import Navigation
-from agv_flexbe_states.turn_left import TurnLeft
 from agv_flexbe_states.turn_right import TurnRight
+from agv_flexbe_states.wait_time import WaitTime
 from flexbe_states.log_state import LogState
 # Additional imports can be added inside the following tags
 # [MANUAL_IMPORT]
@@ -29,7 +31,7 @@ Created on Thu May 07 2020
 '''
 class BLKC05l2SM(Behavior):
 	'''
-	20200521
+	blkco5
 	'''
 
 
@@ -57,7 +59,7 @@ class BLKC05l2SM(Behavior):
 
 
 	def create(self):
-		# x:29 y:345, x:100 y:344
+		# x:680 y:33, x:1275 y:410
 		_state_machine = OperatableStateMachine(outcomes=['finished', 'failed'])
 
 		# Additional creation code can be added inside the following tags
@@ -67,136 +69,190 @@ class BLKC05l2SM(Behavior):
 
 
 		with _state_machine:
-			# x:256 y:35
+			# x:74 y:20
 			OperatableStateMachine.add('shelf_docking',
 										self.use_behavior(shelf_dockingSM, 'shelf_docking'),
-										transitions={'finished': 'turnRight', 'failed': 'finished'},
+										transitions={'finished': 'turnright', 'failed': 'log'},
 										autonomy={'finished': Autonomy.Inherit, 'failed': Autonomy.Inherit})
 
-			# x:940 y:32
-			OperatableStateMachine.add('blkc01l5Dwon',
+			# x:75 y:324
+			OperatableStateMachine.add('blkc05l2Dwon',
 										Navigation(position_x=34.411, position_y=173.94, position_z=0, orientation_x=0, orientation_y=0, orientation_z=-0.7071, orientation_w=0.7071, frame_id='map'),
-										transitions={'arrived': 'lift_dump', 'failed': 'log', 'canceled': 'log5'},
+										transitions={'arrived': 'lift_dump', 'failed': 'log3', 'canceled': 'log3'},
 										autonomy={'arrived': Autonomy.Off, 'failed': Autonomy.Off, 'canceled': Autonomy.Off})
 
-			# x:1366 y:142
+			# x:1198 y:511
+			OperatableStateMachine.add('do_backward_60',
+										HomingControl(target_frame="base_link", target_x=-0.6, target_y=0, target_yaw=0),
+										transitions={'succeeded': 'failed', 'failed': 'log12'},
+										autonomy={'succeeded': Autonomy.Off, 'failed': Autonomy.Off})
+
+			# x:75 y:605
 			OperatableStateMachine.add('do_forward_60',
 										HomingControl(target_frame="base_link", target_x=0.6, target_y=0, target_yaw=0),
-										transitions={'succeeded': 'shelf_docking_2', 'failed': 'log3'},
+										transitions={'succeeded': 'playblkc05l2', 'failed': 'log5'},
 										autonomy={'succeeded': Autonomy.Off, 'failed': Autonomy.Off})
 
-			# x:47 y:603
-			OperatableStateMachine.add('dobackward60',
-										HomingControl(target_frame="base_link", target_x=-0.6, target_y=0, target_yaw=0),
-										transitions={'succeeded': 'finished', 'failed': 'log_2'},
+			# x:839 y:29
+			OperatableStateMachine.add('dobackward',
+										DoBackward(),
+										transitions={'succeeded': 'finished', 'failed': 'log10'},
 										autonomy={'succeeded': Autonomy.Off, 'failed': Autonomy.Off})
 
-			# x:544 y:601
-			OperatableStateMachine.add('doforword100',
-										DoForward(),
-										transitions={'succeeded': 'home', 'failed': 'log_2'},
-										autonomy={'succeeded': Autonomy.Off, 'failed': Autonomy.Off})
-
-			# x:302 y:603
+			# x:1200 y:603
 			OperatableStateMachine.add('home',
 										Navigation(position_x=84.473, position_y=18.098, position_z=0, orientation_x=0, orientation_y=0, orientation_z=0.7071, orientation_w=0.7071, frame_id='map'),
-										transitions={'arrived': 'dobackward60', 'failed': 'log_2', 'canceled': 'log7'},
+										transitions={'arrived': 'do_backward_60', 'failed': 'log11', 'canceled': 'log11'},
 										autonomy={'arrived': Autonomy.Off, 'failed': Autonomy.Off, 'canceled': Autonomy.Off})
 
-			# x:1117 y:27
+			# x:76 y:415
 			OperatableStateMachine.add('lift_dump',
 										self.use_behavior(lift_dumpSM, 'lift_dump'),
-										transitions={'finished': 'turnRight1'},
+										transitions={'finished': 'turnright1'},
 										autonomy={'finished': Autonomy.Inherit})
 
-			# x:1052 y:600
+			# x:840 y:221
 			OperatableStateMachine.add('lift_dump_2',
 										self.use_behavior(lift_dumpSM, 'lift_dump_2'),
-										transitions={'finished': 'turnLeft'},
+										transitions={'finished': 'turnright3'},
 										autonomy={'finished': Autonomy.Inherit})
 
-			# x:695 y:35
+			# x:74 y:220
 			OperatableStateMachine.add('lift_load',
 										self.use_behavior(lift_loadSM, 'lift_load'),
-										transitions={'finished': 'blkc01l5Dwon'},
+										transitions={'finished': 'blkc05l2Dwon'},
 										autonomy={'finished': Autonomy.Inherit})
 
-			# x:1330 y:489
+			# x:842 y:410
 			OperatableStateMachine.add('lift_load_2',
 										self.use_behavior(lift_loadSM, 'lift_load_2'),
 										transitions={'finished': 'beginDown'},
 										autonomy={'finished': Autonomy.Inherit})
 
-			# x:621 y:211
+			# x:281 y:21
 			OperatableStateMachine.add('log',
 										LogState(text="timeout", severity=Logger.REPORT_HINT),
-										transitions={'done': 'failed'},
+										transitions={'done': 'shelf_docking'},
 										autonomy={'done': Autonomy.Off})
 
-			# x:625 y:303
-			OperatableStateMachine.add('log3',
-										LogState(text="seek failed", severity=Logger.REPORT_HINT),
-										transitions={'done': 'failed'},
+			# x:1046 y:30
+			OperatableStateMachine.add('log10',
+										LogState(text="dobackward failed", severity=Logger.REPORT_HINT),
+										transitions={'done': 'dobackward'},
 										autonomy={'done': Autonomy.Off})
 
-			# x:850 y:166
-			OperatableStateMachine.add('log5',
-										LogState(text="blkc01l1down canceled", severity=Logger.REPORT_HINT),
-										transitions={'done': 'blkc01l5Dwon'},
-										autonomy={'done': Autonomy.Off})
-
-			# x:1149 y:434
-			OperatableStateMachine.add('log6',
-										LogState(text="begindown cancled", severity=Logger.REPORT_HINT),
-										transitions={'done': 'beginDown'},
-										autonomy={'done': Autonomy.Off})
-
-			# x:184 y:457
-			OperatableStateMachine.add('log7',
+			# x:1405 y:603
+			OperatableStateMachine.add('log11',
 										LogState(text="home canceled", severity=Logger.REPORT_HINT),
 										transitions={'done': 'home'},
 										autonomy={'done': Autonomy.Off})
 
-			# x:624 y:385
-			OperatableStateMachine.add('log_2',
-										LogState(text="turn right log", severity=Logger.REPORT_HINT),
-										transitions={'done': 'failed'},
+			# x:1405 y:513
+			OperatableStateMachine.add('log12',
+										LogState(text="do_backward_60 failed", severity=Logger.REPORT_HINT),
+										transitions={'done': 'do_backward_60'},
 										autonomy={'done': Autonomy.Off})
 
-			# x:1325 y:268
+			# x:286 y:326
+			OperatableStateMachine.add('log3',
+										LogState(text="blkc05l2 canceled", severity=Logger.REPORT_HINT),
+										transitions={'done': 'blkc05l2Dwon'},
+										autonomy={'done': Autonomy.Off})
+
+			# x:287 y:418
+			OperatableStateMachine.add('log4',
+										LogState(text="turnright1 failed", severity=Logger.REPORT_HINT),
+										transitions={'done': 'turnright1'},
+										autonomy={'done': Autonomy.Off})
+
+			# x:289 y:505
+			OperatableStateMachine.add('log5',
+										LogState(text="do_forward_60 canceled", severity=Logger.REPORT_HINT),
+										transitions={'done': 'do_forward_60'},
+										autonomy={'done': Autonomy.Off})
+
+			# x:1050 y:605
+			OperatableStateMachine.add('log6',
+										LogState(text="shelf_docking failed", severity=Logger.REPORT_HINT),
+										transitions={'done': 'home'},
+										autonomy={'done': Autonomy.Off})
+
+			# x:1049 y:511
+			OperatableStateMachine.add('log7',
+										LogState(text="turnright2 failed", severity=Logger.REPORT_HINT),
+										transitions={'done': 'turnright2'},
+										autonomy={'done': Autonomy.Off})
+
+			# x:1047 y:318
+			OperatableStateMachine.add('log8',
+										LogState(text="begindown cancled", severity=Logger.REPORT_HINT),
+										transitions={'done': 'beginDown'},
+										autonomy={'done': Autonomy.Off})
+
+			# x:1044 y:127
+			OperatableStateMachine.add('log9',
+										LogState(text="turnright failed", severity=Logger.REPORT_HINT),
+										transitions={'done': 'turnright3'},
+										autonomy={'done': Autonomy.Off})
+
+			# x:283 y:126
+			OperatableStateMachine.add('log_2',
+										LogState(text="turnright log", severity=Logger.REPORT_HINT),
+										transitions={'done': 'turnright'},
+										autonomy={'done': Autonomy.Off})
+
+			# x:288 y:605
+			OperatableStateMachine.add('playblkc05l2',
+										AlertPlay(sound_id=55, mode="loop", wait_time=5, single_time=3),
+										transitions={'done': 'wait30s'},
+										autonomy={'done': Autonomy.Off})
+
+			# x:843 y:599
 			OperatableStateMachine.add('shelf_docking_2',
 										self.use_behavior(shelf_dockingSM, 'shelf_docking_2'),
-										transitions={'finished': 'turnRight3', 'failed': 'home'},
+										transitions={'finished': 'turnright2', 'failed': 'log6'},
 										autonomy={'finished': Autonomy.Inherit, 'failed': Autonomy.Inherit})
 
-			# x:785 y:603
-			OperatableStateMachine.add('turnLeft',
-										TurnLeft(),
-										transitions={'succeeded': 'doforword100', 'failed': 'log_2'},
-										autonomy={'succeeded': Autonomy.Off, 'failed': Autonomy.Off})
+			# x:665 y:606
+			OperatableStateMachine.add('stopblkc05l2',
+										AlertLoopStop(),
+										transitions={'done': 'shelf_docking_2'},
+										autonomy={'done': Autonomy.Off})
 
-			# x:499 y:38
-			OperatableStateMachine.add('turnRight',
+			# x:74 y:126
+			OperatableStateMachine.add('turnright',
 										TurnRight(),
-										transitions={'succeeded': 'lift_load', 'failed': 'log'},
+										transitions={'succeeded': 'lift_load', 'failed': 'log_2'},
 										autonomy={'succeeded': Autonomy.Off, 'failed': Autonomy.Off})
 
-			# x:1363 y:33
-			OperatableStateMachine.add('turnRight1',
+			# x:76 y:508
+			OperatableStateMachine.add('turnright1',
 										TurnRight(),
-										transitions={'succeeded': 'do_forward_60', 'failed': 'log3'},
+										transitions={'succeeded': 'do_forward_60', 'failed': 'log4'},
 										autonomy={'succeeded': Autonomy.Off, 'failed': Autonomy.Off})
 
-			# x:1366 y:383
-			OperatableStateMachine.add('turnRight3',
+			# x:843 y:511
+			OperatableStateMachine.add('turnright2',
 										TurnRight(),
-										transitions={'succeeded': 'lift_load_2', 'failed': 'log3'},
+										transitions={'succeeded': 'lift_load_2', 'failed': 'log7'},
 										autonomy={'succeeded': Autonomy.Off, 'failed': Autonomy.Off})
 
-			# x:1365 y:607
+			# x:840 y:125
+			OperatableStateMachine.add('turnright3',
+										TurnRight(),
+										transitions={'succeeded': 'dobackward', 'failed': 'log9'},
+										autonomy={'succeeded': Autonomy.Off, 'failed': Autonomy.Off})
+
+			# x:479 y:606
+			OperatableStateMachine.add('wait30s',
+										WaitTime(wait_time=30),
+										transitions={'done': 'stopblkc05l2'},
+										autonomy={'done': Autonomy.Off})
+
+			# x:840 y:318
 			OperatableStateMachine.add('beginDown',
-										Navigation(position_x=86, position_y=24.161, position_z=0, orientation_x=0, orientation_y=0, orientation_z=-0.7071, orientation_w=0.7071, frame_id='map'),
-										transitions={'arrived': 'lift_dump_2', 'failed': 'log_2', 'canceled': 'log6'},
+										Navigation(position_x=84.473, position_y=18.461, position_z=0, orientation_x=0, orientation_y=0, orientation_z=1, orientation_w=0, frame_id='map'),
+										transitions={'arrived': 'lift_dump_2', 'failed': 'log8', 'canceled': 'log8'},
 										autonomy={'arrived': Autonomy.Off, 'failed': Autonomy.Off, 'canceled': Autonomy.Off})
 
 

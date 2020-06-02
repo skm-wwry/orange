@@ -3,11 +3,11 @@
 <behavior name="BLKC06">
 
 	<executable package_path="agv_flexbe_behaviors.blkc06_sm" class="BLKC06SM" />
-	<tagstring>task:blkc06</tagstring>
+	<tagstring>wuxijabli</tagstring>
 	<author>skm</author>
 	<date>Thu May 07 2020</date>
 	<description>
-		20200513
+		blkc06
 	</description>
 
 

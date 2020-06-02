@@ -264,7 +264,7 @@ class BLKC06SM(Behavior):
 
 			# x:1093 y:201
 			OperatableStateMachine.add('beginDown',
-										Navigation(position_x=86, position_y=24.161, position_z=0, orientation_x=0, orientation_y=0, orientation_z=-0.7071, orientation_w=0.7071, frame_id='map'),
+										Navigation(position_x=80.310, position_y=18.461, position_z=0, orientation_x=0, orientation_y=0, orientation_z=1, orientation_w=0, frame_id='map'),
 										transitions={'arrived': 'lift_dump_2', 'failed': 'log9', 'canceled': 'lift_load_2'},
 										autonomy={'arrived': Autonomy.Off, 'failed': Autonomy.Off, 'canceled': Autonomy.Off})
 
