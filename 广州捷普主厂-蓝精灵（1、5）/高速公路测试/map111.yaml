@@ -1,6 +1,0 @@
-image: /home/hitrobot/catkin_ws/dbparam/map111.pgm
-resolution: 0.050000
-origin: [-3.299037, -3.761558, 0.0]
-negate: 0
-occupied_thresh: 0.65
-free_thresh: 0.196
