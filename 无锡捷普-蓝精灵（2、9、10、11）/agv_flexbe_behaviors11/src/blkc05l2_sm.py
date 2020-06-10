@@ -13,9 +13,8 @@ from agv_flexbe_behaviors.lift_load_sm import lift_loadSM
 from agv_flexbe_behaviors.shelf_docking_sm import shelf_dockingSM
 from agv_flexbe_states.alert_loop_stop import AlertLoopStop
 from agv_flexbe_states.alert_play import AlertPlay
-from agv_flexbe_states.do_backward import DoBackward
 from agv_flexbe_states.homing_control import HomingControl
-from agv_flexbe_states.navigation import Navigation
+from agv_flexbe_states.site_navigation import SiteNavigation
 from agv_flexbe_states.turn_right import TurnRight
 from agv_flexbe_states.wait_time import WaitTime
 from flexbe_states.log_state import LogState
@@ -75,11 +74,11 @@ class BLKC05l2SM(Behavior):
 										transitions={'finished': 'turnright', 'failed': 'log'},
 										autonomy={'finished': Autonomy.Inherit, 'failed': Autonomy.Inherit})
 
-			# x:75 y:324
-			OperatableStateMachine.add('blkc05l2Dwon',
-										Navigation(position_x=34.411, position_y=173.94, position_z=0, orientation_x=0, orientation_y=0, orientation_z=-0.7071, orientation_w=0.7071, frame_id='map'),
-										transitions={'arrived': 'lift_dump', 'failed': 'log3', 'canceled': 'log3'},
-										autonomy={'arrived': Autonomy.Off, 'failed': Autonomy.Off, 'canceled': Autonomy.Off})
+			# x:838 y:26
+			OperatableStateMachine.add('do_backward_100',
+										HomingControl(target_frame="base_link", target_x=-1.0, target_y=0, target_yaw=0),
+										transitions={'succeeded': 'finished', 'failed': 'log10'},
+										autonomy={'succeeded': Autonomy.Off, 'failed': Autonomy.Off})
 
 			# x:1198 y:511
 			OperatableStateMachine.add('do_backward_60',
@@ -93,17 +92,17 @@ class BLKC05l2SM(Behavior):
 										transitions={'succeeded': 'playblkc05l2', 'failed': 'log5'},
 										autonomy={'succeeded': Autonomy.Off, 'failed': Autonomy.Off})
 
-			# x:839 y:29
-			OperatableStateMachine.add('dobackward',
-										DoBackward(),
-										transitions={'succeeded': 'finished', 'failed': 'log10'},
-										autonomy={'succeeded': Autonomy.Off, 'failed': Autonomy.Off})
+			# x:841 y:318
+			OperatableStateMachine.add('enddown',
+										SiteNavigation(site_name=enddown),
+										transitions={'arrived': 'lift_dump_2', 'canceled': 'log8', 'failed': 'log8'},
+										autonomy={'arrived': Autonomy.Off, 'canceled': Autonomy.Off, 'failed': Autonomy.Off})
 
-			# x:1200 y:603
+			# x:1199 y:604
 			OperatableStateMachine.add('home',
-										Navigation(position_x=82.310, position_y=18.098, position_z=0, orientation_x=0, orientation_y=0, orientation_z=0.7071, orientation_w=0.7071, frame_id='map'),
-										transitions={'arrived': 'do_backward_60', 'failed': 'log11', 'canceled': 'log11'},
-										autonomy={'arrived': Autonomy.Off, 'failed': Autonomy.Off, 'canceled': Autonomy.Off})
+										SiteNavigation(site_name=home),
+										transitions={'arrived': 'do_backward_60', 'canceled': 'log11', 'failed': 'log11'},
+										autonomy={'arrived': Autonomy.Off, 'canceled': Autonomy.Off, 'failed': Autonomy.Off})
 
 			# x:76 y:415
 			OperatableStateMachine.add('lift_dump',
@@ -120,13 +119,13 @@ class BLKC05l2SM(Behavior):
 			# x:74 y:220
 			OperatableStateMachine.add('lift_load',
 										self.use_behavior(lift_loadSM, 'lift_load'),
-										transitions={'finished': 'blkc05l2Dwon'},
+										transitions={'finished': 'blkc05l2down'},
 										autonomy={'finished': Autonomy.Inherit})
 
 			# x:842 y:410
 			OperatableStateMachine.add('lift_load_2',
 										self.use_behavior(lift_loadSM, 'lift_load_2'),
-										transitions={'finished': 'beginDown'},
+										transitions={'finished': 'enddown'},
 										autonomy={'finished': Autonomy.Inherit})
 
 			# x:281 y:21
@@ -138,7 +137,7 @@ class BLKC05l2SM(Behavior):
 			# x:1046 y:30
 			OperatableStateMachine.add('log10',
 										LogState(text="dobackward failed", severity=Logger.REPORT_HINT),
-										transitions={'done': 'dobackward'},
+										transitions={'done': 'do_backward_100'},
 										autonomy={'done': Autonomy.Off})
 
 			# x:1405 y:603
@@ -156,7 +155,7 @@ class BLKC05l2SM(Behavior):
 			# x:286 y:326
 			OperatableStateMachine.add('log3',
 										LogState(text="blkc05l2 canceled", severity=Logger.REPORT_HINT),
-										transitions={'done': 'blkc05l2Dwon'},
+										transitions={'done': 'blkc05l2down'},
 										autonomy={'done': Autonomy.Off})
 
 			# x:287 y:418
@@ -185,8 +184,8 @@ class BLKC05l2SM(Behavior):
 
 			# x:1047 y:318
 			OperatableStateMachine.add('log8',
-										LogState(text="begindown cancled", severity=Logger.REPORT_HINT),
-										transitions={'done': 'beginDown'},
+										LogState(text="enddown cancled", severity=Logger.REPORT_HINT),
+										transitions={'done': 'enddown'},
 										autonomy={'done': Autonomy.Off})
 
 			# x:1044 y:127
@@ -203,7 +202,7 @@ class BLKC05l2SM(Behavior):
 
 			# x:288 y:605
 			OperatableStateMachine.add('playblkc05l2',
-										AlertPlay(sound_id=55, mode="loop", wait_time=5, single_time=3),
+										AlertPlay(sound_id=55, mode="loop", wait_time=3, single_time=3),
 										transitions={'done': 'wait30s'},
 										autonomy={'done': Autonomy.Off})
 
@@ -240,7 +239,7 @@ class BLKC05l2SM(Behavior):
 			# x:840 y:125
 			OperatableStateMachine.add('turnright3',
 										TurnRight(),
-										transitions={'succeeded': 'dobackward', 'failed': 'log9'},
+										transitions={'succeeded': 'do_backward_100', 'failed': 'log9'},
 										autonomy={'succeeded': Autonomy.Off, 'failed': Autonomy.Off})
 
 			# x:479 y:606
@@ -249,11 +248,11 @@ class BLKC05l2SM(Behavior):
 										transitions={'done': 'stopblkc05l2'},
 										autonomy={'done': Autonomy.Off})
 
-			# x:840 y:318
-			OperatableStateMachine.add('beginDown',
-										Navigation(position_x=82.310, position_y=18.461, position_z=0, orientation_x=0, orientation_y=0, orientation_z=1, orientation_w=0, frame_id='map'),
-										transitions={'arrived': 'lift_dump_2', 'failed': 'log8', 'canceled': 'log8'},
-										autonomy={'arrived': Autonomy.Off, 'failed': Autonomy.Off, 'canceled': Autonomy.Off})
+			# x:73 y:318
+			OperatableStateMachine.add('blkc05l2down',
+										SiteNavigation(site_name=blkc05l2down),
+										transitions={'arrived': 'lift_dump', 'canceled': 'log3', 'failed': 'log3'},
+										autonomy={'arrived': Autonomy.Off, 'canceled': Autonomy.Off, 'failed': Autonomy.Off})
 
 
 		return _state_machine
