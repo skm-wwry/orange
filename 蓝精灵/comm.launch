@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <launch>
+    <arg name="tf_static" default="true" />
+    <arg name="rosns" default="" />
+    <arg name="unimap" default="true" />
     <arg name="is_client" default="false" />
     <arg name="robot_pose_ekf" default="false" />
     <arg name="ekf_localization" default="false" />
     <arg name="double_localization" default="true" />
     <arg name="use_reflection" default="false" />
-
-    <!-- <arg name="map_transport" default="map_show" /> -->
-    <arg name="map_transport" default="map" />
+    <arg name="use_flexbe" default="false" />
 
     <arg name="amcl_update_min_d" default="0.2" />
     <arg name="amcl_update_min_a" default="0.2" />
@@ -35,8 +36,8 @@
     <arg name="yaw_hc_tolerance" default="0.01" />
     <arg name="xy_hc_tolerance" default="0.02" />
     <arg name="x_hc_tolerance" default="0.01" />
-    <arg name="neutral_cost" default="10" />
-    <arg name="cost_factor" default="0.1" />
+    <arg name="neutral_cost" default="1" />
+    <arg name="cost_factor" default="5.0" />
 
     <arg name="use_imu" default="true" />
     <arg name="low_battery" default="0.1" />
@@ -58,6 +59,8 @@
     <arg name="range_enabled" default="false" />
     <arg name="range_topics" default="['/sonar_12oc', '/sonar_11oc', '/sonar_10oc', '/sonar_9oc', '/sonar_8oc', '/sonar_7oc', '/sonar_6oc', '/sonar_5oc', '/sonar_4oc', '/sonar_3oc', '/sonar_2oc', '/sonar_1oc']" />
 
+    <arg name="rosbag_topics" default="/diagnostics_agg map scan odom imu move_base/global_costmap/footprint" />
+
     <node name="world_map" pkg="tf_broadcaster" type="tf_broadcaster" output="screen">
         <rosparam subst_value="true">
             frame_id: world
@@ -68,7 +71,7 @@
         </rosparam>
     </node>
 
-    <node name="base_footprint" pkg="tf_broadcaster" type="tf_broadcaster" output="screen">
+    <node if="$(arg tf_static)" name="base_footprint" pkg="tf_broadcaster" type="tf_broadcaster" output="screen">
         <rosparam subst_value="true">
             frame_id: base_footprint
             z: 0.05
@@ -79,68 +82,37 @@
         <arg name="master" value="hitrobot-forklift-server" />
     </include>
 
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find bringup)/param/map.yaml" />
-
-    <node name="map_edit_server" pkg="map_server" type="map_server" args="$(find bringup)/param/map_edit.yaml">
-        <remap from="map" to="map_edit" />
+    <node name ="map_stream" pkg="map_stream" type="map_stream" output="screen">
+        <remap from="map" to="map" />
+        <remap from="map_istream" to="map_istream" />
+        <remap from="map_ostream" to="map_ostream" />
         <rosparam subst_value="true">
-            frame_id: map
+            impath: "$(find bringup)/param/map.yaml"
         </rosparam>
     </node>
-
-    <node if="$(arg use_reflection)" name="map_reflection_server" pkg="map_server" type="map_server" args="$(find bringup)/param/map_reflection.yaml">
+    <node name ="map_stream_path" pkg="map_stream" type="map_stream" output="screen">
+        <remap from="map" to="map_path" />
+        <remap from="map_istream" to="map_istream_path" />
+        <remap from="map_ostream" to="map_ostream_path" />
+        <rosparam subst_value="true">
+            impath: "$(find bringup)/param/map_path.yaml"
+        </rosparam>
+    </node>
+    <node name ="map_stream_display" pkg="map_stream" type="map_stream" output="screen">
+        <remap from="map" to="map_display" />
+        <remap from="map_istream" to="map_istream_display" />
+        <remap from="map_ostream" to="map_ostream_display" />
+        <rosparam subst_value="true">
+            impath: "$(find bringup)/param/map_display.yaml"
+        </rosparam>
+    </node>
+    <node if="$(arg use_reflection)" name ="map_stream_reflection" pkg="map_stream" type="map_stream" output="screen">
         <remap from="map" to="map_reflection" />
+        <remap from="map_istream" to="map_istream_reflection" />
+        <remap from="map_ostream" to="map_ostream_reflection" />
         <rosparam subst_value="true">
-            frame_id: map
+            impath: "$(find bringup)/param/map_reflection.yaml"
         </rosparam>
-    </node>
-
-    <!-- <node name="map_show_server" pkg="map_server" type="map_server" args="$(find bringup)/param/map_show.yaml">
-        <remap from="map" to="map_show" />
-    </node> -->
-
-    <node name ="map_transport" pkg="map_transport" type="map_transport_node" output="screen">
-        <remap from="map" to="$(arg map_transport)" />
-        <rosparam subst_value="true">
-            occ_threshold: 45
-        </rosparam>
-    </node>
-    <node name ="map_edit_transport" pkg="map_transport" type="map_transport_node" output="screen">
-        <remap from="map" to="map_edit" />
-        <remap from="map_stream" to="map_edit_stream" />
-        <rosparam subst_value="true">
-            occ_threshold: 45
-        </rosparam>
-    </node>
-    <node name ="map_show_transport" pkg="map_transport" type="map_transport_node" output="screen">
-        <remap from="map" to="map_show" />
-        <remap from="map_stream" to="map_show_stream" />
-        <rosparam subst_value="true">
-            occ_threshold: 45
-        </rosparam>
-    </node>
-    <node name ="map_reflection_transport" pkg="map_transport" type="map_transport_node" output="screen">
-        <remap from="map" to="map_reflection" />
-        <remap from="map_stream" to="map_reflection_stream" />
-        <rosparam subst_value="true">
-            occ_threshold: 45
-        </rosparam>
-    </node>
-
-    <node name ="map_istream" pkg="map_transport" type="map_istream" output="screen">
-        <!--<remap from="map_stream_new" to="map_stream" />-->
-    </node>
-    <node name ="map_edit_istream" pkg="map_transport" type="map_istream" output="screen">
-        <remap from="map" to="map_edit" />
-        <remap from="map_stream_new" to="map_edit_stream_new" />
-    </node>
-    <node name ="map_show_istream" pkg="map_transport" type="map_istream" output="screen">
-        <remap from="map" to="map_show" />
-        <remap from="map_stream_new" to="map_show_stream_new" />
-    </node>
-    <node name ="map_reflection_istream" pkg="map_transport" type="map_istream" output="screen">
-        <remap from="map" to="map_reflection" />
-        <remap from="map_stream_new" to="map_reflection_stream_new" />
     </node>
 
     <node name="waypoint_provider" pkg="yocs_waypoint_provider" type="waypoint_provider" output="screen" unless="$(arg is_client)">
@@ -153,6 +125,14 @@
             frequency: 10.0
         </rosparam>
     </node>
+
+    <node if="$(arg use_flexbe)" pkg="flexbe_widget" type="be_action_server" name="be_action_server" output="screen" />
+
+    <node if="$(arg use_flexbe)" name="behavior_mirror" pkg="flexbe_mirror" type="behavior_mirror_sm" output="screen" />
+
+    <node if="$(arg use_flexbe)" name="behavior_launcher" pkg="flexbe_widget" type="be_launcher" output="screen" />
+
+    <include if="$(arg use_flexbe)" file="$(find flexbe_onboard)/launch/behavior_onboard.launch" />
 
     <arg name="master" default="localhost" />
     <arg name="foreign_master" default="http://$(arg master):11311" />
@@ -234,6 +214,7 @@
     </node>
 
     <node name="amcl" pkg="amcl" type="amcl" output="screen">
+        <remap if="$(arg unimap)" from="map" to="/map" />
         <remap from="scan" to="scan_rectified" />
         <rosparam subst_value="true">
             laser_min_range: 0.1
@@ -262,7 +243,7 @@
             - name: intensity
               type: laser_filters/LaserScanIntensityFilter
               params:
-                lower_threshold: 8000
+                lower_threshold: 3000 #8000
                 upper_threshold: 100000
                 disp_histogram: 0
         </rosparam>
@@ -334,12 +315,12 @@
                 update_frequency: 1.0
                 publish_frequency: 0.5 #0.0
                 static_map: true
-                resolution: 0.05
+                resolution: 0.05 #0.01
                 plugins:
                   - name: static_layer
                     type: "costmap_2d::StaticLayer"
                 static_layer:
-                    map_topic: map_edit
+                    map_topic: map_path
                     trinary_costmap: false
                 footprint_topic: footprint_setup
             local_costmap:
@@ -352,7 +333,7 @@
                 rolling_window: true
                 width: 10.0
                 height: 10.0
-                resolution: 0.5 #0.05
+                resolution: 0.1 #0.5
                 plugins:
                   - name: inflation_layer
                     type: "costmap_2d::InflationLayer"
@@ -362,6 +343,9 @@
                     cost_scaling_factor: 5.0
                 footprint_topic: footprint_setup
             GlobalPlanner:
+                use_dijkstra: false
+                use_grid_path: true
+                use_quadratic: false
                 allow_unknown: false
                 neutral_cost: $(arg neutral_cost)
                 cost_factor: $(arg cost_factor)
@@ -532,9 +516,14 @@
             obstacle_alert: true
             charging_state_alert: true
             estop_alert: true
-            special_area_path: ""
+            battery_alert: true
+            devices_alert: true
+
+            special_area_path: "$(arg special_area_path)"
             areas_visulization: false
-            initialization_task: ""
+            initialization_task: "$(arg initialization_task)"
+            use_flexbe: true
+            behavior_manifest_path: "$(find agv_flexbe_behaviors)/manifest"
         </rosparam>
     </node>
 
@@ -641,13 +630,14 @@
 
             straight_rad_limit: 0.1 #0.0
             straight_rot_scale: 0.2 #1.0
+            use_one_euro_filter: true
         </rosparam>
     </node>
 
 
     <group if="$(arg median_player)" ns="music">
         <!--<param name="tf_prefix" value="music"/>-->
-        <node name="median_player_server" pkg="median_player" type="median_player_server.py" output="screen" >
+        <node name="median_player_server" pkg="median_player" type="median_player_server.py" >
             <param name="median_path" value="$(optenv PATH_CATKIN /home/hitrobot/catkin_ws)/pkg_hitrobot/median_player/sound" />
             <param name="if_stop_sofort" value="true" />
         </node>
@@ -655,13 +645,16 @@
 
     <group if="$(arg median_player)" ns="alert">
         <!--<param name="tf_prefix" value="alert"/>-->
-        <node name="median_player_server" pkg="median_player" type="median_player_server.py" output="screen" >
+        <node name="median_player_server" pkg="median_player" type="median_player_server.py" >
             <param name="median_path" value="$(optenv PATH_CATKIN /home/hitrobot/catkin_ws)/pkg_hitrobot/median_player/sound" />
             <param name="if_stop_sofort" value="false" />
         </node>
     </group>
 
     <node pkg="diagnostic_aggregator" type="aggregator_node" name="diag_agg" args="CPP" output="screen" >
+        <param name="base_path" value="$(arg rosns)" />
         <rosparam command="load" file="$(find bringup)/scripts/agv_analyzer.yaml" />
     </node>
+
+    <node pkg="rosbag" type="record" name="rosbag_record" args="$(arg rosbag_topics)" output="screen"/>
 </launch>

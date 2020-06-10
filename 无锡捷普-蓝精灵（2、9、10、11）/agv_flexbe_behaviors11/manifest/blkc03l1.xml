@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="BLKC03l1">
+
+	<executable package_path="agv_flexbe_behaviors.blkc03l1_sm" class="BLKC03l1SM" />
+	<tagstring>wuxijabli</tagstring>
+	<author>skm</author>
+	<date>Thu May 07 2020</date>
+	<description>
+		blkc03
+	</description>
+
+
+	<!-- Contained Behaviors -->
+	<contains name="shelf_docking" />
+	<contains name="lift_dump" />
+	<contains name="lift_load" />
+
+	<!-- Available Parameters -->
+
+</behavior>
