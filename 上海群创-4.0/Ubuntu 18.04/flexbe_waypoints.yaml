@@ -1,0 +1,10 @@
+home:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 84.473, y: 17.963, z: 0}
+origin:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 0, y: 0, z: 0}
