@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="initial_task">
+
+	<executable package_path="agv_flexbe_behaviors.initial_task_sm" class="initial_taskSM" />
+	<tagstring>base</tagstring>
+	<author>zenglei</author>
+	<date>Wed Apr 01 2020</date>
+	<description>
+		开机初始化项
+	</description>
+
+
+	<!-- Contained Behaviors -->
+	<contains name="init_lift" />
+
+	<!-- Available Parameters -->
+
+</behavior>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="Test_Path">
+
+	<executable package_path="agv_flexbe_behaviors.test_path_sm" class="Test_PathSM" />
+	<tagstring>test</tagstring>
+	<author>skm</author>
+	<date>Mon Jun 22 2020</date>
+	<description>
+		办公室测试轨迹
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

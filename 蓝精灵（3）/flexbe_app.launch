@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<launch>
+
+<arg name="offline" default="false" />
+
+<arg name="offline_arg" value="--offline" if="$(arg offline)" />
+<arg name="offline_arg" value="" unless="$(arg offline)" />
+
+<arg name="no_app" default="false" />
+
+<node name="flexbe_app" pkg="flexbe_app" type="run_app" args="$(arg offline_arg)" output="screen" unless="$(arg no_app)" />
+
+
+</launch>
