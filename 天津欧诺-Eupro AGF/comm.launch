@@ -224,6 +224,8 @@
         <remap if="$(arg unimap)" from="map" to="/map" />
         <remap from="scan" to="scan_rectified" />
         <rosparam subst_value="true">
+            min_particles: 1000
+            max_particles: 10000
             laser_min_range: 0.1
             laser_max_range: 19.9
             laser_max_beams: 200
