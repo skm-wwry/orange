@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="dadong" default="false" />
+
+    <arg name="name" default="" />
+    <arg name="port" default="/dev/ttyUSB0" />
+    <arg name="debug" default="false" />
+
+    <node if="$(arg dadong)" name="rosbridge_elevator$(arg name)" pkg="rosbridge_driver" type="rosbridge_driver" output="screen">
+        <param name="elevator_port" value="$(arg port)" />
+        <param name="debug_io" value="$(arg debug)" />
+        <rosparam subst_value="true">
+            port_chain:
+              - name: elevator_port
+                type: serial
+                serial_baud: 115200
+                timeout: 0.5
+            topic_chain:
+              - name: dadong_elevator
+                op: subscribe
+                type: std_msgs/String
+              - name: door_open
+                action_chain:
+                  - name: elevator_port
+                    type: write
+                    byte: [0xaa, 0x55, 0x00, 0x01, 0x26, 0x0f, 0x01, sum8]
+                  - name: elevator_port
+                    type: read
+                    byte: [0xaa, 0x55, 0x00, 0x00, 0x29, 0x0f, 0x01, sum8]
+              - name: door_close
+                action_chain:
+                  - name: elevator_port
+                    type: write
+                    byte: [0xaa, 0x55, 0x00, 0x02, 0x26, 0x0f, 0x01, sum8]
+                  - name: elevator_port
+                    type: read
+                    byte: [0xaa, 0x55, 0x00, 0x00, 0x30, 0x0f, 0x01, sum8]
+              - name: elevator_call
+                modbus_addr: 1
+                modbus_data: 2
+                action_chain:
+                  - name: elevator_port
+                    type: write
+                    byte: [0xaa, 0x55, modbus_addr, modbus_data, 0x01, 0x0c, 0x01, sum8]
+                  - name: elevator_port
+                    type: read
+                    byte: [0xaa, 0x55, modbus_addr, modbus_data, 0x02, 0x0c, 0x01, sum8]
+              - name: elevator_echo
+                type: diagnostic_msgs/DiagnosticArray
+                values: [layer]
+                action_chain:
+                  - name: elevator_port
+                    type: read
+                    byte: [0xaa, 0x55, layer, state, 0x03, 0x0c, 0x01, sum8]
+              - name: elevator_reset
+                action_chain:
+                  - name: elevator_port
+                    type: write
+                    byte: [0xaa, 0x55, 0x00, 0x00, 0x10, 0x0c, 0x00, sum8]
+        </rosparam>
+    </node>
+</launch>
