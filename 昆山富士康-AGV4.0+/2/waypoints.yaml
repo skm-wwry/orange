@@ -439,6 +439,123 @@ waypoints:
         y: 0
         z: -0.7071
         w: 0.7071
+  - name: F2_line9_01_unload
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 12.71
+        y: -30.601
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: F2_line9_02_unload
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 13.51
+        y: -30.601
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: F2_line8_01_unload
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 12.71
+        y: -25.811
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: F2_line8_02_unload
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 13.51
+        y: -25.811
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: F2_line8_03_unload
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 14.31
+        y: -25.811
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: F2_line8_04_unload
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 15.11
+        y: -25.811
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: F2_line8_05_unload
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 15.81
+        y: -25.811
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
   - name: F2_line7_01_unload
     close_enough: 0
     failure_mode: LOOP

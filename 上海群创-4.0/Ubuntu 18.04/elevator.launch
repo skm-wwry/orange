@@ -5,6 +5,7 @@
     <arg name="name" default="" />
     <arg name="port" default="/dev/ttyUSB0" />
     <arg name="debug" default="false" />
+    <arg name="ip_port" default="1000" />
 
     <node if="$(arg dadong)" name="rosbridge_elevator$(arg name)" pkg="rosbridge_driver" type="rosbridge_driver" output="screen">
         <param name="elevator_port" value="$(arg port)" />
@@ -12,51 +13,83 @@
         <rosparam subst_value="true">
             port_chain:
               - name: elevator_port
-                type: serial
-                serial_baud: 115200
-                timeout: 0.5
+                type: socket
+                ip_port: $(arg ip_port)
+                timeout: 1000.0
             topic_chain:
               - name: dadong_elevator
-                op: subscribe
                 type: std_msgs/String
-              - name: door_open
-                action_chain:
-                  - name: elevator_port
-                    type: write
-                    byte: [0xaa, 0x55, 0x00, 0x01, 0x26, 0x0f, 0x01, sum8]
-                  - name: elevator_port
-                    type: read
-                    byte: [0xaa, 0x55, 0x00, 0x00, 0x29, 0x0f, 0x01, sum8]
-              - name: door_close
-                action_chain:
-                  - name: elevator_port
-                    type: write
-                    byte: [0xaa, 0x55, 0x00, 0x02, 0x26, 0x0f, 0x01, sum8]
-                  - name: elevator_port
-                    type: read
-                    byte: [0xaa, 0x55, 0x00, 0x00, 0x30, 0x0f, 0x01, sum8]
+                op: subscribe
               - name: elevator_call
                 modbus_addr: 1
                 modbus_data: 2
                 action_chain:
                   - name: elevator_port
                     type: write
-                    byte: [0xaa, 0x55, modbus_addr, modbus_data, 0x01, 0x0c, 0x01, sum8]
+                    byte: [0xaa, 0x55, modbus_data, modbus_addr, 0x01, 0x02, 0x01, sum8]
                   - name: elevator_port
                     type: read
-                    byte: [0xaa, 0x55, modbus_addr, modbus_data, 0x02, 0x0c, 0x01, sum8]
-              - name: elevator_echo
+                    byte: [0xaa, 0x55, modbus_data, modbus_addr, 0x02, 0x02, 0x01, sum8]
+              - name: elevator_call_take
+                action_chain:
+                  - name: elevator_port
+                    type: read
+                    byte: [0xaa, 0x55, modbus_data, 0x01, 0x03, 0x02, 0x00, sum8]
+                    lock: false
+              - name: elevator_query
+                action_chain:
+                  - name: elevator_port
+                    type: write
+                    byte: [0xaa, 0x55, modbus_addr, modbus_data, 0x04, 0x02, 0x01, sum8]
+                  - name: elevator_port
+                    type: read
+                    byte: [0xaa, 0x55, modbus_addr, modbus_data, 0x05, 0x02, 0x01, sum8]
+              - name: enter_elevator
+                action_chain:
+                  - name: elevator_port
+                    type: write
+                    byte: [0xaa, 0x55, modbus_addr, modbus_data, 0x06, 0x02, 0x01, sum8]
+                  - name: elevator_port
+                    type: read
+                    byte: [0xaa, 0x55, modbus_addr, modbus_data, 0x0d, 0x02, 0x01, sum8]
+              - name: enter_elevator_take
+                action_chain:
+                  - name: elevator_port
+                    type: read
+                    byte: [0xaa, 0x55, modbus_addr, modbus_data, 0x07, 0x02, 0x01, sum8]
+                    lock: false
+              - name: notice_leave
+                action_chain:
+                  - name: elevator_port
+                    type: write
+                    byte: [0xaa, 0x55, modbus_addr, modbus_data, 0x0b, 0x02, 0x01, sum8]
+                  - name: elevator_port
+                    type: read
+                    byte: [0xaa, 0x55, modbus_data, 0x01, 0x0e, 0x02, 0x01, sum8]
+              - name: confirm_leave
+                action_chain:
+                  - name: elevator_port
+                    type: write
+                    byte: [0xaa, 0x55, modbus_addr, modbus_data, 0x08, 0x02, 0x01, sum8]
+                  - name: elevator_port
+                    type: read
+                    byte: [0xaa, 0x55, modbus_addr, modbus_data, 0x0F, 0x02, 0x01, sum8]
+              - name: elevator_layer
                 type: diagnostic_msgs/DiagnosticArray
                 values: [layer]
                 action_chain:
                   - name: elevator_port
+                    type: write
+                    byte: [0xaa, 0x55, 0x00, 0x00, 0x12, 0x02, 0x00, sum8]
+                  - name: elevator_port
                     type: read
-                    byte: [0xaa, 0x55, layer, state, 0x03, 0x0c, 0x01, sum8]
+                    byte: [0xaa, 0x55, layer, state, 0x11, 0x02, 0x00, sum8]
               - name: elevator_reset
                 action_chain:
                   - name: elevator_port
                     type: write
-                    byte: [0xaa, 0x55, 0x00, 0x00, 0x10, 0x0c, 0x00, sum8]
+                    byte: [0xaa, 0x55, 0x00, 0x00, 0x10, 0x02, 0x00, sum8]
+                    lock: false
         </rosparam>
     </node>
 </launch>

@@ -28,9 +28,9 @@ pscp ./map_edit.png hitrobot@10.42.0.1:/home/hitrobot/
 pscp ./map_edit.png hitrobot@192.168.43.205:/home/hitrobot/
 
 
-rosrun cartographer_ros cartographer_pbstream_to_ros_map -map_filestem=/home/hitrobot/Downloads/mymap -pbstream_filename=/home/hitrobot/Downloads/mymap.pbstream -resolution=0.01
-rosservice call /write_state "{filename: '/home/hitrobot/Downloads/mymap.pbstream'}"
 
+rosservice call /write_state "{filename: '/home/hitrobot/Downloads/mymap.pbstream'}"
+rosrun cartographer_ros cartographer_pbstream_to_ros_map -map_filestem=/home/hitrobot/Downloads/mymap -pbstream_filename=/home/hitrobot/Downloads/mymap.pbstream -resolution=0.01
 
 
 
@@ -351,8 +351,10 @@ X  mode灯不亮
  "topic": "/nav_ctrl"
 }
 
+电梯通讯
 
-
+type: socket   是网口等短接字连接
+type: serial     是串口和蓝牙等；串口才有波特率
 
 
 

@@ -4,6 +4,7 @@ waypoints:
     home: casing8_back_001
     type: initial_pose
   - name: home_point
+    close_enough: 0.1
     failure_mode: LOOP
     frame_id: map
     type: goal
@@ -31,6 +32,22 @@ waypoints:
         y: 0
         z: -0.7071
         w: 0.7071
+  - name: casing8_001_begin
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 32.434
+        y: -69.223
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
   - name: casing8_001
     close_enough: 0
     failure_mode: LOOP
@@ -39,16 +56,16 @@ waypoints:
     type: goal
     pose:
       position:
-        x: 24.39
-        y: -65.48
+        x: 32.434
+        y: -67.129
         z: 0
       orientation:
         x: 0
         y: 0
-        z: 0
-        w: 1
+        z: 0.7071
+        w: 0.7071
   - name: material_go
-    close_enough: 0.025
+    close_enough: 0
     failure_mode: LOOP
     frame_id: map
     goal_timeout: 0
@@ -71,7 +88,7 @@ waypoints:
     type: goal
     pose:
       position:
-        x: -3.974
+        x: -4
         y: 2.2
         z: 0
       orientation:
@@ -87,14 +104,14 @@ waypoints:
     type: goal
     pose:
       position:
-        x: 25.63
-        y: -67.89
+        x: 28.85
+        y: -67.172
         z: 0
       orientation:
         x: 0
         y: 0
-        z: 0.7071
-        w: 0.7071
+        z: 0
+        w: 1
   - name: open_door_go
     close_enough: 0.2
     failure_mode: LOOP
@@ -103,8 +120,8 @@ waypoints:
     type: goal
     pose:
       position:
-        x: -1.05
-        y: 1.8
+        x: -1.1
+        y: 1.81
         z: 0
       orientation:
         x: 0
@@ -168,7 +185,7 @@ waypoints:
     type: goal
     pose:
       position:
-        x: -4.167
+        x: -4
         y: 1.268
         z: 0
       orientation:
@@ -184,16 +201,17 @@ trajectories:
     - open_shelf_wp
     - lift_up_wp
     - wheel_rotate_left_wp
-    - open_door_go
+    - casing8_001_begin
+    - wait1s
+    - wheel_rotate_left_wp
     - casing8_001
     - lift_down_wp
-    - wheel_rotate_right_wp
-    - do_forward
+    - do_backward
     - casing8_back_001
     - wait1s
     - open_shelf_wp
     - lift_up_wp
-    - wheel_rotate_left_wp
+    - wheel_rotate_right_wp
     - open_door_back
     - door_open
     - wait1s
@@ -212,11 +230,16 @@ trajectories:
     - open_shelf_wp
     - lift_up_wp
     - wheel_rotate_left_wp
-    - open_door_go
+    - casing8_001_begin
+    - wait1s
+    - wheel_rotate_left_wp
     - casing8_001
     - lift_down_wp
+    - do_backward
+    - wait1s
+    - open_shelf_wp
+    - lift_up_wp
     - wheel_rotate_right_wp
-    - do_forward
     - open_door_back
     - door_open
     - wait1s
@@ -232,7 +255,7 @@ trajectories:
     - wait1s
     - open_shelf_wp
     - lift_up_wp
-    - wheel_rotate_left_wp
+    - wheel_rotate_right_wp
     - open_door_back
     - door_open
     - wait1s
@@ -251,7 +274,7 @@ trajectories:
     - wait1s
     - open_shelf_wp
     - lift_up_wp
-    - wheel_rotate_left_wp
+    - wheel_rotate_right_wp
     - open_door_back
     - door_open
     - wait1s

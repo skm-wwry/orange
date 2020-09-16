@@ -1,0 +1,80 @@
+test01:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 17.427, y: 24.551, z: 0}
+test02:
+  frame_id: map
+  pose:
+    orientation: {w: -0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 15.964, y: 16.948, z: 0}
+blue12_charge:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 3.853, y: 1.538, z: 0}
+blue12_down:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 3.988, y: 2.94, z: 0}
+blue12_end:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 4.82, y: 1.2, z: 0}
+blue12_home:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 3.853, y: 1.177, z: 0}
+blue12_shelf1:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 4.82, y: 2.006, z: 0}
+blue12_shelf2:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 4.82, y: 2.946, z: 0}
+blue12_shelf3:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 4.82, y: 2.306, z: 0}
+blue13_charge:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 2.17, y: 1.538, z: 0}
+blue13_down:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 2.043, y: 2.94, z: 0}
+blue13_end:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 1.1297, y: 1.2, z: 0}
+blue13_home:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 2.17, y: 1.177, z: 0}
+blue13_shelf1:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 1.14, y: 2.106, z: 0}
+blue13_shelf2:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 2.993, y: 2.925, z: 0}
+blue13_shelf3:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 1.14, y: 2.306, z: 0}

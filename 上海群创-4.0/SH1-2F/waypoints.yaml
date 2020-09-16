@@ -14,7 +14,7 @@ waypoints:
   - name: init_pose_1F_left
     frame_id: map
     home: station_1910
-    type: initial_pose
+    type: initial_posear1
   - name: init_pose_1F_right
     frame_id: map
     home: station_1911
@@ -2380,3 +2380,7 @@ trajectories:
     waypoints:
     - change_bz
     - bz_angular_ratio
+  - name: test_triangle_path  (测试三角板任务轨迹名称)
+    waypoints:
+    - site_name（站点名称）
+    - open_triangle_wp    (这是固定开启识别三角板的任务名称)

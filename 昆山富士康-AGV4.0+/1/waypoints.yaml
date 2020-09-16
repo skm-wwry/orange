@@ -89,7 +89,7 @@ waypoints:
   - name: do_forward_chargeOn
     homing_goal: base_link
     type: homing_control
-    x_goal: 0.18
+    x_goal: 0.15
     y_goal: 0.0
     yaw_goal: 0.0
   - name: do_forward
@@ -1301,6 +1301,57 @@ waypoints:
         y: 0
         z: 0
         w: 1
+  - name: F1_Line08
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -21.969
+        y: 4.062
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: F1_Line08_go
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -21.969
+        y: 4.062
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: F1_Line08_back
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -21.969
+        y: 4.99
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
   - name: F1_Line02_go
     close_enough: 0
     failure_mode: LOOP
@@ -1545,7 +1596,7 @@ waypoints:
     type: goal
     pose:
       position:
-        x: 9.58
+        x: 9.51
         y: 8.9
         z: 0
       orientation:
