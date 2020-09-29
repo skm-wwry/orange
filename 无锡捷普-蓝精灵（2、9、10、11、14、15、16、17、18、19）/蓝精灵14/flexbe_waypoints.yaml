@@ -1,0 +1,60 @@
+blue14:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 45.043, y: 107.001, z: 0}
+bule15:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 43.373, y: 107.001, z: 0}
+blue16:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 41.703, y: 107.001, z: 0}
+blue17:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 40.033, y: 107.001, z: 0}
+blue18:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 38.363, y: 107.001, z: 0}
+blue19:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 36.693, y: 107.001, z: 0}
+lift_down1:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 53.528, y: 156.175, z: 0}
+lift_up1:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 28.556, y: 107.360, z: 0}
+back_down:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 34.634, y: 106.541, z: 0}
+home:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 84.473, y: 17.963, z: 0}
+load_site:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 27.656, y: 170.347, z: 0}
+origin:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 0, y: 0, z: 0}
