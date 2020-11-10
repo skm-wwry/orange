@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="wheel_load_pos">
+
+	<executable package_path="agv_flexbe_behaviors.wheel_load_pos_sm" class="wheel_load_posSM" />
+	<tagstring>base</tagstring>
+	<author>ouiyeah</author>
+	<date>Thu Apr 23 2020</date>
+	<description>
+		wheel_load_pos
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

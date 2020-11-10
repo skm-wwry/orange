@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="blue17_glueDispenser_2">
+
+	<executable package_path="agv_flexbe_behaviors.blue17_gluedispenser_2_sm" class="blue17_glueDispenser_2SM" />
+	<tagstring>jabil</tagstring>
+	<author>sunkm</author>
+	<date>Fri Sep 25 2020</date>
+	<description>
+		glue dispenser site2
+	</description>
+
+
+	<!-- Contained Behaviors -->
+	<contains name="shelf_docking" />
+	<contains name="lift_dump" />
+	<contains name="lift_load" />
+	<contains name="wheel_dump_pos" />
+	<contains name="wheel_load_pos" />
+
+	<!-- Available Parameters -->
+
+</behavior>
