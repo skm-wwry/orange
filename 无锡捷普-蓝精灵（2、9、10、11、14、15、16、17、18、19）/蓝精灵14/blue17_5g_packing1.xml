@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="blue17_5G_packing1">
+
+	<executable package_path="agv_flexbe_behaviors.blue17_5g_packing1_sm" class="blue17_5G_packing1SM" />
+	<tagstring>jabil</tagstring>
+	<author>sunkm</author>
+	<date>Fri Sep 25 2020</date>
+	<description>
+		blue17_5G_packing1
+	</description>
+
+
+	<!-- Contained Behaviors -->
+	<contains name="lift_dump" />
+	<contains name="lift_load" />
+	<contains name="shelf_docking" />
+	<contains name="turn_left" />
+	<contains name="turn_right" />
+
+	<!-- Available Parameters -->
+
+</behavior>

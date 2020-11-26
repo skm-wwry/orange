@@ -12,12 +12,12 @@ blue16:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 40.250, y: 106.741, z: 0}
+    position: {x: 40.430, y: 106.741, z: 0}
 blue17:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 38.785, y: 106.741, z: 0}
+    position: {x: 38.635, y: 106.741, z: 0}
 blue18:
   frame_id: map
   pose:
@@ -32,12 +32,12 @@ lift_down1:
   frame_id: map
   pose:
     orientation: {w: 0, x: 0, y: 0, z: 1}
-    position: {x: 53.578, y: 156.105, z: 0}
+    position: {x: 53.578, y: 156.175, z: 0}
 lift_down2:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 19.808, y: 153.578, z: 0}
+    position: {x: 19.858, y: 153.638, z: 0}
 lift_up1:
   frame_id: map
   pose:
@@ -63,3 +63,23 @@ origin:
   pose:
     orientation: {w: 1, x: 0, y: 0, z: 0}
     position: {x: 0, y: 0, z: 0}
+blue17_up1:
+  frame_id: map
+  pose:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 41.186, y: 109.435, z: 0}
+blue17_up2:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 30.911, y: 97.371, z: 0}
+blue17_down1:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 29.729, y: 101.366, z: 0}
+blue17_down2:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 38.605, y: 105.558, z: 0}
