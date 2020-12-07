@@ -514,7 +514,7 @@
             turn_threshold_omega: 0.15
             turn_threshold_num: 15
             teb_turn_yaw: 0.4 
-            bgm_enabled: true
+            bgm_enabled: false
             bgm_mode: "loop"
             bgm_id: 10
             bgm_vel: 0.1
@@ -524,7 +524,8 @@
             charging_state_alert: true
             estop_alert: true
             battery_alert: true
-            devices_alert: true
+            devices_alert: false
+            obstacle_alert_distance: 0.2
 
             special_area_path: "$(arg special_area_path)"
             areas_visulization: false
@@ -624,7 +625,7 @@
             local_planner: "teb_local_planner/TebLocalPlannerROS"
             robot_half_length: 0.3
             robot_half_width: 0.2
-            beta: 0.75
+            beta: 0.95
             stop_distance: $(arg stop_distance)
             decelerate_distance: $(arg decelerate_distance)
             wall_safe_distance: $(arg wall_safe_distance)
@@ -651,22 +652,22 @@
         <remap from="plan_path" to="move_base/TebLocalPlannerROS/local_plan" />
         <remap from="footprint" to="move_base/local_costmap/footprint_setup" />
         <remap from="obs_points" to="cloud" />
+        <remap from="min_distance" to="obstacle_avoidance/distance" />
         <rosparam subst_value="true">
             footprint: "$(arg footprint)"
-            max_vel_factor: 1.0
+            max_vel_factor: 2.0
             stop_distance: $(arg stop_distance)
             white_planner: "teb_local_planner/TebLocalPlannerROS"
         </rosparam>
     </node>
 
 
-    <group if="$(arg median_player)" ns="music">
-        <!--<param name="tf_prefix" value="music"/>-->
+    <!-- <group if="$(arg median_player)" ns="music">
         <node name="median_player_server" pkg="median_player" type="median_player_server.py" >
             <param name="median_path" value="$(optenv PATH_CATKIN /home/hitrobot/catkin_ws)/pkg_hitrobot/median_player/sound" />
             <param name="if_stop_sofort" value="true" />
         </node>
-    </group>
+    </group> -->
 
     <group if="$(arg median_player)" ns="alert">
         <!--<param name="tf_prefix" value="alert"/>-->
@@ -684,9 +685,13 @@
     <!-- <node pkg="rosbag" type="record" name="rosbag_record" args="$(arg rosbag_topics)" output="screen"/> -->
 
 
-<!--   <node pkg="slam_toolbox" type="localization_slam_toolbox_node" name="slam_toolbox" output="screen">
+ <!--  <node pkg="slam_toolbox" type="localization_slam_toolbox_node" name="slam_toolbox" output="screen">
     <rosparam command="load" file="$(find slam_toolbox)/config/mapper_params_localization.yaml" />
     <remap from="map" to="map_karto" />
   </node> -->
+    <node pkg="bringup" type="auto_task_assign.py" name="task_assign" output="screen">        
+        <param name="task_name" value="Transport_specimens"/>        
+        <param name="task_period" value="1200"/>    
+    </node>
 
 </launch>
