@@ -1,0 +1,137 @@
+waypoints:
+  - name: charge04_before
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.68902
+        y: -18.61
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: charge05_before
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 1.68902
+        y: -19.854
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: charge04
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.0975362
+        y: -18.61
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: charge05
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 0.0975362
+        y: -19.854
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: init04
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -0.690613
+        y: -18.61
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: init05
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: -0.690613
+        y: -19.854
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: charge04_before_outter
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 2.73938
+        y: -18.61
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: charge05_before_outter
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    mark: false
+    type: goal
+    pose:
+      position:
+        x: 2.73938
+        y: -19.854
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0

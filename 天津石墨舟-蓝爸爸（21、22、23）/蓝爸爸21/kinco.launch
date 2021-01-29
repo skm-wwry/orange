@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!--arg name="scan_frame"          default="/hokuyo_link"/-->
+  <arg name="model"               default="$(find xacro)/xacro.py '$(find kinco_ethercat_description)/urdf/smurf.xacro'"/>
+  <!--arg name="ypspur_params"       default="/usr/local/share/robot-params/smurf.param"/>
+  <arg name="use_eth_urg"         default="false"/>
+  <arg name="urg_ip"              default="192.168.0.10" if="$(arg use_eth_urg)"/>
+  <arg name="scan_dev"            default="/dev/sensors/hokuyo_urg" unless="$(arg use_eth_urg)"/>
+
+  <node name="ypspur_coordinator_bridge" pkg="smurf_driver" type="ypspur_coordinator_bridge" args="$(arg ypspur_params)" output="screen"/>
+
+  <param name="robot_description" command="$(arg model)" />
+
+  <node pkg="urg_node" type="urg_node" name="urg_node" if="$(arg use_eth_urg)">
+    <param name="frame_id" value="$(arg scan_frame)"/>
+    <param name="ip_address"  value="$(arg urg_ip)"/>
+    <param name="publish_multiecho" value="false"/>
+  </node-->
+
+  <param name="robot_description" command="$(arg model)" />
+
+  <!--launch-prefix="ethercat_grant" -->
+  <node name="kinco_ethercat_driver_node" pkg="kinco_ethercat_driver" output="screen" type="kinco_ethercat_driver_node" launch-prefix="ethercat_grant">
+    <!-- <param name="network_interface" value="eno1"/> -->
+    <param name="network_interface" value="enx144fd7c80e59"/>
+    <!-- <param name="network_interface" value="enx000ec6cec00f"/> -->
+    <!-- <param name="network_interface" value="enx00e04c363651"/> -->
+    <param name="max_rpm"  value="3000"/>
+    <param name="read_vel"  value="false"/>
+    <param name="read_rate"  value="50"/>
+    <param name="write_rate"  value="25"/>
+    <param name="motor_encoder_resolution" value="10000.0"/>
+    <param name="wheels_num" value="2"/>
+    <param name="left_wheel_id" value="2"/>
+    <param name="right_wheel_id" value="1"/>
+    <param name="left_wheel_ratio" value="-20.0"/>
+    <param name="right_wheel_ratio" value="20.0"/>
+    <param name="left_wheel_multiplier" value="1.0"/>
+    <param name="right_wheel_multiplier" value="1.0"/>
+    <param name="debug_write_vel"  value="false"/>
+    <param name="debug_read_vel"  value="false"/>
+    <param name="debug_read_pos"  value="false"/>
+    <param name="check_ethernet_error"  value="false"/>
+    <remap from="smurf/odom" to="odom" />
+    <remap from="smurf/cmd_vel" to="cmd_vel_rectified" />
+  </node>
+  
+  <include file="$(find kinco_ethercat_control)/launch/kinco_ethercat_control.launch" />
+  
+</launch>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="init_lift">
+
+	<executable package_path="agv_flexbe_behaviors.init_lift_sm" class="init_liftSM" />
+	<tagstring>ouiyeah</tagstring>
+	<author>ouiyeah</author>
+	<date>Thu Apr 23 2020</date>
+	<description>
+		init_lift
+	</description>
+
+
+	<!-- Contained Behaviors -->
+	<contains name="lift_dump_limit" />
+	<contains name="lift_home_pos" />
+	<contains name="lift_bias_pos" />
+
+	<!-- Available Parameters -->
+
+</behavior>

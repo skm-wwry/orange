@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="triangle_docking">
+
+	<executable package_path="agv_flexbe_behaviors.triangle_docking_sm" class="triangle_dockingSM" />
+	<tagstring>base</tagstring>
+	<author>zenglei</author>
+	<date>Thu May 14 2020</date>
+	<description>
+		triangle docking
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

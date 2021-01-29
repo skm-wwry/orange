@@ -82,12 +82,12 @@ ALX_5G_04:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 46.932, y: 111.255, z: 0}
+    position: {x: 46.890, y: 111.255, z: 0}
 ALX_5G_04_back:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 46.932, y: 110.579, z: 0}
+    position: {x: 46.890, y: 110.579, z: 0}
 ALX_5G_04_begin:
   frame_id: map
   pose:
@@ -97,7 +97,7 @@ ALX_5G_04_middle:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 46.932, y: 110.015, z: 0}
+    position: {x: 46.890, y: 110.015, z: 0}
 ALX_5G_05:
   frame_id: map
   pose:
@@ -437,7 +437,7 @@ IBM_01_middle:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 203.287, y: 89.168, z: 0}
+    position: {x: 203.287, y: 89.318, z: 0}
 IBM_02:
   frame_id: map
   pose:
@@ -462,7 +462,7 @@ IBM_02_middle:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 204.536, y: 89.168, z: 0}
+    position: {x: 204.536, y: 89.318, z: 0}
 IBM_03:
   frame_id: map
   pose:
@@ -482,27 +482,27 @@ IBM_03_middle:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 205.871, y: 89.168, z: 0}
+    position: {x: 205.871, y: 89.318, z: 0}
 NetApp_01:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 168.01, y: 90.31, z: 0}
+    position: {x: 168.06, y: 90.31, z: 0}
 NetApp_01_back:
   frame_id: map
   pose:
-    orientation: {w: 1, x: 0, y: 0, z: 0}
-    position: {x: 168.01, y: 89.534, z: 0}
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 168.06, y: 89.534, z: 0}
 NetApp_01_begin:
   frame_id: map
   pose:
     orientation: {w: 1, x: 0, y: 0, z: 0}
-    position: {x: 170.264, y: 88.319, z: 0}
+    position: {x: 169.61, y: 88.319, z: 0}
 NetApp_01_middle:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 168.01, y: 89.034, z: 0}
+    position: {x: 168.06, y: 89.304, z: 0}
 NetApp_02:
   frame_id: map
   pose:
@@ -511,7 +511,7 @@ NetApp_02:
 NetApp_02_back:
   frame_id: map
   pose:
-    orientation: {w: 1, x: 0, y: 0, z: 0}
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
     position: {x: 169.493, y: 89.534, z: 0}
 NetApp_02_begin:
   frame_id: map
@@ -522,7 +522,7 @@ NetApp_02_middle:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 169.493, y: 89.034, z: 0}
+    position: {x: 169.493, y: 89.304, z: 0}
 dell_01:
   frame_id: map
   pose:
@@ -542,7 +542,7 @@ dell_01_middle:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 189.499, y: 89.288, z: 0}
+    position: {x: 189.499, y: 89.438, z: 0}
 dell_02:
   frame_id: map
   pose:
@@ -562,7 +562,7 @@ dell_02_middle:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 191.006, y: 89.288, z: 0}
+    position: {x: 191.006, y: 89.438, z: 0}
 dell_03:
   frame_id: map
   pose:
@@ -582,22 +582,27 @@ dell_03_middle:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 192.498, y: 89.288, z: 0}
+    position: {x: 192.498, y: 89.438, z: 0}
 down_lift:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 35.985, y: 105.529, z: 0}
+    position: {x: 36.235, y: 105.529, z: 0}
 down_lift_begin:
   frame_id: map
   pose:
     orientation: {w: 0, x: 0, y: 0, z: 1}
-    position: {x: 34.797, y: 103.223, z: 0}
+    position: {x: 34.857, y: 103.223, z: 0}
+down_lift_wait:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 38.6, y: 103.223, z: 0}
 down_lift_middle:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 35.985, y: 104.814, z: 0}
+    position: {x: 36.235, y: 104.814, z: 0}
 fuji_01:
   frame_id: map
   pose:
@@ -617,7 +622,7 @@ fuji_01_middle:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 196.075, y: 89.288, z: 0}
+    position: {x: 196.075, y: 89.438, z: 0}
 fuji_02:
   frame_id: map
   pose:
@@ -637,17 +642,17 @@ fuji_02_middle:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 197.64, y: 89.141, z: 0}
+    position: {x: 197.64, y: 89.291, z: 0}
 home:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 37.254, y: 106.35, z: 0}
+    position: {x: 37.304, y: 106.35, z: 0}
 home_back:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 35.985, y: 104.729, z: 0}
+    position: {x: 36.085, y: 104.729, z: 0}
 home_back_begin:
   frame_id: map
   pose:
@@ -657,7 +662,7 @@ home_back_middle:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 37.254, y: 105.42, z: 0}
+    position: {x: 37.304, y: 105.42, z: 0}
 initial_pose:
   frame_id: map
   pose:
@@ -687,4 +692,4 @@ radisys_01_middle:
   frame_id: map
   pose:
     orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
-    position: {x: 181.082, y: 89.034, z: 0}
+    position: {x: 181.082, y: 89.184, z: 0}

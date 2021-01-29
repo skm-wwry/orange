@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="open">
+
+	<executable package_path="agv_flexbe_behaviors.open_sm" class="openSM" />
+	<tagstring>joy</tagstring>
+	<author>sunkm</author>
+	<date>Thu Aug 13 2020</date>
+	<description>
+		joy open
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

@@ -3,4 +3,53 @@ area1:
  xmax: 13
  ymin: 35.9
  ymax: 37.96
- /move_base/TebLocalPlannerROS/max_vel_x: 0.3
+ /move_base/TebLocalPlannerROS/max_vel_x: 0.45
+area2:
+ xmin: -0.2835
+ xmax: 1.5530
+ ymin: -29.8492
+ ymax: -28.26449
+ /obstacle_avoidance/stop_distance: 0.15
+area3:
+ xmin: -0.4645
+ xmax: 1.31955
+ ymin: -22.41909
+ ymax: -20.9911
+ /obstacle_avoidance/stop_distance: 0.15
+area4:
+ xmin: -0.62967
+ xmax: 1.2
+ ymin: -14.850
+ ymax: -13.5113
+ /obstacle_avoidance/stop_distance: 0.1
+area5:
+ xmin: -0.9835
+ xmax: 0.6115272
+ ymin: 0.21986
+ ymax: 1.84766
+ /obstacle_avoidance/stop_distance: 0.15
+area6:
+ xmin: -1.0182
+ xmax: 0.35032
+ ymin: 7.86382
+ ymax: 9.28749
+ /obstacle_avoidance/stop_distance: 0.15
+area7:
+ xmin: -0.9762
+ xmax: 0.740
+ ymin: 15.2651
+ ymax: 16.64349
+ /obstacle_avoidance/stop_distance: 0.15
+area8:
+ xmin: 21.2762
+ xmax: 23.240
+ ymin: 18.9651
+ ymax: 20.34349
+ /obstacle_avoidance/stop_distance: 0.15
+area9:
+ xmin: -0.2
+ xmax: 1.0
+ ymin: -7
+ ymax: -2
+ /obstacle_avoidance/stop_distance: 0.15
+

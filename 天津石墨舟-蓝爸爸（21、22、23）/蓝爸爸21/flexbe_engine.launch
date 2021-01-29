@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<launch>
+
+<arg name="no_app" default="false" />
+<arg name="offline" default="false" />
+<arg name="offline_arg" value="--offline" if="$(arg offline)" />
+<arg name="offline_arg" value="" unless="$(arg offline)" />
+
+<group ns="robot_0">
+    <node name="behavior_mirror" pkg="flexbe_mirror" type="behavior_mirror_sm" output="screen" />
+
+    <node name="behavior_launcher" pkg="flexbe_widget" type="be_launcher" output="screen" />
+
+    <include file="$(find flexbe_onboard)/launch/behavior_onboard.launch" />
+    
+     <node pkg="flexbe_widget" type="be_action_server" name="be_action_server" output="screen" />
+</group>
+
+</launch>
+
