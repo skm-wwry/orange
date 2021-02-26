@@ -13,8 +13,12 @@
 
 	<!-- Contained Behaviors -->
 	<contains name="shelf_docking" />
+	<contains name="do_backward1m" />
+	<contains name="do_forward1m" />
 	<contains name="lift_dump" />
 	<contains name="lift_load" />
+	<contains name="turn_left" />
+	<contains name="turn_right" />
 
 	<!-- Available Parameters -->
 

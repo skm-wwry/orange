@@ -1,0 +1,91 @@
+base_path: ''
+analyzers:
+  status:
+    type: diagnostic_aggregator/AnalyzerGroup
+    path: STATUS
+    analyzers:
+      estop:
+        type: diagnostic_aggregator/AnalyzerGroup
+        path: ESTOP
+        analyzers:
+          base:
+            type: diagnostic_aggregator/GenericAnalyzer
+            path: BASE
+            contains: estop/base
+          joy:
+            type: diagnostic_aggregator/GenericAnalyzer
+            path: JOY
+            contains: estop/joy
+            discard_stale: true
+          terminal:
+            type: diagnostic_aggregator/GenericAnalyzer
+            path: TERMINAL
+            contains: ['estop/terminal', 'estop/terminal2']
+            discard_stale: true
+          safe_door:
+            type: diagnostic_aggregator/GenericAnalyzer
+            path: DOOR
+            contains: estop
+            discard_stale: true
+  devices:
+    type: diagnostic_aggregator/AnalyzerGroup
+    path: DEVICES
+    analyzers:
+      laser:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: LASER
+        contains: scan_laser
+        num_items: 2 
+        discard_stale: false
+      drive:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: DRIVE
+        contains: rosbridge_drive
+        num_items: 2
+      imu:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: IMU
+        contains: rosbridge_imu
+        num_items: 2
+      plc:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: PLC
+        contains: rosbridge_plc
+        num_items: 2
+      battery:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: BATTERY
+        contains: rosbridge_battery
+        # num_items: 2
+        discard_stale: true
+      joy:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: JOY
+        contains: jsnode
+        num_items: 1
+        discard_stale: true
+  git:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: GIT
+    find_and_remove_prefix: git
+    discard_stale: true
+  algorithm:
+    type: diagnostic_aggregator/AnalyzerGroup
+    path: ALGORITHM
+    analyzers:
+      localization:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: LOCALIZATION
+        contains: [
+          'ekf_node_local',
+          'ekf_node_global']
+      amcl:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: AMCL
+        contains: amcl
+        discard_stale: false
+      obstacle:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: OBSTACLE
+        startswith: obstacle
+        discard_stale: true

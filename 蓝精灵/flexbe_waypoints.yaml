@@ -1,0 +1,10 @@
+initial_pose:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 0, y: 0, z: 0}
+charge_point:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 0, y: 0, z: 0}

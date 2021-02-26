@@ -518,6 +518,7 @@
             estop_alert: true
             battery_alert: true
             devices_alert: false
+            obstacle_alert_distance:0.8
 
             special_area_path: "$(arg special_area_path)"
             areas_visulization: false

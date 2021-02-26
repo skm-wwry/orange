@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="music">
+
+	<executable package_path="agv_flexbe_behaviors.music_sm" class="musicSM" />
+	<tagstring>jabil</tagstring>
+	<author>sunkm</author>
+	<date>Thu Feb 04 2021</date>
+	<description>
+		music
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>
