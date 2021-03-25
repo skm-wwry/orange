@@ -1,4 +1,4 @@
-
+2e6a04
         。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
         。。。【【【【【【【【【备份 workspaces】】】】】】】】】。。。
         。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
@@ -148,8 +148,8 @@ chmod +x fileName
 git reset --hard origin/master
 
 //更改编号
-sudo vi /etc/hostname
-sudo vi /etc/hosts
+sudo subl /etc/hostname
+sudo subl /etc/hosts
 
 //更改识别充电桩距离
 //~/~bringup/launch/charge.launch

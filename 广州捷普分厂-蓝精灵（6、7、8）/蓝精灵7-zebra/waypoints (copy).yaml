@@ -1,0 +1,323 @@
+waypoints:
+  - name: home_point
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: 10.13
+        y: 19.9
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: charge_point
+    failure_mode: LOOP
+    frame_id: map
+    type: goal
+    pose:
+      position:
+        x: 9.68
+        y: 21.3
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0.7071
+        w: 0.7071
+  - name: bay114_12U
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -3.59689
+        y: -0.466846
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: bay114_12U_ready
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -2.57668
+        y: -0.469825
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: bay113_109
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -4.00904
+        y: 8.61
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: bay113_109_ready
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -3.16424
+        y: 8.61
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: bayZB08
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -3.08
+        y: 17.82
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: bayZB08_ready
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: -2.23
+        y: 17.82
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 1
+        w: 0
+  - name: wait2s
+    goal_timeout: 2
+    type: timer
+  - name: feeder_feeding_001
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 4.695
+        y: 20.87
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: feeder_feeding_002
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 6.023
+        y: 20.87
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: -0.7071
+        w: 0.7071
+  - name: feeder_empty_001
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 7.31
+        y: 19.85
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: feeder_empty_002
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 8.66
+        y: 19.85
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+  - name: feeder_empty_003
+    close_enough: 0
+    failure_mode: LOOP
+    frame_id: map
+    goal_timeout: 0
+    type: goal
+    pose:
+      position:
+        x: 10.13
+        y: 19.9
+        z: 0
+      orientation:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+trajectories:
+  - name: Bay114_12U_Feeding_1
+    waypoints:
+    - feeder_feeding_001
+    - wait2s
+    - shelf_on
+    - wait5s
+    - homing_control
+    - shelf_off
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - teb_shelf_params_wp
+    - bay114_12U
+    - lift_down_wp
+    - teb_agv_params_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: Bay114_12U_Empty_1
+    waypoints:
+    - bay114_12U_ready
+    - wait2s
+    - shelf_on
+    - wait5s
+    - homing_control
+    - shelf_off
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - teb_shelf_params_wp
+    - feeder_empty_001
+    - lift_down_wp
+    - teb_agv_params_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: Bay113_109_Feeding_1
+    waypoints:
+    - feeder_feeding_001
+    - wait2s
+    - shelf_on
+    - wait5s
+    - homing_control
+    - shelf_off
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - teb_shelf_params_wp
+    - bay113_109
+    - lift_down_wp
+    - teb_agv_params_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: Bay113_109_Empty_1
+    waypoints:
+    - bay113_109_ready
+    - wait2s
+    - shelf_on
+    - wait5s
+    - homing_control
+    - shelf_off
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - teb_shelf_params_wp
+    - feeder_empty_001
+    - lift_down_wp
+    - teb_agv_params_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: BayZB08_Feeding_1
+    waypoints:
+    - feeder_feeding_001
+    - wait2s
+    - shelf_on
+    - wait5s
+    - homing_control
+    - shelf_off
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - teb_shelf_params_wp
+    - bayZB08
+    - lift_down_wp
+    - teb_agv_params_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003
+  - name: BayZB08_Empty_1
+    waypoints:
+    - bayZB08_ready
+    - wait2s
+    - shelf_on
+    - wait5s
+    - homing_control
+    - shelf_off
+    - lift_up_wp
+    - wheel_rotate_right_wp
+    - wait2s
+    - teb_shelf_params_wp
+    - feeder_empty_001
+    - lift_down_wp
+    - teb_agv_params_wp
+    - wheel_rotate_left_wp
+    - wait2s
+    - do_forward_wp
+    - feeder_empty_003

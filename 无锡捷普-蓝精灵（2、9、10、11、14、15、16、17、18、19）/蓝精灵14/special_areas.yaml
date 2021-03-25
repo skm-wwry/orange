@@ -1,9 +1,0 @@
-area1:
- xmin: 29
- xmax: 30
- ymin: 100
- ymax: 101.5
- obstacle_avoidance/decelerate_distance: 0.6
- obstacle_avoidance/stop_distance: 0.3
-
-

@@ -1,0 +1,45 @@
+initial_pose:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 25.313, y: 17.270, z: 0}
+charge_point:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 0, y: 0, z: 0}
+up:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 78.735, y: 43.104, z: 0}
+down1:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 62.035, y: 21.809, z: 0}
+down2:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 71.940, y: 21.507, z: 0}
+down3:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 90.759, y: 25.090, z: 0}
+down4:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 70.441, y: 30.027, z: 0}
+down5:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 21.323, y: 26.418, z: 0}
+end:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 24.300, y: 17.270, z: 0}
