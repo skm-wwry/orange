@@ -85,7 +85,7 @@ class BLKC01l2SM(Behavior):
 
 			# x:1091 y:724
 			OperatableStateMachine.add('blue10_beginDown',
-										SiteNavigation(site_name="blue10_beginDown"),
+										SiteNavigation(site_name="beginDown"),
 										transitions={'arrived': 'lift_dump_2', 'canceled': 'log8', 'failed': 'log8'},
 										autonomy={'arrived': Autonomy.Off, 'canceled': Autonomy.Off, 'failed': Autonomy.Off})
 

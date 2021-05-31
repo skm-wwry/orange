@@ -55,7 +55,7 @@ class do_backward1mSM(Behavior):
 		with _state_machine:
 			# x:246 y:74
 			OperatableStateMachine.add('do_backward',
-										HomingControl(target_frame="base_link", target_x=-0.9, target_y=0, target_yaw=0),
+										HomingControl(target_frame="base_link", target_x=-0.85, target_y=0, target_yaw=0),
 										transitions={'succeeded': 'finished', 'failed': 'failed'},
 										autonomy={'succeeded': Autonomy.Off, 'failed': Autonomy.Off})
 

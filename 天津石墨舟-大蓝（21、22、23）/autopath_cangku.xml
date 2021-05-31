@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="AutoPath-cangku">
+
+	<executable package_path="agv_flexbe_behaviors.autopath_cangku_sm" class="AutoPathcangkuSM" />
+	<tagstring>test</tagstring>
+	<author>sunkm</author>
+	<date>Mon Apr 19 2021</date>
+	<description>
+		test
+	</description>
+
+
+	<!-- Contained Behaviors -->
+	<contains name="apriltag_docking" />
+	<contains name="close" />
+	<contains name="do_backward" />
+	<contains name="lift_dump" />
+	<contains name="lift_load" />
+	<contains name="open" />
+	<contains name="rotate_dump" />
+	<contains name="rotate_home" />
+	<contains name="rotate_load" />
+	<contains name="turn_left" />
+	<contains name="turn_right" />
+
+	<!-- Available Parameters -->
+
+</behavior>

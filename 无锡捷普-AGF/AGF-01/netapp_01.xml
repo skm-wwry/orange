@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="NetApp_01">
+
+	<executable package_path="agv_flexbe_behaviors.netapp_01_sm" class="NetApp_01SM" />
+	<tagstring>jabil</tagstring>
+	<author>sumkm</author>
+	<date>Wed Sep 02 2020</date>
+	<description>
+		NetApp_01
+	</description>
+
+
+	<!-- Contained Behaviors -->
+	<contains name="fork_dump" />
+	<contains name="fork_load" />
+
+	<!-- Available Parameters -->
+
+</behavior>

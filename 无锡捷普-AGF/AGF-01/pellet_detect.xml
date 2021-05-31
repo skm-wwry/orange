@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="pellet_detect">
+
+	<executable package_path="agv_flexbe_behaviors.pellet_detect_sm" class="pellet_detectSM" />
+	<tagstring>test</tagstring>
+	<author>zl</author>
+	<date>Tue Sep 22 2020</date>
+	<description>
+		pallet 
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

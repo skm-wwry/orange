@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="apriltag_docking">
+
+	<executable package_path="agv_flexbe_behaviors.apriltag_docking_sm" class="apriltag_dockingSM" />
+	<tagstring>base</tagstring>
+	<author>Lei Zeng</author>
+	<date>20210201</date>
+	<description>
+		apriltag docking
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

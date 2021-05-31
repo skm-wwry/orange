@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="socket_client_rfid_y13r" pkg="socket_client_rfid_y13r" type="socket_client_rfid_y13r" output="screen" />
+<!--         <param name="server_ip"                 value="192.168.0.14"     type="string"/>
+        <param name="server_port"               value="8080"             type="int"/> -->
+    <node name="rosbridge_shelf_call" pkg="rosbridge_driver" type="rosbridge_driver" output="screen">
+        <!-- <param name="debug_io" value="true" /> -->
+        <rosparam>
+            port_chain:
+              - name: plc_port
+                type: socket
+                ip_address: 192.168.0.14
+                ip_port: 8081
+            topic_chain:
+              - name: waypoint_user_pub
+                type: subscribe
+                rate: 10.0
+              - name: call_state
+                type: event
+                rate: 10.0
+                action_chain:
+                  - name: plc_port
+                    type: read
+                    byte: [0xAA, 0x0B, addr1, addr2, addr3, addr4, 0x00, test, call_status, sum8, 0x55]
+                    except: [0xAA, 0x0B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x55]
+                    checksum_bias: 2
+                echo: [addr1, addr2, addr3, addr4, call_status]
+        </rosparam>
+    </node>
+</launch>

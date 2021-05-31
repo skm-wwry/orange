@@ -16,7 +16,8 @@ rostopic pub /move_base/cancel
 rosservice call /write_state "{filename: '/home/hitrobot/Downloads/mymap.pbstream'}"
 rosrun cartographer_ros cartographer_pbstream_to_ros_map -map_filestem=/home/hitrobot/Downloads/mymap -pbstream_filename=/home/hitrobot/Downloads/mymap.pbstream -resolution=0.01
 
-
+//解决rosbridge_websocket问题
+sudo pip install future
 
 //切换WiFi模式roscd bringup/shell/
 ./comm.sh -m wifi -s wifiName -p wifiPassword -i IP -a

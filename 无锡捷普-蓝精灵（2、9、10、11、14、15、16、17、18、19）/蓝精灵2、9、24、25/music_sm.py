@@ -45,7 +45,7 @@ class musicSM(Behavior):
 
 
 	def create(self):
-		# x:283 y:240
+		# x:357 y:321
 		_state_machine = OperatableStateMachine(outcomes=['finished'])
 
 		# Additional creation code can be added inside the following tags
@@ -55,22 +55,22 @@ class musicSM(Behavior):
 
 
 		with _state_machine:
-			# x:96 y:24
-			OperatableStateMachine.add('open',
+			# x:146 y:74
+			OperatableStateMachine.add('PlayMusic',
 										AlertPlay(sound_id=12, mode="loop", wait_time=5, single_time=3),
 										transitions={'done': 'wait100s'},
 										autonomy={'done': Autonomy.Off})
 
-			# x:107 y:124
-			OperatableStateMachine.add('wait100s',
-										WaitState(wait_time=100),
-										transitions={'done': 'end'},
-										autonomy={'done': Autonomy.Off})
-
-			# x:96 y:224
-			OperatableStateMachine.add('end',
+			# x:146 y:274
+			OperatableStateMachine.add('StopMusic',
 										AlertLoopStop(),
 										transitions={'done': 'finished'},
+										autonomy={'done': Autonomy.Off})
+
+			# x:157 y:174
+			OperatableStateMachine.add('wait100s',
+										WaitState(wait_time=100),
+										transitions={'done': 'StopMusic'},
 										autonomy={'done': Autonomy.Off})
 
 

@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="rosbridge_shelf_rfid" pkg="rosbridge_driver" type="rosbridge_driver" output="screen">
+        <rosparam>
+            port_chain:
+              - name: plc_port
+                type: socket
+                ip_address: 192.168.0.14
+                ip_port: 8080
+            topic_chain:
+              - name: waypoint_user_pub
+                type: subscribe
+                freq: 8.0
+              - name: shelf_rfid
+                type: event
+                freq: 1.0
+                rfid_id0: 0
+                rfid_id1: 0
+                rfid_id2: 0
+                rfid_id3: 0
+                rfid_id4: 0
+                rfid_id5: 0
+                addr0: 0x00
+                addr1: 0x01
+                addr2: 0x02
+                addr3: 0x03
+                addr4: 0x04
+                addr5: 0x05
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0x7F, 0x03, addr0, 0x10, 0x13]
+                  - name: plc_port
+                    type: read
+                    byte: [0x7F, 0x0A, addr0, 0x90, 0x00, 0x04, 0x00, rfid_id0, little32, little32, little32, xor0]
+                    except: [0x7F, 0x04, 0x00, 0x90, rfid_id0, 0x6B]
+                  - name: plc_port
+                    type: write
+                    byte: [0x7F, 0x03, addr1, 0x10, 0x12]
+                  - name: plc_port
+                    type: read
+                    byte: [0x7F, 0x0A, addr1, 0x90, 0x00, 0x04, 0x00, rfid_id1, little32, little32, little32, xor1]
+                    except: [0x7F, 0x04, 0x01, 0x90, rfid_id1, 0x6A]
+                  - name: plc_port
+                    type: write
+                    byte: [0x7F, 0x03, addr2, 0x10, 0x11]
+                  - name: plc_port
+                    type: read
+                    byte: [0x7F, 0x0A, addr2, 0x90, 0x00, 0x04, 0x00, rfid_id2, little32, little32, little32, xor2]
+                    except: [0x7F, 0x04, 0x02, 0x90, rfid_id2, 0x69]
+                  - name: plc_port
+                    type: write
+                    byte: [0x7F, 0x03, addr3, 0x10, 0x10]
+                  - name: plc_port
+                    type: read
+                    byte: [0x7F, 0x0A, addr3, 0x90, 0x00, 0x04, 0x00, rfid_id3, little32, little32, little32, xor3]
+                    except: [0x7F, 0x04, 0x03, 0x90, rfid_id3, 0x68]
+                  - name: plc_port
+                    type: write
+                    byte: [0x7F, 0x03, addr4, 0x10, 0x17]
+                  - name: plc_port
+                    type: read
+                    byte: [0x7F, 0x0A, addr4, 0x90, 0x00, 0x04, 0x00, rfid_id4, little32, little32, little32, xor4]
+                    except: [0x7F, 0x04, 0x04, 0x90, rfid_id4, 0x6F]
+                  - name: plc_port
+                    type: write
+                    byte: [0x7F, 0x03, addr5, 0x10, 0x16]
+                  - name: plc_port
+                    type: read
+                    byte: [0x7F, 0x0A, addr5, 0x90, 0x00, 0x04, 0x00, rfid_id5, little32, little32, little32, xor5]
+                    except: [0x7F, 0x04, 0x05, 0x90, rfid_id5, 0x6E]
+                echo: [rfid_id0, rfid_id1, rfid_id2, rfid_id3, rfid_id4, rfid_id5]
+              - name: diagnostics
+                type: publish
+        </rosparam>
+    </node>
+</launch>
+

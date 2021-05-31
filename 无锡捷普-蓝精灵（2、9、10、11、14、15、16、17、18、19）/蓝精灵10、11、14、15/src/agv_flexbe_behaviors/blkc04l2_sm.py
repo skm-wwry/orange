@@ -14,9 +14,9 @@ from agv_flexbe_behaviors.lift_dump_sm import lift_dumpSM
 from agv_flexbe_behaviors.lift_load_sm import lift_loadSM
 from agv_flexbe_behaviors.shelf_docking_sm import shelf_dockingSM
 from agv_flexbe_behaviors.turn_left_sm import turn_leftSM
-from agv_flexbe_behaviors.turn_right_sm import turn_rightSM
 from agv_flexbe_states.alert_loop_stop import AlertLoopStop
 from agv_flexbe_states.alert_play import AlertPlay
+from agv_flexbe_states.do_forward import DoForward
 from agv_flexbe_states.site_navigation import SiteNavigation
 from agv_flexbe_states.wait_time import WaitTime
 from flexbe_states.log_state import LogState
@@ -55,7 +55,7 @@ class BLKC04l2SM(Behavior):
 		self.add_behavior(turn_leftSM, 'turn_left')
 		self.add_behavior(turn_leftSM, 'turn_left_2')
 		self.add_behavior(turn_leftSM, 'turn_left_3')
-		self.add_behavior(turn_rightSM, 'turn_right')
+		self.add_behavior(turn_leftSM, 'turn_left_4')
 
 		# Additional initialization code can be added inside the following tags
 		# [MANUAL_INIT]
@@ -85,7 +85,7 @@ class BLKC04l2SM(Behavior):
 
 			# x:1346 y:124
 			OperatableStateMachine.add('blkc02play',
-										AlertPlay(sound_id=70, mode="loop", wait_time=5, single_time=3),
+										AlertPlay(sound_id=69, mode="loop", wait_time=5, single_time=3),
 										transitions={'done': 'wait30s'},
 										autonomy={'done': Autonomy.Off})
 
@@ -131,6 +131,12 @@ class BLKC04l2SM(Behavior):
 										transitions={'finished': 'blkc02play', 'failed': 'log5'},
 										autonomy={'finished': Autonomy.Inherit, 'failed': Autonomy.Inherit})
 
+			# x:1346 y:774
+			OperatableStateMachine.add('doforward1',
+										DoForward(),
+										transitions={'succeeded': 'beginDown', 'failed': 'beginDown'},
+										autonomy={'succeeded': Autonomy.Off, 'failed': Autonomy.Off})
+
 			# x:925 y:21
 			OperatableStateMachine.add('lift_dump',
 										self.use_behavior(lift_dumpSM, 'lift_dump'),
@@ -149,10 +155,10 @@ class BLKC04l2SM(Behavior):
 										transitions={'finished': 'blkc04Dwon'},
 										autonomy={'finished': Autonomy.Inherit})
 
-			# x:1325 y:771
+			# x:1575 y:671
 			OperatableStateMachine.add('lift_load_2',
 										self.use_behavior(lift_loadSM, 'lift_load_2'),
-										transitions={'finished': 'beginDown'},
+										transitions={'finished': 'doforward1'},
 										autonomy={'finished': Autonomy.Inherit})
 
 			# x:157 y:124
@@ -212,7 +218,7 @@ class BLKC04l2SM(Behavior):
 			# x:1325 y:521
 			OperatableStateMachine.add('shelf_docking_2',
 										self.use_behavior(shelf_dockingSM, 'shelf_docking_2'),
-										transitions={'finished': 'turn_right', 'failed': 'log7'},
+										transitions={'finished': 'turn_left_4', 'failed': 'log7'},
 										autonomy={'finished': Autonomy.Inherit, 'failed': Autonomy.Inherit})
 
 			# x:325 y:21
@@ -234,8 +240,8 @@ class BLKC04l2SM(Behavior):
 										autonomy={'finished': Autonomy.Inherit})
 
 			# x:1325 y:671
-			OperatableStateMachine.add('turn_right',
-										self.use_behavior(turn_rightSM, 'turn_right'),
+			OperatableStateMachine.add('turn_left_4',
+										self.use_behavior(turn_leftSM, 'turn_left_4'),
 										transitions={'finished': 'lift_load_2'},
 										autonomy={'finished': Autonomy.Inherit})
 

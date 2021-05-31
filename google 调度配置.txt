@@ -1,0 +1,10 @@
+	
+
+	安装谷歌浏览器后
+	导航输入 ：chrome://version
+	查看并确认路径是否为Executa Path： /opt/google/chrome/google-chrome
+	打开starup
+	Add
+		Name: ros_chrome
+		Commmand: /opt/google/chrome/google-chrome http://localhost/#/
+	Save保存后断电重启测试是否开机自启谷歌浏览器

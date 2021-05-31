@@ -1,0 +1,425 @@
+initial_pose:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 34.509, y: 37.9039, z: 0}
+charge_point:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 34.509, y: 37.9039, z: 0}
+2BF_ElevatorArrive:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 70.6296, y: 40.5423, z: 0}
+2BF_ElevatorArriveL:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 1, y: 1, z: 0}
+2BF_ElevatorArriveR:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 1, y: 1, z: 0}
+2BF_ElevatorIn:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 65.3916, y: 40.405, z: 0}
+2BF_ElevatorInB:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 1, y: 1, z: 0}
+2BF_ElevatorInF:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 1, y: 1, z: 0}
+2BF_ElevatorOut:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 66.7561, y: 40.3206, z: 0}
+2BF_ElevatorOutB:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 1, y: 1, z: 0}
+2BF_ElevatorOutF:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 1, y: 1, z: 0}
+2BF_ElevatorTake:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 70.3232, y: 40.822, z: 0}
+2BF_ElevatorTakeL:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 1, y: 1, z: 0}
+2BF_Elevator_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 68.1388, y: 40.0278, z: 0}
+2BF_Elevator_in:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 67.7586, y: 40.0298, z: 0}
+2BF_Elevator_return:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 68.2141, y: 40.0068, z: 0}
+2BF_Home:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 34.509, y: 37.9039, z: 0}
+2BF_Home1:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 34.419, y: 38.1357, z: 0}
+2BF_Storage1:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 19.1345996857, y: 37.4613685608, z: 0}
+2BF_Storage1_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 20.360912323, y: 37.4817352295, z: 0}
+2BF_Storage2:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 19.1345996857, y: 36.3313484192, z: 0}
+2BF_Storage2_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 20.3878936768, y: 36.3313484192, z: 0}
+2BF_Storage3:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 19.1345996857, y: 35.1910591125, z: 0}
+2BF_Storage3_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 20.3878936768, y: 35.1910591125, z: 0}
+2BF_Storage4:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 23.3351, y: 34.2680625916, z: 0}
+2BF_Storage4_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 22.0197372437, y: 34.2180625916, z: 0}
+2BF_Storage5:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 23.3351, y: 36.3291, z: 0}
+2BF_Storage5_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 22.0981, y: 35.195, z: 0}
+2BF_Storage6:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 23.3899, y: 35.284, z: 0}
+2BF_Storage6_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 22.0981, y: 36.3495, z: 0}
+2BF_elevator1_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 67.7599, y: 40.0144, z: 0}
+2BF_elevatorTakeR:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 1, y: 1, z: 0}
+2BF_elevator_left:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 70.3519, y: 40.4884, z: 0}
+2BF_elevator_return:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 68.2141, y: 40.0068, z: 0}
+2BF_home1:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 34.419, y: 38.1357, z: 0}
+2BF_storage1:
+  frame_id: map
+  pose:
+    orientation: {w: 0.6911, x: 0, y: 0, z: 0.7226}
+    position: {x: 37.2696, y: 42.4073, z: 0}
+2BF_storage1_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 37.315828, y: 41.1844, z: 0}
+2BF_storage2:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 36.0034, y: 42.3827, z: 0}
+2BF_storage2_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 22.3336, y: 36.3305, z: 0}
+2BF_storage3:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 34.8604, y: 42.4418, z: 0}
+2BF_storage4:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 33.6213, y: 42.4621, z: 0}
+2BF_storage5:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 23.3899, y: 35.284, z: 0}
+2BF_storage6:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 23.3351, y: 36.3291, z: 0}
+2F_Door_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 81.88169, y: 65.4301, z: 0}
+2F_Doorinside_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 85.4794597939, y: 65.4636783385, z: 0}
+2F_Dooroutside_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 81.88169, y: 65.31, z: 0}
+2F_ElevatorArrive:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 82.305, y: 40.405, z: 0}
+2F_ElevatorIn:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 85.3689, y: 40.1525, z: 0}
+2F_ElevatorOut:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 85.43, y: 39.9725, z: 0}
+2F_ElevatorTake:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 82.305, y: 40.405, z: 0}
+2F_Home:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 85.6107554587, y: 65.9593353161, z: 0}
+2F_Storage1_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 87.9320184326, y: 64.4832691902, z: 0}
+2F_Storage2_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 86.716898861, y: 64.4832691903, z: 0}
+3F_Door_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 0.999984572237, x: 0, y: 0, z: -0.0055547536607}
+    position: {x: 113.36269395, y: 68.599602319, z: 0}
+3F_Doorinside_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 116.952640601, y: 68.6557586252, z: 0}
+3F_Dooroutside_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 0.999984572237, x: 0, y: 0, z: -0.0055547536607}
+    position: {x: 113.36269395, y: 68.599602319, z: 0}
+3F_Elevator:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 46, y: 40, z: 0}
+3F_ElevatorArrive:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 113.6463, y: 40.5331, z: 0}
+3F_ElevatorIn:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: -1}
+    position: {x: 116.4522, y: 40.008, z: 0}
+3F_ElevatorOut:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 116.8253, y: 40.008, z: 0}
+3F_ElevatorTake:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 113.65, y: 40.522, z: 0}
+3F_Elevator_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 116.5332, y: 39.9618, z: 0}
+3F_Elevator_in:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 113.7706, y: 40.5551, z: 0}
+3F_Elevator_out:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 116.5332, y: 39.9618, z: 0}
+3F_Elevator_return:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 114.021, y: 40.5637, z: 0}
+3F_Elevator_return_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 116.8262, y: 40.0389, z: 0}
+3F_Home:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 116.984623642, y: 68.8919225458, z: 0}
+3F_Storage1:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 119.663556049, y: 68.8577133072, z: 0}
+3F_Storage1_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 119.543556049, y: 67.6534311646, z: 0}
+3F_Storage2:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 118.203221648, y: 68.8577133072, z: 0}
+3F_Storage2_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 118.36323011, y: 67.6534311646, z: 0}
+3F_elevator_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 116.5332, y: 39.9618, z: 0}
+3F_elevator_in:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 113.7706, y: 40.5551, z: 0}
+3F_elevator_return:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 114.021, y: 40.5637, z: 0}
+3F_elevator_return_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 116.8262, y: 40.0389, z: 0}
+3F_elevator_returnfor:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 116.8262, y: 40.0389, z: 0}
+3F_elevatorfor:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 116.5332, y: 39.9618, z: 0}
+3F_storage1:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 113.6376, y: 43.3844, z: 0}
+3F_storage2:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 115.0454, y: 43.2885, z: 0}
+F3_Door_forward:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 113.36269395, y: 68.5798602319, z: 0}
+2BF_Elevator_wait1:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 64.186, y: 39.253, z: 0}
+2BF_Elevator_wait2:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 66.171, y: 39.253, z: 0}
+2BF_Elevator_wait3:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 66.171, y: 40.295, z: 0}
+2BF_Elevator_A:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 70.536, y: 39.468, z: 0}
+2BF_Elevator_B:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 70.536, y: 40.545, z: 0}

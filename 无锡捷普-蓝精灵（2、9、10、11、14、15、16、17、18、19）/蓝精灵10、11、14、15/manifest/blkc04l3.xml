@@ -18,7 +18,6 @@
 	<contains name="lift_dump" />
 	<contains name="lift_load" />
 	<contains name="turn_left" />
-	<contains name="turn_right" />
 
 	<!-- Available Parameters -->
 

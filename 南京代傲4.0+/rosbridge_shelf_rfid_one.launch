@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="rosbridge_shelf_rfid" pkg="rosbridge_driver" type="rosbridge_driver" output="screen">
+        <rosparam>
+            port_chain:
+              - name: plc_port
+                type: socket
+                ip_address: 192.168.0.14
+                ip_port: 8080
+            topic_chain:
+              - name: waypoint_user_pub
+                type: subscribe
+                freq: 5.0
+              - name: layer1_front_rfid
+                type: event
+                freq: 1.0
+                addr: 0x00
+                action_chain:
+                  - name: plc_port
+                    type: write
+                    byte: [0x7F, 0x03, addr, 0x10, 0x13]
+                  - name: plc_port
+                    type: read
+                    byte: [0x7F, 0x0A, addr, 0x90, 0x00, 0x04, 0x00, rfid_id1, rfid_id2, rfid_id3, rfid_id4, xor]
+                    except: [0x7F, 0x04, 0x00, 0x90, 0xFF, 0x6B]
+                echo: [addr, rfid_id1, rfid_id2, rfid_id3, rfid_id4]
+              - name: diagnostics
+                type: publish
+        </rosparam>
+    </node>
+</launch>

@@ -1,0 +1,51 @@
+initial_pose:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 1.197, y: 19.444, z: 0}
+charge_point:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 1.197, y: 19.444, z: 0}
+site1:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 18.474, y: 16.059, z: 0}
+site2:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 14.28, y: 6.3, z: 0}
+tag_detect:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 1.992, y: 19.870, z: 0}
+tag_round:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 1.346706, y: 18.8939, z: 0}
+ur_pick:
+  frame_id: map
+  pose:
+    orientation: {w: 0.902162, x: 0, y: 0, z: 0.431396465573}
+    position: {x: 2.41469, y: 20.0838719, z: 0}
+ur_put:
+  frame_id: map
+  pose:
+    orientation: {w: 0.93386554132, x: 0, y: 0, z: -0.3576243}
+    position: {x: 2.5206893, y: 19.269724, z: 0}
+site_3:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 5.83293, y: 14.5027837, z: 0}
+site_4:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 6.0808, y: 11.18239, z: 0}
+
