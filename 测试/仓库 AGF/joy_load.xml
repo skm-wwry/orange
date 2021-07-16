@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="joy_load">
+
+	<executable package_path="agv_flexbe_behaviors.joy_load_sm" class="joy_loadSM" />
+	<tagstring>joy</tagstring>
+	<author>ouiyeah</author>
+	<date>Thu Aug 13 2020</date>
+	<description>
+		joy_load
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

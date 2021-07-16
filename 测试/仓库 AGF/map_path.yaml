@@ -1,0 +1,7 @@
+free_thresh: 0.411764
+image: map_path.png
+mode: scale
+negate: 0
+occupied_thresh: 0.8
+origin: [0.0, 0.0, 0.0]
+resolution: 0.05

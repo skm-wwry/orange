@@ -1,14 +1,21 @@
 area1:
  xmin: 64
  xmax: 83
- ymin: 174
- ymax: 177
+ ymin: 224
+ ymax: 227
  move_base/TebLocalPlannerROS/max_vel_x: 0.5
 area2:
  xmin: 64
  xmax: 99
- ymin: 85
- ymax: 88
+ ymin: 135
+ ymax: 138
  move_base/TebLocalPlannerROS/max_vel_x: 0.5
+prohibition_conflict:
+    [[84.2,135],
+    [84.2,138],
+    [102,138],
+    [102,115],
+    [98,115],
+    [98,135]]
 
 

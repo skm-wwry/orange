@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="joy_dump">
+
+	<executable package_path="agv_flexbe_behaviors.joy_dump_sm" class="joy_dumpSM" />
+	<tagstring>joy</tagstring>
+	<author>ouiyeah</author>
+	<date>Thu Aug 13 2020</date>
+	<description>
+		joy_dump
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

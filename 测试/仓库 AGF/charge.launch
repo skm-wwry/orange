@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="consider_front_range" default="3" />
+    <arg name="consider_side_range" default="0.5" />
+    <arg name="raius_error" default="0.05" />
+
+    <node name="obstacle_extractor" pkg="obstacle_detector" type="obstacle_extractor_node">
+        <param name="active"               value="true"/>
+        <param name="use_scan"             value="true"/>
+        <param name="use_pcl"              value="false"/>
+        <!--<param name="ranges_num"           value="640"/>-->
+        <!--<param name="loop_rate"           value="10"/>-->
+
+        <param name="use_split_and_merge"    value="true"/>
+        <param name="circles_from_visibles"  value="true"/>
+        <param name="discard_converted_segments" value="true"/>
+        <param name="transform_coordinates"  value="true"/>
+
+        <param name="min_group_points"     value="1"/>
+
+        <param name="max_group_distance"   value="0.1"/>
+        <param name="distance_proportion"  value="0.00656"/>
+        <param name="max_split_distance"   value="0.1"/>
+        <param name="max_merge_separation" value="0.1"/>
+        <param name="max_merge_spread"     value="0.1"/>
+        <param name="max_circle_radius"    value="0.35"/>
+        <param name="radius_enlargement"   value="0.0"/>
+        <param name="median_filter_group"   value="20"/>
+
+        <param name="frame_id"             value="base_link"/>
+        <remap from="raw_obstacles" to="raw_obstacles_up"/>
+    </node>
+
+    <node name="charging_pile_detector" pkg="shelf_detector" type="charging_pile_detector.py" output="screen" >
+    	<remap from="raw_obstacles" to="raw_obstacles_up"/>
+        <rosparam subst_value="true">
+            view_start: 1.2
+            view_end: 1.9
+            consider_front_range: $(arg consider_front_range)
+            consider_side_range: $(arg consider_side_range)
+            raius_error:  $(arg raius_error)
+            charging_pile_radius:  0.05
+        </rosparam>
+    </node>
+</launch>

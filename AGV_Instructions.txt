@@ -1,8 +1,9 @@
-2e6a04
+
         。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
         。。。【【【【【【【【【备份 workspaces】】】】】】】】】。。。
         。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 
+https://hitrobots.com/gitlab/root/release.git
 //重启所有程序
 ~/catkin_ws/boot.sh -s
 

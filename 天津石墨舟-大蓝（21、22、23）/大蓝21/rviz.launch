@@ -1,5 +1,0 @@
-<launch>
-  <node name="$(anon rviz)" pkg="rviz" type="rviz" args="-d $(find bringup)/scripts/.rviz" output="screen"/>
-
-
-</launch>

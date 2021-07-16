@@ -1,0 +1,21 @@
+initial_pose:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 26.657, y: 40.618, z: 0}
+S1:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 26.657, y: 40.618, z: 0}
+S2:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 24.260, y: 39.516, z: 0}
+S3:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 22.08844, y: 35.906065, z: 0}
+

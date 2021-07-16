@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="name" default="" />
+    <arg name="type" default="modbus_tcp" /> <!-- modbus_tcp // dadong // modbus_rtu -->
+    <arg name="port" default="192.168.0.14" />
+    <arg name="rate" default="1.0" />
+    <arg name="debug" default="false" />
+
+    <arg name="frame_id" default="base_door$(arg name)" />
+    <arg name="device_id" default="0" />
+
+    <arg name="byte_type" default="socket" if="$(eval type == 'modbus_tcp')" />
+    <arg name="byte_head" default="0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00" if="$(eval type == 'modbus_tcp')" />
+    <arg name="byte_tail" default="" if="$(eval type == 'modbus_tcp')" />
+    <arg name="byte_write" default="0x00, 0x00, 0x00, 0x00, 0x00, 0x15, 0x00" if="$(eval type == 'modbus_tcp')" />
+    <arg name="byte_read" default="0x00, 0x00, 0x00, 0x00, 0x00, 0x0d, 0x00" if="$(eval type == 'modbus_tcp')" />
+    <arg name="plc_ratio" default="100" if="$(eval type == 'modbus_tcp')" />
+
+    <arg name="byte_type" default="serial" if="$(eval type == 'modbus_rtu')" />
+    <arg name="byte_head" default="0x06" if="$(eval type == 'modbus_rtu')" />
+    <arg name="byte_tail" default=", crc16, big" if="$(eval type == 'modbus_rtu')" />
+    <arg name="byte_write" default="0x06" if="$(eval type == 'modbus_rtu')" />
+    <arg name="byte_read" default="0x06" if="$(eval type == 'modbus_rtu')" />
+    <arg name="plc_ratio" default="3200" if="$(eval type == 'modbus_rtu')" />
+
+    <node if="$(eval type == 'modbus_tcp' or type == 'modbus_rtu')" name="rosbridge_door$(arg name)" pkg="rosbridge_driver" type="rosbridge_driver" output="screen">
+        <remap from="cmd_vel" to="cmd_vel_rectified" />
+        <param name="door_port" value="$(arg port)" />
+        <param name="debug_io" value="$(arg debug)" />
+        <rosparam subst_value="true">
+            port_chain:
+              - name: door_port
+                type: $(arg byte_type)
+                ip_port: 502
+            topic_chain:
+              - name: door
+                type: std_msgs/String
+                op: subscribe
+              - name: open
+                action_chain:
+                  - name: door_port
+                    type: write
+                    byte: [$(arg byte_write), 0x10, 0x00, 0x64, 0x00, 0x07, 0x0e, 0x00, 0x00, q_h, 0x05, linear, big, angular_pos_norm, big, angular_neg_norm, big, 0x00, 0x00, lift_height, big $(arg byte_tail)]
+                  - name: door_port
+                    type: read
+                    byte: [$(arg byte_head), 0x10, 0x00, 0x64, len, big $(arg byte_tail)]
+                  - name: door_port
+                    type: timer
+                  - name: door_port
+                    type: write
+                    byte: [$(arg byte_write), 0x10, 0x00, 0x64, 0x00, 0x07, 0x0e, 0x00, 0x00, q_h, 0x00, linear, big, angular_pos_norm, big, angular_neg_norm, big, 0x00, 0x00, lift_height, big $(arg byte_tail)]
+                  - name: door_port
+                    type: read
+                    byte: [$(arg byte_head), 0x10, 0x00, 0x64, len, big $(arg byte_tail)]
+              - name: close
+                action_chain:
+                  - name: door_port
+                    type: write
+                    byte: [$(arg byte_write), 0x10, 0x00, 0x64, 0x00, 0x07, 0x0e, 0x00, 0x00, q_h, 0x0a, linear, big, angular_pos_norm, big, angular_neg_norm, big, 0x00, 0x00, lift_height, big $(arg byte_tail)]
+                  - name: door_port
+                    type: read
+                    byte: [$(arg byte_head), 0x10, 0x00, 0x64, len, big $(arg byte_tail)]
+                  - name: door_port
+                    type: timer
+                  - name: door_port
+                    type: write
+                    byte: [$(arg byte_write), 0x10, 0x00, 0x64, 0x00, 0x07, 0x0e, 0x00, 0x00, q_h, 0x00, linear, big, angular_pos_norm, big, angular_neg_norm, big, 0x00, 0x00, lift_height, big $(arg byte_tail)]
+                  - name: door_port
+                    type: read
+                    byte: [$(arg byte_head), 0x10, 0x00, 0x64, len, big $(arg byte_tail)]
+              - name: open_1
+                action_chain:
+                  - name: door_port
+                    type: write
+                    byte: [$(arg byte_write), 0x10, 0x00, 0x64, 0x00, 0x07, 0x0e, 0x00, 0x00, q_h, 0x01, linear, big, angular_pos_norm, big, angular_neg_norm, big, 0x00, 0x00, lift_height, big $(arg byte_tail)]
+                  - name: door_port
+                    type: read
+                    byte: [$(arg byte_head), 0x10, 0x00, 0x64, len, big $(arg byte_tail)]
+                  - name: door_port
+                    type: timer
+                  - name: door_port
+                    type: write
+                    byte: [$(arg byte_write), 0x10, 0x00, 0x64, 0x00, 0x07, 0x0e, 0x00, 0x00, q_h, 0x00, linear, big, angular_pos_norm, big, angular_neg_norm, big, 0x00, 0x00, lift_height, big $(arg byte_tail)]
+                  - name: door_port
+                    type: read
+                    byte: [$(arg byte_head), 0x10, 0x00, 0x64, len, big $(arg byte_tail)]
+              - name: close_1
+                action_chain:
+                  - name: door_port
+                    type: write
+                    byte: [$(arg byte_write), 0x10, 0x00, 0x64, 0x00, 0x07, 0x0e, 0x00, 0x00, q_h, 0x02, linear, big, angular_pos_norm, big, angular_neg_norm, big, 0x00, 0x00, lift_height, big $(arg byte_tail)]
+                  - name: door_port
+                    type: read
+                    byte: [$(arg byte_head), 0x10, 0x00, 0x64, len, big $(arg byte_tail)]
+                  - name: door_port
+                    type: timer
+                  - name: door_port
+                    type: write
+                    byte: [$(arg byte_write), 0x10, 0x00, 0x64, 0x00, 0x07, 0x0e, 0x00, 0x00, q_h, 0x00, linear, big, angular_pos_norm, big, angular_neg_norm, big, 0x00, 0x00, lift_height, big $(arg byte_tail)]
+                  - name: door_port
+                    type: read
+                    byte: [$(arg byte_head), 0x10, 0x00, 0x64, len, big $(arg byte_tail)]
+              - name: open_2
+                action_chain:
+                  - name: door_port
+                    type: write
+                    byte: [$(arg byte_write), 0x10, 0x00, 0x64, 0x00, 0x07, 0x0e, 0x00, 0x00, q_h, 0x04, linear, big, angular_pos_norm, big, angular_neg_norm, big, 0x00, 0x00, lift_height, big $(arg byte_tail)]
+                  - name: door_port
+                    type: read
+                    byte: [$(arg byte_head), 0x10, 0x00, 0x64, len, big $(arg byte_tail)]
+                  - name: door_port
+                    type: timer
+                  - name: door_port
+                    type: write
+                    byte: [$(arg byte_write), 0x10, 0x00, 0x64, 0x00, 0x07, 0x0e, 0x00, 0x00, q_h, 0x00, linear, big, angular_pos_norm, big, angular_neg_norm, big, 0x00, 0x00, lift_height, big $(arg byte_tail)]
+                  - name: door_port
+                    type: read
+                    byte: [$(arg byte_head), 0x10, 0x00, 0x64, len, big $(arg byte_tail)]
+              - name: close_2
+                action_chain:
+                  - name: door_port
+                    type: write
+                    byte: [$(arg byte_write), 0x10, 0x00, 0x64, 0x00, 0x07, 0x0e, 0x00, 0x00, q_h, 0x08, linear, big, angular_pos_norm, big, angular_neg_norm, big, 0x00, 0x00, lift_height, big $(arg byte_tail)]
+                  - name: door_port
+                    type: read
+                    byte: [$(arg byte_head), 0x10, 0x00, 0x64, len, big $(arg byte_tail)]
+                  - name: door_port
+                    type: timer
+                  - name: door_port
+                    type: write
+                    byte: [$(arg byte_write), 0x10, 0x00, 0x64, 0x00, 0x07, 0x0e, 0x00, 0x00, q_h, 0x00, linear, big, angular_pos_norm, big, angular_neg_norm, big, 0x00, 0x00, lift_height, big $(arg byte_tail)]
+                  - name: door_port
+                    type: read
+                    byte: [$(arg byte_head), 0x10, 0x00, 0x64, len, big $(arg byte_tail)]
+              - name: waypoint_user_pub
+                type: subscribe
+        </rosparam>
+    </node>
+
+
+
+    <!--legacy below-->
+
+
+
+    <node if="$(eval type == 'dadong')" name="rosbridge_door$(arg name)" pkg="rosbridge_driver" type="rosbridge_driver" output="screen">
+        <param name="door_port" value="$(arg port)" />
+        <param name="debug_io" value="$(arg debug)" />
+        <rosparam subst_value="true">
+            port_chain:
+              - name: door_port
+                type: socket
+                ip_port: 4196
+            topic_chain:
+              - name: dadong_door$(arg name)
+                type: std_msgs/String
+                op: subscribe
+                topic: dadong_door 
+              - name: door_call$(arg name)
+                type: diagnostic_msgs/DiagnosticArray
+                topic: door_call
+                mb_addr: 0
+                mb_data: 0
+                action_chain:
+                  - name: door_port
+                    type: write
+                    byte: [0xaa, 0x55, 0x00, mb_addr, 0x26, mb_data, 0x01, sum8]
+                  - name: door_port
+                    type: read
+                    byte: [0xaa, 0x55, 0x00, 0x00, any, mb_data, any, sum8]
+                cmd: 0.0
+                values: [mb_data]
+                fail: [cmd]
+        </rosparam>
+    </node>
+</launch>

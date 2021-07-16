@@ -1,0 +1,77 @@
+base_path: ''
+analyzers:
+  robot_01:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: ROBOT_01
+    contains: robot_01
+    discard_stale: true
+  robot_02:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: ROBOT_02
+    contains: robot_02
+    discard_stale: true
+  robot_03:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: ROBOT_03
+    contains: robot_03
+    discard_stale: true
+  robot_04:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: ROBOT_04
+    contains: robot_04
+    discard_stale: true
+  robot_05:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: ROBOT_05
+    contains: robot_05
+    discard_stale: true
+  robot_06:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: ROBOT_06
+    contains: robot_06
+    discard_stale: true
+  robot_07:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: ROBOT_07
+    contains: robot_07
+    discard_stale: true
+  robot_08:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: ROBOT_08
+    contains: robot_08
+    discard_stale: true
+  robot_09:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: ROBOT_09
+    contains: robot_09
+    discard_stale: true
+  robot_10:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: ROBOT_10
+    contains: robot_10
+    discard_stale: true
+  robot_11:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: ROBOT_11
+    contains: robot_11
+    discard_stale: true
+  robot_12:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: ROBOT_12
+    contains: robot_12
+    discard_stale: true
+  robot_13:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: ROBOT_13
+    contains: robot_13
+    discard_stale: true
+  robot_14:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: ROBOT_14
+    contains: robot_14
+    discard_stale: true
+  robot_15:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: ROBOT_15
+    contains: robot_15
+    discard_stale: true

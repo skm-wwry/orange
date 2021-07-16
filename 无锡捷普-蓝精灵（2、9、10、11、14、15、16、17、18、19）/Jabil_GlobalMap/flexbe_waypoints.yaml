@@ -1,0 +1,490 @@
+charge_point:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 102.07, y: 144.03, z: 0}
+initial_pose:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 102.07, y: 144.03, z: 0}
+return_point:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 101.07, y: 144.03, z: 0}
+blkc01l1:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 82.354, y: 225.79, z: 0}
+blkc01l2:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 79.226, y: 225.79, z: 0}
+blkc01l3:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 76.335, y: 225.79, z: 0}
+blkc02:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 83.762, y: 204.258, z: 0}
+blkc02take:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 74.925, y: 204.402, z: 0}
+blkc03:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 83.370, y: 182.828, z: 0}
+blkc03take:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 74.782, y: 183.07, z: 0}
+blkc04:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 78.97, y: 140.27, z: 0}
+blkc04take:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 74.28, y: 139.358, z: 0}
+blkc05l1:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 70.537, y: 225.79, z: 0}
+blkc05l2:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 67.488, y: 225.79, z: 0}
+blkc05l3:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 65.168, y: 225.79, z: 0}
+blkc06:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 73.65, y: 204.353, z: 0}
+blkc06take:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 64.415, y: 204.339, z: 0}
+initial_pose5G:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 34.613, y: 157, z: 0}
+charge_point5G:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 34.613, y: 157, z: 0}
+return_point5G:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 34.613, y: 157, z: 0}
+glueDispenser1:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 39.889, y: 206.339, z: 0}
+glueDispenser2:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 18.8, y: 188.935, z: 0}
+packing:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 29.679, y: 151.846, z: 0}
+packingtake:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 30.1, y: 147.435, z: 0}
+initial_poseAGF:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 46.824, y: 132.65, z: 0}
+home:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 46.824, y: 132.65, z: 0}
+    exclusive: True
+home_back:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 45.635, y: 131.029, z: 0}
+    exclusive: True
+home_back_begin:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 48.089, y: 129.523, z: 0}
+    exclusive: True
+home_back_middle:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 46.824, y: 131.72, z: 0}
+down_lift:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 45.635, y: 131.829, z: 0}
+down_lift_begin:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 44.257, y: 129.523, z: 0}
+    exclusive: True
+down_lift_wait:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 48.0, y: 129.523, z: 0}
+down_lift_middle:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 45.635, y: 131.114, z: 0}
+IBM_01:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 212.687, y: 116.61, z: 0}
+IBM_01_back:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 212.687, y: 116.067, z: 0}
+IBM_01_begin:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 213.987, y: 114.619, z: 0}
+    exclusive: True
+IBM_01_middle:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 212.687, y: 115.618, z: 0}
+IBM_02:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 213.936, y: 116.61, z: 0}
+IBM_02_back:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 213.936, y: 116.067, z: 0}
+IBM_02_begin:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 215.436, y: 114.619, z: 0}
+    exclusive: True
+IBM_02_middle:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 213.936, y: 115.618, z: 0}
+IBM_03:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 215.271, y: 116.55, z: 0}
+IBM_03_back:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 215.271, y: 116.017, z: 0}
+IBM_03_begin:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 216.771, y: 114.619, z: 0}
+    exclusive: True
+IBM_03_middle:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 215.271, y: 115.618, z: 0}
+NetApp_01:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 177.46, y: 116.61, z: 0}
+NetApp_01_back:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 177.46, y: 115.834, z: 0}
+NetApp_01_begin:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 179.01, y: 114.619, z: 0}
+    exclusive: True
+NetApp_01_middle:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 177.46, y: 115.704, z: 0}
+NetApp_02:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 178.893, y: 116.61, z: 0}
+NetApp_02_back:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 178.893, y: 115.834, z: 0}
+NetApp_02_begin:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 180.515, y: 114.619, z: 0}
+    exclusive: True
+NetApp_02_middle:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 178.893, y: 115.704, z: 0}
+dell_01:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 198.899, y: 116.667, z: 0}
+dell_01_back:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 198.899, y: 116.067, z: 0}
+dell_01_begin:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 200.759, y: 114.619, z: 0}
+    exclusive: True
+dell_01_middle:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 198.899, y: 115.738, z: 0}
+dell_02:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 200.406, y: 116.61, z: 0}
+dell_02_back:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 191.006, y: 116.067, z: 0}
+dell_02_begin:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 201.406, y: 114.619, z: 0}
+    exclusive: True
+dell_02_middle:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 200.406, y: 115.738, z: 0}
+dell_03:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 201.898, y: 116.61, z: 0}
+dell_03_back:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 201.898, y: 116.067, z: 0}
+dell_03_begin:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 203.848, y: 114.619, z: 0}
+    exclusive: True
+dell_03_middle:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 201.898, y: 115.738, z: 0}
+fuji_01:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 205.475, y: 116.61, z: 0}
+fuji_01_back:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 205.475, y: 116.067, z: 0}
+fuji_01_begin:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 207.375, y: 114.619, z: 0}
+    exclusive: True
+fuji_01_middle:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 205.475, y: 115.738, z: 0}
+fuji_02:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 207.04, y: 116.61, z: 0}
+fuji_02_back:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 207.04, y: 116.067, z: 0}
+fuji_02_begin:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 208.54, y: 114.619, z: 0}
+    exclusive: True
+fuji_02_middle:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 207.04, y: 115.591, z: 0}
+radisys_01:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 190.482, y: 116.805, z: 0}
+radisys_01_back:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 190.482, y: 116.205, z: 0}
+radisys_01_begin:
+  frame_id: map
+  pose:
+    orientation: {w: 1, x: 0, y: 0, z: 0}
+    position: {x: 192.658, y: 114.619, z: 0}
+    exclusive: True
+radisys_01_middle:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 190.482, y: 115.484, z: 0}
+
+
+
+blue10_beginDown:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 101.07, y: 96.058, z: 0}
+blue10_home:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 101.07, y: 96.058, z: 0}
+beginDown:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 101.07, y: 96.058, z: 0}
+blkc01l1Dwon:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 82.354, y: 175.79, z: 0}
+blkc01l2Dwon:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 79.226, y: 175.79, z: 0}
+blkc01l3Dwon:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 76.335, y: 175.79, z: 0}
+blkc02Dwon:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 83.762, y: 154.338, z: 0}
+blkc02up:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 74.925, y: 154.402, z: 0}
+blkc03Dwon:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 83.370, y: 132.828, z: 0}
+blkc03up:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 74.782, y: 133.07, z: 0}
+blkc04Dwon:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 78.97, y: 90.27, z: 0}
+blkc04up:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 74.28, y: 89.358, z: 0}
+blkc05l1Dwon:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 70.537, y: 175.79, z: 0}
+blkc05l2Dwon:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 67.488, y: 175.79, z: 0}
+blkc05l3Dwon:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: -0.7071}
+    position: {x: 65.168, y: 175.79, z: 0}
+blkc06Dwon:
+  frame_id: map
+  pose:
+    orientation: {w: 0.7071, x: 0, y: 0, z: 0.7071}
+    position: {x: 73.65, y: 154.353, z: 0}
+blkc06up:
+  frame_id: map
+  pose:
+    orientation: {w: 0, x: 0, y: 0, z: 1}
+    position: {x: 64.415, y: 154.339, z: 0}
+
+
